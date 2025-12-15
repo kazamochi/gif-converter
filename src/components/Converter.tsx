@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFFmpeg } from '../hooks/useFFmpeg';
+import { useFFmpeg } from '../features/shared/hooks/useFFmpeg';
 import { videoToGif } from '../utils/ffmpegHelper';
 import { Upload, FileVideo, Download, Loader2, Settings, RefreshCcw, Repeat, Play, Trash2, ArrowRight, Crop as CropIcon } from 'lucide-react';
-import { RangeSlider } from './ui/RangeSlider';
-import { CropOverlay } from './ui/CropOverlay';
+import { RangeSlider } from '../features/gif-converter/components/RangeSlider';
+import { CropOverlay } from '../features/gif-converter/components/CropOverlay';
 import { AdModal } from './AdModal';
 
 export const Converter: React.FC = () => {

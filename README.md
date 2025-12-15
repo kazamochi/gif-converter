@@ -6,7 +6,7 @@
 
 > **Convert videos to GIFs instantly in your browser. No upload required. 100% private. Lightning fast.**
 
-[🚀 **Live Demo**](https://yourdomain.com) | [📖 Documentation](#features) | [🤝 Contributing](#contributing)
+[🚀 **Live Demo**](https://toolkit-lab.com) | [📖 Documentation](#features) | [🤝 Contributing](#contributing)
 
 ---
 
@@ -183,10 +183,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🔗 Links
 
-- [Live Demo](https://yourdomain.com)
-- [Report Bug](https://github.com/yourusername/gif-converter/issues)
-- [Request Feature](https://github.com/yourusername/gif-converter/issues)
-- [Privacy Policy](https://yourdomain.com/privacy)
+- [Live Demo](https://toolkit-lab.com)
+- [Report Bug](https://github.com/mochi/gif-converter/issues)
+- [Request Feature](https://github.com/mochi/gif-converter/issues)
+- [Privacy Policy](https://toolkit-lab.com/privacy)
 
 ---
 
