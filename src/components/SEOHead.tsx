@@ -1,12 +1,25 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { seoConfig, type SupportedLanguage } from '../config/seo';
+import { formatSEO, videoFormats } from '../config/formatSEO';
 
 export const SEOHead: React.FC = () => {
     const { i18n } = useTranslation();
+    const { format } = useParams<{ format?: string }>();
     const currentLang = (i18n.language in seoConfig ? i18n.language : 'en') as SupportedLanguage;
-    const seo = seoConfig[currentLang];
+
+    // Check if we're on a format-specific page
+    const isFormatPage = format && videoFormats.some(f => f.id === format);
+
+    // Get SEO data based on page type
+    let seo;
+    if (isFormatPage && format && formatSEO[currentLang]?.[format as keyof typeof formatSEO.en]) {
+        seo = formatSEO[currentLang][format as keyof typeof formatSEO.en];
+    } else {
+        seo = seoConfig[currentLang];
+    }
 
     const siteUrl = window.location.origin;
     const currentUrl = window.location.href;
@@ -24,14 +37,14 @@ export const SEOHead: React.FC = () => {
             <meta property="og:url" content={currentUrl} />
             <meta property="og:title" content={seo.title} />
             <meta property="og:description" content={seo.description} />
-            <meta property="og:image" content={`${siteUrl}${seo.ogImage}`} />
+            <meta property="og:image" content={`${siteUrl}${seoConfig[currentLang].ogImage}`} />
 
             {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
             <meta property="twitter:url" content={currentUrl} />
             <meta property="twitter:title" content={seo.title} />
             <meta property="twitter:description" content={seo.description} />
-            <meta property="twitter:image" content={`${siteUrl}${seo.ogImage}`} />
+            <meta property="twitter:image" content={`${siteUrl}${seoConfig[currentLang].ogImage}`} />
 
             {/* Language Alternates */}
             {Object.keys(seoConfig).map((lang) => (
@@ -39,12 +52,12 @@ export const SEOHead: React.FC = () => {
                     key={lang}
                     rel="alternate"
                     hrefLang={lang}
-                    href={`${siteUrl}?lang=${lang}`}
+                    href={`${siteUrl}${format ? `/convert/${format}` : ''}?lang=${lang}`}
                 />
             ))}
 
             {/* Canonical */}
-            <link rel="canonical" href={siteUrl} />
+            <link rel="canonical" href={currentUrl.split('?')[0]} />
         </Helmet>
     );
 };
