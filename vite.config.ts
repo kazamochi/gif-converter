@@ -21,6 +21,9 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
+  },
   esbuild: {
     drop: ['console', 'debugger'],
   },
