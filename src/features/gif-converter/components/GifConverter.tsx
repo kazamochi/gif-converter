@@ -230,6 +230,8 @@ export const Converter: React.FC = () => {
                                 onChange={(e) => e.target.files && handleFileChange(e.target.files[0])}
                                 className="hidden"
                                 id="video-upload"
+                                name="video-upload"
+                                aria-label="動画のアップロード"
                                 accept="video/*"
                             />
                             <label htmlFor="video-upload" className="cursor-pointer flex flex-col items-center">
@@ -270,6 +272,9 @@ export const Converter: React.FC = () => {
                                             step="0.05"
                                             value={zoom}
                                             onChange={(e) => setZoom(parseFloat(e.target.value))}
+                                            id="zoom-slider"
+                                            name="zoom"
+                                            aria-label="プレビュー拡大"
                                             className="w-32 accent-indigo-500 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer"
                                         />
                                     </div>
@@ -397,6 +402,9 @@ export const Converter: React.FC = () => {
                                             <select
                                                 value={speed}
                                                 onChange={(e) => setSpeed(parseFloat(e.target.value))}
+                                                id="speed-select"
+                                                name="speed"
+                                                aria-label="再生速度設定"
                                                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors"
                                             >
                                                 <option value={0.5}>{t('speed_slow')}</option>
@@ -410,6 +418,9 @@ export const Converter: React.FC = () => {
                                             <select
                                                 value={fps}
                                                 onChange={(e) => setFps(Number(e.target.value))}
+                                                id="fps-select"
+                                                name="fps"
+                                                aria-label="フレームレート設定"
                                                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors"
                                             >
                                                 <option value={10}>10 FPS</option>
@@ -445,6 +456,9 @@ export const Converter: React.FC = () => {
                                                 type="number"
                                                 value={width}
                                                 onChange={(e) => setWidth(Number(e.target.value))}
+                                                id="width-input"
+                                                name="width"
+                                                aria-label="幅設定"
                                                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors"
                                                 min={10}
                                                 max={1920}
