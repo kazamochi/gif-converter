@@ -195,10 +195,10 @@ export const Converter: React.FC = () => {
                         <div className="flex flex-col items-end">
                             <div className="flex items-center gap-2 text-sm text-yellow-400">
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                Initializing Engine...
+                                {t('loading')}
                             </div>
                             <p className="text-[10px] text-slate-500 mt-1 max-w-[200px] text-right leading-tight">
-                                ※初回のみ約30MBのエンジンダウンロードが必要です。回線環境により数分かかる場合があります。
+                                {t('vc.initial_download_note')}
                             </p>
                         </div>
                     )}

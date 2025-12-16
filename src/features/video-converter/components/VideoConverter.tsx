@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFFmpeg } from '../../shared/hooks/useFFmpeg';
 import { convertVideo, type VideoFormat, type VideoConversionSettings } from '../utils/videoConversionHelper';
 import { RangeSlider } from '../../shared/components/RangeSlider';
-import { Upload, FileVideo, Download, Loader2, ArrowRight, Trash2, Settings, VolumeX, Music, AlertTriangle } from 'lucide-react';
+import { Upload, FileVideo, Download, Loader2, ArrowRight, Trash2, Settings, VolumeX, Music, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { AdModal } from '../../../components/AdModal';
 
 export const VideoConverter: React.FC = () => {
+    const { t } = useTranslation();
     const { ffmpeg, loaded, error } = useFFmpeg();
     const [file, setFile] = useState<File | null>(null);
     const [fileUrl, setFileUrl] = useState<string | null>(null);
@@ -145,14 +147,26 @@ export const VideoConverter: React.FC = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
-                        Video Converter
+                        {/* Dynamic Status Dot - Green when Ready, Yellow when Loading */}
+                        <div className={`w-3 h-3 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)] transition-colors duration-500 ${loaded ? 'bg-green-500 shadow-green-500/50' : 'bg-yellow-500 animate-pulse'}`}></div>
+                        {t('vc.title')}
                     </h2>
                     {!loaded && (
-                        <div className="flex items-center gap-2 text-sm text-yellow-400">
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Initializing...
+                        <div className="flex flex-col items-end">
+                            <div className="flex items-center gap-2 text-sm text-yellow-400">
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                {t('loading')}
+                            </div>
+                            <p className="text-[10px] text-slate-500 mt-1 max-w-[200px] text-right leading-tight">
+                                {t('vc.initial_download_note')}
+                            </p>
                         </div>
+                    )}
+                    {loaded && !converting && (
+                        <span className="text-xs font-mono text-green-400 border border-green-500/30 px-2 py-1 rounded bg-green-500/10 flex items-center gap-1 animate-in fade-in duration-500">
+                            <CheckCircle2 className="w-3 h-3" />
+                            {t('vc.ready')}
+                        </span>
                     )}
                 </div>
 
@@ -183,8 +197,8 @@ export const VideoConverter: React.FC = () => {
                                 <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg group-hover:shadow-purple-500/20">
                                     <Upload className="w-8 h-8 text-purple-400" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-slate-200 mb-2">Upload Video</h3>
-                                <p className="text-slate-400 text-sm">Drag & drop or click to select</p>
+                                <h3 className="text-xl font-semibold text-slate-200 mb-2">{t('upload_title')}</h3>
+                                <p className="text-slate-400 text-sm">{t('upload_desc')}</p>
                             </label>
                         </div>
                     ) : (
@@ -216,7 +230,7 @@ export const VideoConverter: React.FC = () => {
                             {/* Format Selection (hidden if extracting audio) */}
                             {!extractAudio && (
                                 <div className="mb-6">
-                                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">Convert To</label>
+                                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">{t('vc.format_label')}</label>
                                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                                         {formats.map((f) => (
                                             <button
@@ -240,7 +254,7 @@ export const VideoConverter: React.FC = () => {
                                 className="w-full flex items-center justify-center gap-2 py-2 text-sm text-slate-400 hover:text-white transition-colors mb-4"
                             >
                                 <Settings className={`w-4 h-4 transition-transform ${showAdvanced ? 'rotate-90' : ''}`} />
-                                {showAdvanced ? 'Hide Advanced Settings' : 'Show Advanced Settings'}
+                                {showAdvanced ? t('vc.advanced_hide') : t('vc.advanced_show')}
                             </button>
 
                             {/* Advanced Settings Panel */}
@@ -249,7 +263,7 @@ export const VideoConverter: React.FC = () => {
                                     {/* Trim */}
                                     {videoDuration > 0 && (
                                         <div>
-                                            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Trim Video</label>
+                                            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">{t('vc.trim_label')}</label>
                                             <RangeSlider
                                                 min={0}
                                                 max={videoDuration}
@@ -261,7 +275,7 @@ export const VideoConverter: React.FC = () => {
 
                                     {/* Audio Options */}
                                     <div>
-                                        <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">Audio</label>
+                                        <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">{t('vc.audio_label')}</label>
                                         <div className="flex flex-wrap gap-2">
                                             <button
                                                 onClick={() => { setMute(!mute); setExtractAudio(false); }}
@@ -271,7 +285,7 @@ export const VideoConverter: React.FC = () => {
                                                     }`}
                                             >
                                                 <VolumeX className="w-4 h-4" />
-                                                Remove Audio
+                                                {t('vc.remove_audio')}
                                             </button>
                                             <button
                                                 onClick={() => { setExtractAudio(!extractAudio); setMute(false); }}
@@ -281,14 +295,14 @@ export const VideoConverter: React.FC = () => {
                                                     }`}
                                             >
                                                 <Music className="w-4 h-4" />
-                                                Extract Audio (MP3)
+                                                {t('vc.extract_audio')}
                                             </button>
                                         </div>
                                     </div>
 
                                     {/* Compression */}
                                     <div>
-                                        <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">Compression</label>
+                                        <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">{t('vc.compression_label')}</label>
                                         <button
                                             onClick={() => setCompress(!compress)}
                                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${compress
@@ -296,7 +310,7 @@ export const VideoConverter: React.FC = () => {
                                                 : 'bg-slate-700/50 text-slate-400 hover:bg-slate-700'
                                                 }`}
                                         >
-                                            Compress File Size
+                                            {t('vc.compress_btn')}
                                         </button>
                                         {compress && (
                                             <div className="mt-3 space-y-2">
@@ -310,14 +324,14 @@ export const VideoConverter: React.FC = () => {
                                                                 : 'bg-slate-600 text-slate-300 hover:bg-slate-500'
                                                                 }`}
                                                         >
-                                                            {level === 'high' ? 'Light' : level === 'medium' ? 'Medium' : 'Heavy'}
+                                                            {level === 'high' ? t('vc.level_light') : level === 'medium' ? t('vc.level_medium') : t('vc.level_heavy')}
                                                         </button>
                                                     ))}
                                                 </div>
                                                 <div className="flex items-start gap-2 p-3 bg-red-900/30 border border-red-500/30 rounded-lg">
                                                     <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
                                                     <p className="text-xs text-red-300">
-                                                        <span className="font-bold">Warning:</span> Heavy processing. May cause device heating and high battery usage on mobile devices.
+                                                        <span className="font-bold">{t('vc.warning')}</span> {t('vc.heavy_processing')}
                                                     </p>
                                                 </div>
                                             </div>
@@ -335,11 +349,11 @@ export const VideoConverter: React.FC = () => {
                                 {converting ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
-                                        Converting... {progress > 0 && `${progress}%`}
+                                        {t('converting')} {progress > 0 && `${progress}%`}
                                     </>
                                 ) : (
                                     <>
-                                        {extractAudio ? 'Extract Audio' : 'Convert Video'}
+                                        {extractAudio ? t('vc.extract_audio_btn') : t('vc.convert_video')}
                                         <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -350,13 +364,13 @@ export const VideoConverter: React.FC = () => {
                                 <div className="mt-6 animate-in fade-in slide-in-from-top-2">
                                     <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-6 border border-slate-700/50 text-center">
                                         <Loader2 className="w-8 h-8 text-purple-400 animate-spin mx-auto mb-4" />
-                                        <p className="text-slate-300 mb-4">Processing video on your device...</p>
+                                        <p className="text-slate-300 mb-4">{t('vc.processing')}</p>
 
                                         {/* AdSpace Integration */}
                                         <div className="border border-dashed border-slate-700 rounded-lg p-2 bg-slate-950/30">
                                             <div className="flex flex-col items-center justify-center min-h-[100px] text-slate-500 text-xs gap-1">
                                                 <span className="font-semibold uppercase tracking-wider">Advertisement</span>
-                                                <span className="opacity-70">Support this free tool</span>
+                                                <span className="opacity-70">{t('vc.ad_support')}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -366,7 +380,7 @@ export const VideoConverter: React.FC = () => {
                             {/* Download Area */}
                             {convertedUrl && (
                                 <div className="bg-slate-800/80 rounded-2xl p-8 border border-white/10 text-center animate-in zoom-in-95 duration-300 mt-6">
-                                    <h3 className="text-xl font-bold text-white mb-6">Conversion Complete! 🎉</h3>
+                                    <h3 className="text-xl font-bold text-white mb-6">{t('vc.complete')}</h3>
                                     <div className="flex justify-center gap-4 flex-wrap">
                                         <a
                                             href={convertedUrl}
@@ -374,13 +388,13 @@ export const VideoConverter: React.FC = () => {
                                             className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-200 transition-colors flex items-center gap-2 shadow-xl"
                                         >
                                             <Download className="w-5 h-5" />
-                                            Download {extractAudio ? 'MP3' : selectedFormat.toUpperCase()}
+                                            {t('download_button')}
                                         </a>
                                         <button
                                             onClick={reset}
                                             className="px-6 py-4 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-600 transition-colors"
                                         >
-                                            Convert Another
+                                            {t('vc.convert_another')}
                                         </button>
                                     </div>
                                 </div>

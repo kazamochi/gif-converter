@@ -152,8 +152,10 @@
         "convert_video": "動画を変換",
         "extract_audio_btn": "音声を抽出",
         "processing": "端末内で処理中...",
-        "ad_support": "無料ツールをサポート",
-        "complete": "変換完了！🎉",
-        "convert_another": "他の動画を変換"
+        "ad_support": "広告を見て開発を支援する",
+        "complete": "変換が完了しました！🎉",
+        "convert_another": "他の動画を変換する",
+        "initial_download_note": "※初回のみ約30MBのエンジンダウンロードが必要です。回線環境により数分かかる場合があります。",
+        "ready": "Engine Ready"
     }
 }

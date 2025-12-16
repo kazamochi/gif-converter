@@ -1,0 +1,60 @@
+﻿
+[1m[37m===[39m Deploying to 'web-tool-kit'...[22m
+
+[36m[1mi [22m[39m deploying [1mfunctions[22m
+Running command: npm --prefix "$RESOURCE_DIR" run build
+
+> build
+> tsc
+
+[32m[1m+ [22m[39m [32m[1mfunctions:[22m[39m Finished running [1mpredeploy[22m script.
+[36m[1mi  functions:[22m[39m preparing codebase [1mdefault[22m for deployment
+[36m[1mi  functions:[22m[39m ensuring required API [1mcloudfunctions.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m ensuring required API [1mcloudbuild.googleapis.com[22m is enabled...
+[36m[1mi  artifactregistry:[22m[39m ensuring required API [1martifactregistry.googleapis.com[22m is enabled...
+[32m[1m+  functions:[22m[39m required API [1mcloudfunctions.googleapis.com[22m is enabled
+[32m[1m+  functions:[22m[39m required API [1mcloudbuild.googleapis.com[22m is enabled
+[32m[1m+  artifactregistry:[22m[39m required API [1martifactregistry.googleapis.com[22m is enabled
+[33m[1m! [22m[39m [1m[33mfunctions: [39m[22mpackage.json indicates an outdated version of firebase-functions. Please upgrade using [1mnpm install --save firebase-functions@latest[22m in your functions directory.
+[33m[1m! [22m[39m [1m[33mfunctions: [39m[22mPlease note that there will be breaking changes when you upgrade.
+[36m[1mi  functions:[22m[39m Loading and analyzing source code for codebase default to determine what to deploy
+[36m[1mi  functions:[22m[39m You are using a version of firebase-functions SDK (4.9.0) that does not have support for the newest Firebase Extensions features. Please update firebase-functions SDK to >=5.1.0 to use them correctly
+Serving at port 8582
+
+[36m[1mi [22m[39m [36m[1mfunctions: [22m[39mLoaded environment variables from .env.
+[36m[1mi  functions:[22m[39m preparing [1mfunctions[22m directory for uploading...
+[36m[1mi [22m[39m [36m[1mfunctions:[22m[39m packaged [1mF:\webbusiness\gif-converter\functions[22m (119.78 KB) for uploading
+[32m[1m+ [22m[39m [32m[1mfunctions:[22m[39m [1mfunctions[22m folder uploaded successfully
+[36m[1mi  functions:[22m[39m updating Node.js 20 (1st Gen) function [1mrefinePrompt(us-central1)[22m...
+Build failed: npm error code EUSAGE
+npm error
+npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm error
+npm error Missing: @types/markdown-it@14.1.2 from lock file
+npm error Missing: markdown-it@14.1.0 from lock file
+npm error
+npm error Clean install a project
+npm error
+npm error Usage:
+npm error npm ci
+npm error
+npm error Options:
+npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+npm error [--no-bin-links] [--no-fund] [--dry-run]
+npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm error
+npm error aliases: clean-install, ic, install-clean, isntall-clean
+npm error
+npm error Run "npm help ci" for more info
+npm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2025-12-16T11_29_53_568Z-debug-0.log; Error ID: 7fa33aaa
+
+Functions deploy had errors with the following functions:
+	refinePrompt(us-central1)
+[36m[1mi [22m[39m [1m[36mfunctions: [39m[22mcleaning up build files...
+[33m[1m!  functions:[22m[39m Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/web-tool-kit/us/gcf
+
+[1m[31mError:[39m[22m There was an error deploying functions
