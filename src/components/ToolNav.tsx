@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Wand2, Video, Sparkles } from 'lucide-react';
+import { Menu, X, Wand2, Video, Sparkles, Camera, Sliders } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const ToolNav: React.FC = () => {
@@ -11,6 +11,8 @@ export const ToolNav: React.FC = () => {
         { path: '/', label: 'GIF Converter', icon: Wand2 },
         { path: '/video-converter', label: 'Video Converter', icon: Video },
         { path: '/prompt-pro', label: 'Prompt Pro', icon: Sparkles },
+        { path: '/retro-instant', label: 'Retro Lab', icon: Camera },
+        { path: '/image-tools', label: 'Image Editor', icon: Sliders },
     ];
 
     const isActive = (path: string) => {

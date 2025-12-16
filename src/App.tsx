@@ -3,6 +3,8 @@ import { Layout } from './components/Layout';
 import { Converter as GifConverter } from './features/gif-converter/components/GifConverter';
 import { VideoConverter } from './features/video-converter/components/VideoConverter';
 import PromptPro from './features/prompt-pro/components/PromptPro';
+import InstantRetro from './features/image-lab/components/InstantRetro';
+import ProLab from './features/image-lab/components/ProLab';
 import { AdSpace } from './components/AdSpace';
 import { ToolNav } from './components/ToolNav';
 import { SEOHead } from './components/SEOHead';
@@ -11,6 +13,7 @@ import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { SocialImpact } from './pages/SocialImpact';
 import { Link } from 'react-router-dom';
+import { Translation } from 'react-i18next';
 
 function App() {
   return (
@@ -153,6 +156,44 @@ function App() {
                 <span>•</span>
                 <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
               </div>
+            </footer>
+          </Layout>
+        } />
+        <Route path="/retro-instant" element={
+          <Layout>
+            <div className="text-center mb-8 space-y-2">
+              <h1 className="text-4xl md:text-5xl font-bold text-orange-500 font-mono tracking-tighter transform -rotate-2">
+                <Translation>{(t) => t('retro.title')}</Translation>
+              </h1>
+              <p className="text-sm text-zinc-500 font-mono tracking-widest">
+                <Translation>{(t) => t('retro.subtitle')}</Translation>
+              </p>
+            </div>
+            <InstantRetro />
+            <div className="mt-16">
+              <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
+            </div>
+            <footer className="mt-16 text-center text-slate-600 text-sm">
+              <Link to="/" className="hover:text-slate-400 transition-colors">Current: v1.0 (Beta)</Link>
+            </footer>
+          </Layout>
+        } />
+        <Route path="/image-tools" element={
+          <Layout>
+            <div className="text-center mb-12 space-y-4">
+              <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500 tracking-tight">
+                Image Editor
+              </h1>
+              <p className="text-lg text-slate-400 max-w-xl mx-auto">
+                Advanced Image Processing & Format Conversion.
+              </p>
+            </div>
+            <ProLab />
+            <div className="mt-16">
+              <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
+            </div>
+            <footer className="mt-16 text-center text-slate-600 text-sm">
+              <Link to="/" className="hover:text-slate-400 transition-colors">Toolkit Lab</Link>
             </footer>
           </Layout>
         } />

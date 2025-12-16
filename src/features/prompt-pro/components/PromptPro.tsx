@@ -125,7 +125,7 @@ const ClockIcon = () => (
 
 // --- Main Component ---
 const PromptPro = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     // State
     const [category, setCategory] = useState<Category>('business');
@@ -203,12 +203,13 @@ const PromptPro = () => {
                 throw new Error("Firebase Functions not initialized");
             }
 
-            const refinePrompt = httpsCallable<{ input: string; flavor: string; category: string }, { result: string }>(functions, 'refinePrompt');
+            const refinePrompt = httpsCallable<{ input: string; flavor: string; category: string; language: string }, { result: string }>(functions, 'refinePrompt');
 
             const response = await refinePrompt({
                 input: userPrompt,
                 flavor,
-                category
+                category,
+                language: i18n.language
             });
 
             // Validate response data structure

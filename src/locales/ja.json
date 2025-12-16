@@ -157,5 +157,35 @@
         "convert_another": "他の動画を変換する",
         "initial_download_note": "※初回のみ約30MBのエンジンダウンロードが必要です。回線環境により数分かかる場合があります。",
         "ready": "Engine Ready"
+    },
+    "retro": {
+        "title": "レトロラボ",
+        "subtitle": "デジタル・レンズ付きフィルム",
+        "insert_film": "フィルムを挿入",
+        "developing": "現像中...",
+        "date_stamp": "日付スタンプ",
+        "develop": "現像する",
+        "save": "保存する",
+        "new_film": "新しいフィルム",
+        "trust_badge": "完全ローカル処理。画像はサーバーに送信されません。",
+        "upsell": "詳細設定 (Image Editor) へ ->"
+    },
+    "pro": {
+        "settings": "プロ設定",
+        "contrast": "コントラスト",
+        "brightness": "明るさ",
+        "saturation": "彩度",
+        "vignette": "周辺減光 (Vignette)",
+        "grain": "粒子 (Grain)",
+        "date_stamp": "日付焼き込み",
+        "quality": "画質 (Quality)",
+        "reset_all": "設定をリセット",
+        "drop_title": "画像を開く",
+        "drop_desc": "ここに写真をドラッグ＆ドロップ。高解像度画像の編集に対応しています。",
+        "save_image": "画像を保存",
+        "open_new": "別の画像を開く",
+        "privacy_mode": "隠しブラシ (OFF)",
+        "privacy_active": "隠しブラシ (ON)",
+        "clear_mask": "隠し領域をクリア"
     }
 }

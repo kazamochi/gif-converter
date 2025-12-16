@@ -52,10 +52,17 @@ exports.refinePrompt = functions
     if (!checkRateLimit(clientIp)) {
         throw new functions.https.HttpsError("resource-exhausted", "AI is taking a deep breath (Rate limit exceeded). Please trigger the ad overlay or wait a moment.");
     }
-    const { input, flavor } = data;
+    const { input, flavor, language = 'ja' } = data; // Default to Japanese if missing
     if (!input) {
         throw new functions.https.HttpsError("invalid-argument", "Input is required");
     }
+    // Language Logic
+    const isEnglish = language.startsWith('en');
+    // Suffix to force output language.
+    // For creative mode (Midjourney), we likely want English anyway, so this might need conditional logic.
+    const languageInstruction = isEnglish
+        ? `\n\nIMPORTANT: You must generate the ENTIRE OUTPUT in ENGLISH. Translate any recipe names or concepts to English where appropriate.`
+        : `\n\n重要: 出力はすべて【日本語】で行ってください。`;
     // 2. Construct System Prompt based on Flavor
     let systemInstruction = "";
     switch (flavor) {
@@ -417,6 +424,11 @@ exports.refinePrompt = functions
         You are a helpful AI assistant.
         Answer the user's request clearly and accurately.
       `;
+    }
+    // Apply Language Instruction (Force language at the end of system prompt)
+    // Exception: 'creative' mode is strictly English keywords, so we trust its specific prompt.
+    if (flavor !== 'creative') {
+        systemInstruction += languageInstruction;
     }
     // 3. Call Gemini API
     try {
