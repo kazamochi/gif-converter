@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Mail, Send, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { AdSpace } from '../components/AdSpace';
 
 export const Contact: React.FC = () => {
     const [submitted, setSubmitted] = useState(false);
@@ -14,7 +15,7 @@ export const Contact: React.FC = () => {
         const subject = formData.get('subject');
         const message = formData.get('message');
 
-        window.location.href = `mailto:contact@yourdomain.com?subject=${encodeURIComponent(subject as string)}&body=${encodeURIComponent(`From: ${email}\n\n${message}`)}`;
+        window.location.href = `mailto:contact@toolkit-lab.com?subject=${encodeURIComponent(subject as string)}&body=${encodeURIComponent(`From: ${email}\n\n${message}`)}`;
         setSubmitted(true);
     };
 
@@ -93,7 +94,7 @@ export const Contact: React.FC = () => {
                                 <div className="space-y-3 text-slate-300">
                                     <div className="flex items-center gap-3">
                                         <Mail className="w-5 h-5 text-indigo-400" />
-                                        <span>Email: <a href="mailto:contact@yourdomain.com" className="text-indigo-400 hover:text-indigo-300">contact@yourdomain.com</a></span>
+                                        <span>Email: <a href="mailto:contact@toolkit-lab.com" className="text-indigo-400 hover:text-indigo-300">contact@toolkit-lab.com</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +104,7 @@ export const Contact: React.FC = () => {
                             <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
                             <h2 className="text-2xl font-bold text-white mb-2">Message Sent!</h2>
                             <p className="text-slate-300 mb-6">
-                                Your email client should open shortly. If not, please email us directly at contact@yourdomain.com
+                                Your email client should open shortly. If not, please email us directly at contact@toolkit-lab.com
                             </p>
                             <button
                                 onClick={() => setSubmitted(false)}
@@ -113,6 +114,10 @@ export const Contact: React.FC = () => {
                             </button>
                         </div>
                     )}
+                </div>
+
+                <div className="mt-8">
+                    <AdSpace className="max-w-2xl mx-auto" slotId="contact-footer" />
                 </div>
             </div>
         </div>

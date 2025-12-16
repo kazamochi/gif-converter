@@ -298,7 +298,6 @@ export const VideoConverter: React.FC = () => {
                                         >
                                             Compress File Size
                                         </button>
-
                                         {compress && (
                                             <div className="mt-3 space-y-2">
                                                 <div className="flex gap-2">
@@ -307,7 +306,7 @@ export const VideoConverter: React.FC = () => {
                                                             key={level}
                                                             onClick={() => setCompressionLevel(level)}
                                                             className={`px-3 py-1 rounded text-xs font-medium transition-all ${compressionLevel === level
-                                                                ? 'bg-orange-500 text-white'
+                                                                ? 'bg-orange-600 text-white'
                                                                 : 'bg-slate-600 text-slate-300 hover:bg-slate-500'
                                                                 }`}
                                                         >
@@ -327,6 +326,7 @@ export const VideoConverter: React.FC = () => {
                                 </div>
                             )}
 
+                            {/* Convert Button */}
                             <button
                                 onClick={handleConvert}
                                 disabled={converting || !loaded}
@@ -335,7 +335,7 @@ export const VideoConverter: React.FC = () => {
                                 {converting ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
-                                        Processing... {progress > 0 && `${progress}%`}
+                                        Converting... {progress > 0 && `${progress}%`}
                                     </>
                                 ) : (
                                     <>
@@ -345,55 +345,51 @@ export const VideoConverter: React.FC = () => {
                                 )}
                             </button>
 
-                            {/* Processing Wait Ad Area */}
+                            {/* Processing Ad Area */}
                             {converting && (
-                                <div className="mt-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                                    <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-6 border border-slate-700/50">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <p className="text-xs text-slate-500">
-                                                広告を見ていただくことで無料サービスを提供できています
-                                            </p>
-                                        </div>
-                                        {/* Ad Placeholder - Replace with AdSense code after approval */}
-                                        <div className="aspect-video bg-slate-900/50 rounded-xl border border-dashed border-slate-600 flex items-center justify-center">
-                                            <div className="text-center">
-                                                <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full flex items-center justify-center">
-                                                    <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
-                                                </div>
-                                                <p className="text-sm text-slate-400">Processing your video...</p>
-                                                <p className="text-xs text-slate-600 mt-1">Ad space reserved</p>
+                                <div className="mt-6 animate-in fade-in slide-in-from-top-2">
+                                    <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-6 border border-slate-700/50 text-center">
+                                        <Loader2 className="w-8 h-8 text-purple-400 animate-spin mx-auto mb-4" />
+                                        <p className="text-slate-300 mb-4">Processing video on your device...</p>
+
+                                        {/* AdSpace Integration */}
+                                        <div className="border border-dashed border-slate-700 rounded-lg p-2 bg-slate-950/30">
+                                            <div className="flex flex-col items-center justify-center min-h-[100px] text-slate-500 text-xs gap-1">
+                                                <span className="font-semibold uppercase tracking-wider">Advertisement</span>
+                                                <span className="opacity-70">Support this free tool</span>
                                             </div>
                                         </div>
-                                        <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
-                                            <span>💡 Tip: Try our other tools while you wait!</span>
-                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Download Area */}
+                            {convertedUrl && (
+                                <div className="bg-slate-800/80 rounded-2xl p-8 border border-white/10 text-center animate-in zoom-in-95 duration-300 mt-6">
+                                    <h3 className="text-xl font-bold text-white mb-6">Conversion Complete! 🎉</h3>
+                                    <div className="flex justify-center gap-4 flex-wrap">
+                                        <a
+                                            href={convertedUrl}
+                                            download={outputFilename || 'converted_video'}
+                                            className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-200 transition-colors flex items-center gap-2 shadow-xl"
+                                        >
+                                            <Download className="w-5 h-5" />
+                                            Download {extractAudio ? 'MP3' : selectedFormat.toUpperCase()}
+                                        </a>
+                                        <button
+                                            onClick={reset}
+                                            className="px-6 py-4 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-600 transition-colors"
+                                        >
+                                            Convert Another
+                                        </button>
                                     </div>
                                 </div>
                             )}
                         </div>
                     )}
-
-                    {convertedUrl && (
-                        <div className="bg-slate-800/80 rounded-2xl p-8 border border-white/10 text-center animate-in zoom-in-95 duration-300">
-                            <h3 className="text-xl font-bold text-white mb-6">Conversion Complete! 🎉</h3>
-                            <div className="flex justify-center gap-4">
-                                <a
-                                    href={convertedUrl}
-                                    download={outputFilename || 'converted_video'}
-                                    className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-200 transition-colors flex items-center gap-2 shadow-xl"
-                                >
-                                    <Download className="w-5 h-5" />
-                                    Download {extractAudio ? 'MP3' : selectedFormat.toUpperCase()}
-                                </a>
-                                <button
-                                    onClick={reset}
-                                    className="px-6 py-4 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-600 transition-colors"
-                                >
-                                    Convert Another
-                                </button>
-                            </div>
-                        </div>
-                    )}
+                </div>
+                <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                    <span>💡 Tip: Try our other tools while you wait!</span>
                 </div>
             </div>
         </div>

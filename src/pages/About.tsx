@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeft, Zap, Shield, Globe, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { AdSpace } from '../components/AdSpace';
 
 export const About: React.FC = () => {
 
@@ -117,6 +118,10 @@ export const About: React.FC = () => {
                             </p>
                         </section>
                     </div>
+                </div>
+
+                <div className="mt-8">
+                    <AdSpace className="max-w-2xl mx-auto" slotId="about-footer" />
                 </div>
             </div>
         </div>

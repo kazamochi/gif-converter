@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { AdSpace } from '../components/AdSpace';
 
 export const PrivacyPolicy: React.FC = () => {
 
@@ -114,10 +115,14 @@ export const PrivacyPolicy: React.FC = () => {
                                 If you have any questions about this Privacy Policy, please contact us at:
                             </p>
                             <p className="mt-2">
-                                <strong>Email:</strong> <a href="mailto:privacy@yourdomain.com" className="text-indigo-400 hover:text-indigo-300">privacy@yourdomain.com</a>
+                                <strong>Email:</strong> <a href="mailto:contact@toolkit-lab.com" className="text-indigo-400 hover:text-indigo-300">contact@toolkit-lab.com</a>
                             </p>
                         </section>
                     </div>
+                </div>
+
+                <div className="mt-8">
+                    <AdSpace className="max-w-2xl mx-auto" slotId="privacy-footer" />
                 </div>
             </div>
         </div>

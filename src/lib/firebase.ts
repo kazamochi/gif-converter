@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFunctions } from 'firebase/functions';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 // Firebase configuration
 // For production, these should be environment variables, but for now we'll match the hosting config
@@ -18,3 +18,9 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Functions
 // Region must match the deployed function region (us-central1 is default)
 export const functions = getFunctions(app, 'us-central1');
+
+// Connect to emulator in development
+if (import.meta.env.DEV) {
+    connectFunctionsEmulator(functions, 'localhost', 5001);
+    console.log('🔗 Connected to Firebase Functions Emulator');
+}

@@ -211,9 +211,9 @@ const PromptPro = () => {
                 refinedText = template.replace('{{input}}', userPrompt);
             } else {
                 // Real API Call
-                const refinePrompt = httpsCallable<{ prompt: string; flavor: string; category: string }, { result: string }>(functions, 'refinePrompt');
+                const refinePrompt = httpsCallable<{ input: string; flavor: string; category: string }, { result: string }>(functions, 'refinePrompt');
                 const response = await refinePrompt({
-                    prompt: userPrompt,
+                    input: userPrompt,
                     flavor,
                     category
                 });
