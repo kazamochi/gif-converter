@@ -88,5 +88,49 @@
             "sandwich": "Cutlet & Egg",
             "heritage": "Soul Food Upgrade"
         }
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "back": "Back to Converter",
+        "intro": {
+            "title": "1. Introduction",
+            "content": "Welcome to Global Ultra-Fast GIF Converter. We are committed to protecting your privacy."
+        },
+        "collection": {
+            "title": "2. Data Collection",
+            "process_title": "2.1 Video Processing",
+            "process_content": "Your files never leave your device. All video processing is performed entirely in your browser using WebAssembly (ffmpeg.wasm). We do not upload, store, or have access to any videos or GIFs you create.",
+            "analytics_title": "2.2 Analytics & Cookies",
+            "analytics_content": "We use the following third-party services:",
+            "analytics_list": {
+                "ga": "Google Analytics: To understand usage",
+                "ads": "Google AdSense: To display advertisements"
+            }
+        },
+        "use": {
+            "title": "3. How We Use Information",
+            "content": "The limited data we collect is used to:",
+            "list": {
+                "ux": "Improve user experience",
+                "analytics": "Analyze usage patterns",
+                "ads": "Display relevant advertisements"
+            }
+        },
+        "rights": {
+            "title": "4. Your Rights",
+            "content": "You have the right to access, rectify, or erase your personal data."
+        },
+        "cookies": {
+            "title": "6. Cookies",
+            "content": "We use cookies to improve your experience. You can control them via browser settings."
+        },
+        "security": {
+            "title": "7. Data Security",
+            "content": "Since all processing happens in your browser, your files are inherently secure."
+        },
+        "contact": {
+            "title": "10. Contact Us",
+            "content": "If you have any questions, please contact us at:"
+        }
     }
 }

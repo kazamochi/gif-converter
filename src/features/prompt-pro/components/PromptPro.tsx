@@ -189,37 +189,34 @@ const PromptPro = () => {
     const handleRefine = async () => {
         if (!userPrompt.trim()) return;
 
+        // Prevent double submission
+        if (isThinking) return;
+
         setIsThinking(true);
         setResult('');
         setError('');
 
         try {
-            // Check for mock mode or missing API key
-            // Note: In Vite, we use import.meta.env
-            const isMockMode = !functions || import.meta.env.VITE_USE_MOCK === 'true';
-
-            let refinedText = "";
-
-            if (isMockMode) {
-                // Determine mock response based on flavor
-                // Simulating network delay for realism
-                await new Promise(resolve => setTimeout(resolve, 3000));
-
-                const mockTemplates = t('prompt_pro.mock_outputs', { returnObjects: true }) as Record<string, string>;
-                const template = mockTemplates[flavor] || mockTemplates['speed'];
-
-                refinedText = template.replace('{{input}}', userPrompt);
-            } else {
-                // Real API Call
-                const refinePrompt = httpsCallable<{ input: string; flavor: string; category: string }, { result: string }>(functions, 'refinePrompt');
-                const response = await refinePrompt({
-                    input: userPrompt,
-                    flavor,
-                    category
-                });
-                refinedText = response.data.result;
+            // Real API Call Only (Mock mode removed by user request)
+            // Ensure functions is initialized
+            if (!functions) {
+                throw new Error("Firebase Functions not initialized");
             }
 
+            const refinePrompt = httpsCallable<{ input: string; flavor: string; category: string }, { result: string }>(functions, 'refinePrompt');
+
+            const response = await refinePrompt({
+                input: userPrompt,
+                flavor,
+                category
+            });
+
+            // Validate response data structure
+            if (!response || !response.data || typeof response.data.result !== 'string') {
+                throw new Error("Invalid response from server");
+            }
+
+            const refinedText = response.data.result;
             setResult(refinedText);
 
             // Add to History
@@ -231,24 +228,11 @@ const PromptPro = () => {
             });
 
         } catch (err: any) {
-            console.error(err);
-            // Fallback to mock on error (graceful degradation)
-            const mockTemplates = t('prompt_pro.mock_outputs', { returnObjects: true }) as Record<string, string>;
-            const template = mockTemplates[flavor] || mockTemplates['speed'];
-            const fallbackText = template.replace('{{input}}', userPrompt);
-
-            setResult(fallbackText);
-            setError(t('prompt_pro.error_fallback'));
-
-            // Also add fallback to history so user doesn't lose data
-            addToHistory({
-                userPrompt,
-                category,
-                flavor,
-                result: fallbackText
-            });
-
+            console.error("Generate Error:", err);
+            // Show more specific error to user if available
+            setError(err.message || t('prompt_pro.error_fallback'));
         } finally {
+            // Ensure loading state is reset even if crash occurs in try block
             setIsThinking(false);
         }
     };
