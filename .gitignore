@@ -6,6 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+build_log*.txt
+deploy_log*.txt
 
 # Dependencies
 node_modules
@@ -67,3 +69,8 @@ images/
 *.webp
 !public/
 !src/assets/
+
+# Internal Blueprints & Security
+DOMAIN_SECURITY_MEMO.md
+MASTER_SPEC_AUDIO_LAB.md
+ai-sentinel.md

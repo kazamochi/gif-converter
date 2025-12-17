@@ -2,7 +2,9 @@ import * as Tone from 'tone';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PianoRoll } from './PianoRoll';
-import type { MIDINote } from '../types';
+import { VibeSelector } from './VibeSelector';
+import { generator } from '../services/generator';
+import type { MIDINote, VibePreset } from '../types';
 
 /**
  * 🎹 Audio Lab - Test Component
@@ -22,8 +24,38 @@ const SAMPLE_NOTES: MIDINote[] = [
 ];
 
 export const AudioLabTest: FC = () => {
-    const [status, setStatus] = useState('Click to test audio');
-    const [notes] = useState<MIDINote[]>(SAMPLE_NOTES);
+    const [status, setStatus] = useState('Select a Vibe and click Generate');
+    const [notes, setNotes] = useState<MIDINote[]>(SAMPLE_NOTES);
+    const [selectedVibe, setSelectedVibe] = useState<VibePreset | null>(null);
+    const [isGenerating, setIsGenerating] = useState(false);
+
+    const handleVibeSelect = (preset: VibePreset) => {
+        setSelectedVibe(preset);
+        setStatus(`Selected: ${preset.name} - Ready to Generate!`);
+    };
+
+    const handleGenerate = async () => {
+        if (!selectedVibe) {
+            setStatus('❌ Please select a Vibe first!');
+            return;
+        }
+
+        try {
+            setIsGenerating(true);
+            setStatus('🎵 Generating melody with AI...');
+
+            // Generate notes using Magenta (without chord conditioning for now)
+            const generatedNotes = await generator.generateMelody(32, 1.0);
+
+            setNotes(generatedNotes);
+            setStatus(`✅ Generated ${generatedNotes.length} notes using ${selectedVibe.name}!`);
+        } catch (error) {
+            setStatus(`❌ Generation failed: ${error}`);
+            console.error('Generation error:', error);
+        } finally {
+            setIsGenerating(false);
+        }
+    };
 
     const handleTestSound = async () => {
         try {
@@ -79,6 +111,35 @@ export const AudioLabTest: FC = () => {
                 }}>
                     {status}
                 </p>
+
+                <div style={{ marginBottom: '24px' }}>
+                    <VibeSelector
+                        onSelectVibe={handleVibeSelect}
+                        selectedId={selectedVibe?.id}
+                    />
+                </div>
+
+                <button
+                    onClick={handleGenerate}
+                    disabled={!selectedVibe || isGenerating}
+                    style={{
+                        padding: '14px 32px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: (!selectedVibe || isGenerating) ? 'not-allowed' : 'pointer',
+                        background: (!selectedVibe || isGenerating) ? '#475569' : '#10b981',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        marginBottom: '24px',
+                        display: 'block',
+                        margin: '0 auto 24px',
+                        opacity: (!selectedVibe || isGenerating) ? 0.5 : 1,
+                        transition: 'all 0.2s ease'
+                    }}
+                >
+                    {isGenerating ? '🎵 Generating...' : '✨ Generate Melody with AI'}
+                </button>
 
                 <div style={{
                     background: '#1e293b',

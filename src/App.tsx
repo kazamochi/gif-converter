@@ -251,7 +251,7 @@ function App() {
             <NetScouter />
           </Suspense>
         } />
-        <Route path="/audio-lab-test" element={
+        <Route path="/lab/audio-internal-v1-test" element={
           <Suspense fallback={
             <div className="min-h-screen bg-slate-950 flex items-center justify-center">
               <div className="text-purple-400 font-mono text-sm animate-pulse">Loading Audio Lab...</div>

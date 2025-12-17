@@ -9,8 +9,8 @@ export const ALLOWED_DOMAINS = [
     'toolkit-lab.com',
     'localhost',
     '127.0.0.1',
-    'toolkit-lab.web.app', // Firebase default
-    'toolkit-lab.firebaseapp.com' // Firebase default
+    'web-tool-kit.web.app', // Actual Firebase project URL
+    'web-tool-kit.firebaseapp.com' // Actual Firebase project URL
 ];
 
 /**
