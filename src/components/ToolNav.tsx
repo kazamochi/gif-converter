@@ -31,6 +31,7 @@ export const ToolNav: React.FC = () => {
                         <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
                             <Wand2 className="w-5 h-5" />
                         </div>
+                        <span className="sm:hidden text-sm">TOP</span>
                         <span className="hidden sm:inline">Toolkit Lab</span>
                     </Link>
 

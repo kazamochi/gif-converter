@@ -1,3 +1,49 @@
 {
-    "back": "Back to Home"
+    "back": "Back to Home",
+    "title": "About Toolkit Lab",
+    "mission": {
+        "title": "Our Mission",
+        "description": "We believe that powerful tools should be accessible to everyone, everywhere, without compromising privacy or requiring expensive software.",
+        "goal": "Toolkit Lab was created to provide a <strong class=\"text-indigo-400\">free, fast, and privacy-focused</strong> suite of web tools. No installation required, everything runs in your browser."
+    },
+    "features": {
+        "title": "Why Toolkit Lab?",
+        "private": {
+            "title": "100% Private",
+            "description": "Your files never leave your device. All processing (conversion, editing, transfer) happens locally in your browser."
+        },
+        "fast": {
+            "title": "Lightning Fast",
+            "description": "No upload/download delays. Processing starts instantly and runs at full speed on your hardware using WebAssembly."
+        },
+        "offline": {
+            "title": "Works Offline",
+            "description": "Once loaded, the tools work even without an internet connection (PWA). Perfect for travel or limited connectivity."
+        },
+        "open_source": {
+            "title": "Open Source",
+            "description": "Built with modern web technologies: React, TypeScript, WebAssembly, and WebRTC. We believe in transparent development."
+        }
+    },
+    "tech_stack": {
+        "title": "Technology Stack",
+        "description": "Our toolkit is powered by:",
+        "items": [
+            "<strong>FFmpeg.wasm:</strong> Video processing engine in WebAssembly",
+            "<strong>WebRTC:</strong> Direct P2P communication between devices",
+            "<strong>React + TypeScript:</strong> Robust and type-safe UI",
+            "<strong>Vite:</strong> Lightning-fast build tool",
+            "<strong>Tailwind CSS:</strong> Beautiful, responsive design"
+        ]
+    },
+    "free_forever": {
+        "title": "Free Forever",
+        "description": "This tool is and will always be <strong class=\"text-green-400\">100% free</strong>. We believe in democratizing access to powerful tools. Our service is supported by non-intrusive advertisements."
+    },
+    "contact": {
+        "title": "Get in Touch",
+        "description": "Have feedback, suggestions, or found a bug? We'd love to hear from you!",
+        "button": "Contact Us",
+        "github": "GitHub"
+    }
 }

@@ -12,6 +12,11 @@
         "received_count": "{{count}} files received",
         "error_title": "Connection Error",
         "error_retry": "Retry",
-        "trust_badge": "🔒 End-to-End Encryption • No Server Storage • P2P Direct Transfer"
+        "trust_badge": "🔒 End-to-End Encryption • No Server Storage • P2P Direct Transfer",
+        "note_page_leave": "⚠️ Leaving the page will disconnect (Re-scan QR to reconnect)",
+        "note_large_file": "📦 Large files (100MB+) take longer to transfer",
+        "note_no_wifi": "🌐 Same WiFi not required (Works over internet P2P)",
+        "note_encryption": "🔒 Files are never stored on servers (E2E encrypted)",
+        "github": "💻 GitHub"
     }
 }

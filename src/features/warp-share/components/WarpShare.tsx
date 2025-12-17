@@ -25,6 +25,7 @@ export const WarpShare = () => {
     const [receivedFiles, setReceivedFiles] = useState<File[]>([]);
     const [isHost, setIsHost] = useState<boolean>(false);
     const [previewFile, setPreviewFile] = useState<File | null>(null);
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const chunksRef = useRef<ArrayBuffer[]>([]);
     const fileMetaRef = useRef<{ name: string; size: number; type: string } | null>(null);
@@ -259,10 +260,18 @@ export const WarpShare = () => {
                 {/* Connected */}
                 {status === 'connected' && (
                     <div className="space-y-6">
-                        {/* Connection status */}
-                        <div className="flex items-center justify-center gap-2 text-emerald-400">
-                            <Check className="w-5 h-5" />
-                            <span>{t('warp.connected')}</span>
+                        {/* Connection status with reconnect button */}
+                        <div className="flex items-center justify-center gap-4">
+                            <div className="flex items-center gap-2 text-emerald-400">
+                                <Check className="w-5 h-5" />
+                                <span>{t('warp.connected')}</span>
+                            </div>
+                            <button
+                                onClick={() => window.location.reload()}
+                                className="text-xs text-slate-400 hover:text-white px-2 py-1 border border-slate-600 rounded hover:border-slate-400 transition-colors"
+                            >
+                                🔄 再接続
+                            </button>
                         </div>
 
                         {/* Transfer progress */}
@@ -288,7 +297,7 @@ export const WarpShare = () => {
 
                         {/* Send/Receive buttons */}
                         {!currentTransfer && (
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="flex flex-col gap-4">
                                 {/* Send to other device */}
                                 <button
                                     onClick={() => fileInputRef.current?.click()}
@@ -337,13 +346,15 @@ export const WarpShare = () => {
                                                     <p className="text-sm text-white truncate">{file.name}</p>
                                                     <p className="text-xs text-slate-500">{(file.size / 1024).toFixed(1)} KB</p>
                                                 </div>
-                                                {/* Download button */}
-                                                <button
-                                                    onClick={() => downloadFile(file)}
-                                                    className="p-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg transition-colors"
-                                                >
-                                                    <Download className="w-4 h-4 text-white" />
-                                                </button>
+                                                {/* Download button - hidden on iOS */}
+                                                {!isIOS && (
+                                                    <button
+                                                        onClick={() => downloadFile(file)}
+                                                        className="p-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg transition-colors"
+                                                    >
+                                                        <Download className="w-4 h-4 text-white" />
+                                                    </button>
+                                                )}
                                             </div>
                                         ))
                                     )}
@@ -383,9 +394,22 @@ export const WarpShare = () => {
                 )}
             </div>
 
-            {/* Trust badge */}
-            <div className="text-center text-xs text-slate-500">
-                <p>{t('warp.trust_badge')}</p>
+            {/* Usage Notes */}
+            <div className="bg-slate-800/30 border border-slate-700 rounded-xl p-4 mt-6 text-xs text-slate-400 space-y-1">
+                <p>{t('warp.note_page_leave')}</p>
+                <p>{t('warp.note_large_file')}</p>
+                <p>{t('warp.note_no_wifi')}</p>
+                <p>{t('warp.note_encryption')}</p>
+                <p className="pt-2">
+                    <a
+                        href="https://github.com/kazamochi/gif-converter"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-400 hover:text-indigo-300 underline"
+                    >
+                        {t('warp.github')}
+                    </a>
+                </p>
             </div>
 
             {/* Image Preview Modal */}
@@ -403,6 +427,7 @@ export const WarpShare = () => {
                         />
                         <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-3 rounded-b-lg">
                             <p className="text-sm truncate">{previewFile.name}</p>
+                            <p className="text-xs text-amber-400 mt-1">📱 iOS: 画像を長押しして「写真に保存」</p>
                             <div className="flex gap-2 mt-2">
                                 <button
                                     onClick={(e) => {
@@ -412,7 +437,7 @@ export const WarpShare = () => {
                                     className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
                                 >
                                     <Download className="w-4 h-4" />
-                                    ダウンロード
+                                    PC用ダウンロード
                                 </button>
                                 <button
                                     onClick={() => setPreviewFile(null)}

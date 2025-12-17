@@ -1,48 +1,36 @@
-# 🎬 Global Ultra-Fast GIF Converter
+# 🛠️ Toolkit Lab: Privacy-First Web Tools
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Built with React](https://img.shields.io/badge/Built%20with-React-61DAFB?logo=react)](https://reactjs.org/)
-[![Powered by FFmpeg.wasm](https://img.shields.io/badge/Powered%20by-FFmpeg.wasm-green)](https://github.com/ffmpegwasm/ffmpeg.wasm)
+[![Powered by WebAssembly](https://img.shields.io/badge/Powered%20by-WebAssembly-orange)](https://webassembly.org/)
 
-> **Convert videos to GIFs instantly in your browser. No upload required. 100% private. Lightning fast.**
+> **A suite of powerful, privacy-focused web tools running entirely in your browser.**
+> **No server uploads. No data collection. 100% Client-side.**
 
-[🚀 **Live Demo**](https://toolkit-lab.com) | [📖 Documentation](#features) | [🤝 Contributing](#contributing)
+[🚀 **Live Demo**](https://web-tool-kit.web.app) | [🤝 Contributing](#contributing)
 
 ---
 
 ## ✨ Features
 
-### 🔒 **Privacy-First**
-- **All processing happens in your browser** using WebAssembly (ffmpeg.wasm)
-- Your files **never leave your device** - no server uploads
-- No data collection, no tracking (except anonymous analytics)
+### 🎬 **Media Tools**
+- **GIF Converter**: Ultra-fast video to GIF conversion with cropping, trimming, and speed control.
+- **Video Converter**: Convert between MP4, WebM, AVI, and MOV formats locally.
+- **Retro Lab**: Apply vintage filters, noise, and glitch effects to your photos.
+- **Image Editor**: Professional-grade image editing (crop, filter, adjust).
 
-### ⚡ **Lightning Fast**
-- Instant conversion with no upload/download delays
-- Runs at full speed on your hardware
-- Works offline after initial load
+### ⚡ **Productivity Tools**
+- **Warp Share**: Instant P2P file transfer between devices via QR code (End-to-End Encrypted).
+- **Prompt Pro**: AI prompt engineering assistant for better generation results.
 
-### 🎨 **Powerful Editing Tools**
-- **Interactive Cropping** - Drag & resize with aspect ratio presets (1:1, 16:9, 9:16, 4:5, 2.35:1)
-- **Precise Trimming** - Select exact start/end points with live preview
-- **Speed Control** - 0.5x to 2x playback speed
-- **Playback Modes** - Normal, Reverse, Boomerang
-- **Zoom Preview** - 10% to 200% zoom for detailed editing
-- **Custom Output Size** - Quick presets (128px, 360px, 480px, 640px) or manual input
-- **FPS Control** - Optimize file size vs quality
+---
 
-### 🌍 **Multi-Language Support**
-Available in **10 languages**:
-- 🇺🇸 English
-- 🇯🇵 日本語 (Japanese)
-- 🇪🇸 Español (Spanish)
-- 🇧🇷 Português (Portuguese)
-- 🇩🇪 Deutsch (German)
-- 🇫🇷 Français (French)
-- 🇨🇳 中文 (Chinese)
-- 🇰🇷 한국어 (Korean)
-- 🇷🇺 Русский (Russian)
-- 🇮🇩 Indonesia (Indonesian)
+## 🔒 Why Toolkit Lab?
+
+- **Privacy First**: All processing happens in your browser using WebAssembly. Your files never leave your device.
+- **Lightning Fast**: No upload/download waiting times. Uses your device's full power.
+- **Offline Capable**: Works without internet connection once loaded (PWA support).
+- **Open Source**: Transparent development with modern web technologies.
 
 ---
 
@@ -53,9 +41,9 @@ Available in **10 languages**:
 | **React + TypeScript** | Type-safe UI framework |
 | **Vite** | Lightning-fast build tool |
 | **FFmpeg.wasm** | Video processing in WebAssembly |
+| **WebRTC (PeerJS)** | P2P file transfer for Warp Share |
 | **Tailwind CSS** | Modern, responsive styling |
-| **react-i18next** | Internationalization (i18n) |
-| **react-helmet-async** | SEO optimization |
+| **i18next** | Internationalization (EN/JA) |
 | **Firebase Hosting** | Deployment with COOP/COEP headers |
 
 ---
@@ -63,14 +51,14 @@ Available in **10 languages**:
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+- Node.js 18+
+- npm
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/gif-converter.git
+git clone https://github.com/kazamochi/gif-converter.git
 cd gif-converter
 
 # Install dependencies
@@ -82,78 +70,30 @@ npm run dev
 
 The app will be available at `http://localhost:5173`
 
-### Build for Production
-
-```bash
-npm run build
-```
-
-Output will be in the `dist/` directory.
-
 ---
 
 ## 📦 Deployment
 
-### Firebase Hosting (Recommended)
+### Firebase Hosting
 
-This project requires specific headers for `SharedArrayBuffer` support:
-
-```json
-{
-  "headers": [
-    {
-      "source": "**",
-      "headers": [
-        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
-        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
-      ]
-    }
-  ]
-}
-```
-
-Deploy to Firebase:
+This project requires `SharedArrayBuffer` support (COOP/COEP headers).
 
 ```bash
-npm install -g firebase-tools
-firebase login
-firebase init hosting
-firebase deploy
+npm run build
+firebase deploy --only hosting
 ```
-
-### Other Platforms
-
-For Vercel, Netlify, or other platforms, ensure COOP/COEP headers are configured. See `firebase.json` for reference.
-
----
-
-## 🎯 How It Works
-
-1. **Upload** - Select a video file (MP4, MOV, AVI, WebM)
-2. **Edit** - Trim, crop, adjust speed, and preview in real-time
-3. **Convert** - FFmpeg.wasm processes the video entirely in your browser
-4. **Download** - Get your optimized GIF instantly
-
-**No servers involved. No waiting. Just pure browser magic.** ✨
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
+Contributions are welcome!
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
-### Development Guidelines
-
-- Follow existing code style (TypeScript + ESLint)
-- Add comments for complex logic
-- Test on multiple browsers (Chrome, Firefox, Safari)
-- Ensure mobile responsiveness
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
@@ -163,37 +103,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-## 🙏 Acknowledgments
-
-- **[FFmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm)** - The legendary video processing library
-- **[React](https://reactjs.org/)** - UI framework
-- **[Tailwind CSS](https://tailwindcss.com/)** - Styling
-- **[Lucide Icons](https://lucide.dev/)** - Beautiful icons
-
----
-
-## 📊 Project Stats
-
-- **Bundle Size**: ~110 kB (gzipped)
-- **Languages**: 10
-- **Browser Support**: Chrome 92+, Firefox 90+, Safari 15.2+, Edge 92+
-- **Mobile**: Full touch support for interactive cropping
-
----
-
-## 🔗 Links
-
-- [Live Demo](https://toolkit-lab.com)
-- [Report Bug](https://github.com/mochi/gif-converter/issues)
-- [Request Feature](https://github.com/mochi/gif-converter/issues)
-- [Privacy Policy](https://toolkit-lab.com/privacy)
-
----
-
 <div align="center">
-
-**Made with ❤️ for the global community**
-
-If you find this project useful, please consider giving it a ⭐!
-
+  <strong>Made with ❤️ by Toolkit Lab</strong>
 </div>

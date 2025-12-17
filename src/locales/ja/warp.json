@@ -12,6 +12,11 @@
         "received_count": "{{count}}件受信済み",
         "error_title": "接続エラーが発生しました",
         "error_retry": "再試行",
-        "trust_badge": "🔒 End-to-End暗号化 • サーバー保存なし • P2P直接転送"
+        "trust_badge": "🔒 End-to-End暗号化 • サーバー保存なし • P2P直接転送",
+        "note_page_leave": "⚠️ ページを離れると接続が切断されます（QRから再スキャン）",
+        "note_large_file": "📦 大きなファイル（100MB+）は転送に時間がかかります",
+        "note_no_wifi": "🌐 同じWiFiでなくてもOK（インターネット経由P2P）",
+        "note_encryption": "🔒 ファイルはサーバーに保存されません（E2E暗号化）",
+        "github": "💻 GitHub"
     }
 }

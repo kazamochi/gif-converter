@@ -43,5 +43,27 @@ firebase-debug.log
 coverage
 .nyc_output
 
+
 # Misc
 .cache
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.temp
+tmp/
+temp/
+test-results/
+*.swp
+*.swo
+
+# User uploaded content (just in case)
+uploads/
+images/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+!public/
+!src/assets/

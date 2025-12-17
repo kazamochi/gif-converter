@@ -1,3 +1,49 @@
 {
-    "back": "ホームに戻る"
+    "back": "ホームに戻る",
+    "title": "Toolkit Labについて",
+    "mission": {
+        "title": "私たちのミッション",
+        "description": "強力なツールは、誰もがどこでも無料で使えるべきだと信じています。プライバシーを犠牲にしたり、高価なソフトウェアを購入する必要はありません。",
+        "goal": "Toolkit Labは、<strong class=\"text-indigo-400\">無料・高速・プライバシー重視</strong>のWebツールセットとして作られました。インストール不要で、ブラウザだけで完結します。"
+    },
+    "features": {
+        "title": "なぜToolkit Lab？",
+        "private": {
+            "title": "100% プライバシー保護",
+            "description": "ファイルがサーバーにアップロードされることはありません。全ての処理（変換・編集・転送）は、あなたのブラウザ内でローカルに行われます。"
+        },
+        "fast": {
+            "title": "爆速処理",
+            "description": "アップロードやダウンロードの待ち時間ゼロ。WebAssembly技術により、あなたのデバイスの性能を最大限に活かして瞬時に処理します。"
+        },
+        "offline": {
+            "title": "オフライン動作",
+            "description": "一度読み込めば、インターネット接続がなくても動作します（PWA対応）。機内や通信環境の悪い場所でも安心です。"
+        },
+        "open_source": {
+            "title": "オープンソース",
+            "description": "最新のWeb技術（React, TypeScript, WebAssembly, WebRTC）で構築されています。透明性の高い開発を行っています。"
+        }
+    },
+    "tech_stack": {
+        "title": "技術スタック",
+        "description": "このツールキットは以下の技術で動いています：",
+        "items": [
+            "<strong>FFmpeg.wasm:</strong> WebAssemblyで動く動画処理エンジン",
+            "<strong>WebRTC:</strong> デバイス間での直接P2P通信技術",
+            "<strong>React + TypeScript:</strong> 堅牢で型安全なUI構築",
+            "<strong>Vite:</strong> 超高速ビルドツール",
+            "<strong>Tailwind CSS:</strong> 美しくレスポンシブなデザイン"
+        ]
+    },
+    "free_forever": {
+        "title": "ずっと無料",
+        "description": "このツールは<strong class=\"text-green-400\">永久に100%無料</strong>です。私たちは、便利なツールへのアクセスを民主化したいと考えています。運営コストは控えめな広告によって賄われています。"
+    },
+    "contact": {
+        "title": "お問い合わせ",
+        "description": "ご意見、ご要望、バグ報告など、お気軽にお寄せください！",
+        "button": "お問い合わせ",
+        "github": "GitHub"
+    }
 }
