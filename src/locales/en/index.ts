@@ -6,6 +6,7 @@ import video from './video.json';
 import prompt from './prompt.json';
 import retro from './retro.json';
 import image from './image.json';
+import warp from './warp.json';
 
 export const en = {
     landing,
@@ -15,5 +16,6 @@ export const en = {
     ...video,
     ...prompt,
     ...retro,
-    ...image
+    ...image,
+    ...warp
 };

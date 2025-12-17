@@ -17,6 +17,7 @@ import LandingPage from './components/LandingPage';
 import { CookieConsent } from './components/CookieConsent';
 import { Link } from 'react-router-dom';
 import { Translation } from 'react-i18next';
+import WarpShare from './features/warp-share/components/WarpShare';
 
 function App() {
   return (
@@ -30,6 +31,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/social-impact" element={<SocialImpact />} />
+        <Route path="/warp-share" element={
+          <Layout>
+            <WarpShare />
+          </Layout>
+        } />
         <Route path="/video-converter" element={
           <Layout>
             <div className="text-center mb-12 space-y-4">

@@ -1,0 +1,17 @@
+{
+    "warp": {
+        "title": "Warp Share",
+        "subtitle": "Instant file transfer between devices",
+        "scan_qr": "Scan this QR code with your phone",
+        "waiting": "Waiting for connection...",
+        "connected": "Connected",
+        "initializing": "Initializing...",
+        "send_to_phone": "Send to Phone",
+        "send_to_pc": "Send to PC",
+        "receiving": "Waiting to receive",
+        "received_count": "{{count}} files received",
+        "error_title": "Connection Error",
+        "error_retry": "Retry",
+        "trust_badge": "🔒 End-to-End Encryption • No Server Storage • P2P Direct Transfer"
+    }
+}
