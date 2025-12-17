@@ -24,6 +24,10 @@
         "warp": {
             "name": "Warp Share",
             "desc": "P2P file transfer between devices"
+        },
+        "scouter": {
+            "name": "Net Scouter",
+            "desc": "Advanced network diagnostics & speed test"
         }
     },
     "footer": {

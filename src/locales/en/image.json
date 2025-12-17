@@ -15,6 +15,9 @@
         "open_new": "Open Different Image",
         "privacy_mode": "Mask Brush (OFF)",
         "privacy_active": "Mask Brush (ON)",
-        "clear_mask": "Clear Masks"
+        "clear_mask": "Clear Masks",
+        "mobile_warning_title": "PC Recommended",
+        "mobile_warning_desc": "Advanced Image Editor features are currently optimized for desktop. Please use a PC for the best experience. (Mobile version coming soon)",
+        "mobile_warning_back": "Back to Home"
     }
 }

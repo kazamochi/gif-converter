@@ -1,15 +1,27 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, Sliders, Eraser, Loader2, Save, ShoppingBag, Globe, Play, FileText, Shield, Grid, EyeOff } from 'lucide-react';
+import { Upload, Sliders, Eraser, Loader2, Save, ShoppingBag, Globe, Play, FileText, Shield, Grid, EyeOff, Monitor, Smartphone } from 'lucide-react';
 import { processImage } from '../utils/imageProcessor';
 import type { ProcessOptions } from '../utils/imageProcessor';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const ProLab = () => {
     const { t } = useTranslation();
     const [image, setImage] = useState<string | null>(null);
     const [processedImage, setProcessedImage] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Mobile Check
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 1024);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Privacy Mode State
     const [isPrivacyMode, setIsPrivacyMode] = useState(false);
@@ -207,6 +219,33 @@ const ProLab = () => {
             }
         }
     }, [masks, isPrivacyMode, privacyType, isDrawing, showMaskOverlay]); // Re-render canvas when masks update or drawing state changes
+
+    if (isMobile) {
+        return (
+            <div className="min-h-[60vh] flex items-center justify-center p-6">
+                <div className="max-w-md text-center space-y-8 bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800">
+                    <div className="flex justify-center gap-6 text-zinc-600">
+                        <Smartphone className="w-16 h-16 opacity-30 stroke-1" />
+                        <Monitor className="w-16 h-16 text-orange-500 stroke-1" />
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-bold text-white mb-3">
+                            {t('pro.mobile_warning_title')}
+                        </h2>
+                        <p className="text-zinc-400 text-sm leading-relaxed">
+                            {t('pro.mobile_warning_desc')}
+                        </p>
+                    </div>
+                    <Link
+                        to="/"
+                        className="inline-block px-8 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl font-bold transition-all hover:shadow-lg hover:shadow-orange-500/20"
+                    >
+                        {t('pro.mobile_warning_back')}
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-zinc-950 p-4 md:p-8">

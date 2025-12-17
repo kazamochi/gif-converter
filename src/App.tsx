@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Converter as GifConverter } from './features/gif-converter/components/GifConverter';
@@ -18,6 +19,11 @@ import { CookieConsent } from './components/CookieConsent';
 import { Link } from 'react-router-dom';
 import { Translation } from 'react-i18next';
 import WarpShare from './features/warp-share/components/WarpShare';
+import { DomainWatermark } from './components/DomainWatermark';
+
+const NetScouter = lazy(() => import('./features/net-scouter'));
+const JitterWidgetPage = lazy(() => import('./features/net-scouter/pages/JitterWidgetPage').then(m => ({ default: m.JitterWidgetPage })));
+const AudioLabTest = lazy(() => import('./features/audio-lab/components/AudioLabTest').then(m => ({ default: m.AudioLabTest })));
 
 function App() {
   return (
@@ -34,6 +40,23 @@ function App() {
         <Route path="/warp-share" element={
           <Layout>
             <WarpShare />
+            <div className="mt-16">
+              <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
+            </div>
+            <footer className="mt-16 text-center text-slate-600 text-sm">
+              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
+              <div className="mt-4 flex justify-center gap-4 text-xs">
+                <Link to="/" className="hover:text-slate-400 transition-colors">Home</Link>
+                <span>•</span>
+                <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
+                <span>•</span>
+                <Link to="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
+                <span>•</span>
+                <Link to="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
+                <span>•</span>
+                <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
+              </div>
+            </footer>
           </Layout>
         } />
         <Route path="/video-converter" element={
@@ -208,7 +231,37 @@ function App() {
             </footer>
           </Layout>
         } />
-      </Routes>
+        <Route path="/tools/jitter-widget" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+              <div className="text-green-400 font-mono text-xs animate-pulse">Loading Widget...</div>
+            </div>
+          }>
+            <JitterWidgetPage />
+          </Suspense>
+        } />
+        <Route path="/net-scouter" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center font-mono text-green-500">
+              <div className="animate-pulse tracking-widest uppercase text-sm border border-green-500/30 px-4 py-2">
+                Initializing Scouter HUD...
+              </div>
+            </div>
+          }>
+            <NetScouter />
+          </Suspense>
+        } />
+        <Route path="/audio-lab-test" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+              <div className="text-purple-400 font-mono text-sm animate-pulse">Loading Audio Lab...</div>
+            </div>
+          }>
+            <AudioLabTest />
+          </Suspense>
+        } />
+      </Routes >
+      <DomainWatermark />
       <CookieConsent />
     </>
   );

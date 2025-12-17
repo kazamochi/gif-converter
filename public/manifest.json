@@ -1,7 +1,7 @@
 {
-    "name": "Global Ultra-Fast GIF Converter",
-    "short_name": "GIF Converter",
-    "description": "Convert videos to GIFs instantly in your browser. Privacy-focused, fast, and free.",
+    "name": "Toolkit Lab",
+    "short_name": "Toolkit Lab",
+    "description": "Privacy-first web tools: GIF Converter, Image Editor, Warp Share. Secure & Client-side.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#0f172a",

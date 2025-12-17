@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://web-tool-kit.web.app/sitemap.xml
+Sitemap: https://toolkit-lab.com/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Wand2, Video, Sparkles, Camera, Send } from 'lucide-react';
+import { Wand2, Video, Sparkles, Camera, Share2, Activity } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const LandingPage = () => {
@@ -32,7 +32,8 @@ const LandingPage = () => {
             path: '/retro-instant',
             icon: Camera,
             nameKey: 'landing.tools.retro.name',
-            descKey: 'landing.tools.retro.desc'
+            descKey: 'landing.tools.retro.desc',
+            color: 'from-orange-400 to-amber-500'
         },
         {
             id: 'image-tools',
@@ -40,15 +41,23 @@ const LandingPage = () => {
             icon: Camera,
             nameKey: 'landing.tools.image.name',
             descKey: 'landing.tools.image.desc',
-            color: 'from-amber-400 to-orange-500'
+            color: 'from-pink-400 to-rose-500'
         },
         {
             id: 'warp-share',
             path: '/warp-share',
-            icon: Send,
+            icon: Share2,
             nameKey: 'landing.tools.warp.name',
             descKey: 'landing.tools.warp.desc',
             color: 'from-indigo-400 to-purple-500'
+        },
+        {
+            id: 'net-scouter',
+            path: '/net-scouter',
+            icon: Activity,
+            nameKey: 'landing.tools.scouter.name',
+            descKey: 'landing.tools.scouter.desc',
+            color: 'from-green-400 to-emerald-500'
         }
     ];
 

@@ -1,13 +1,21 @@
 # 🛠️ Toolkit Lab: Privacy-First Web Tools
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+> [!IMPORTANT]
+> **🛡️ Official Repository of Toolkit Lab**
+> 
+> This is the official source code repository. All processing is **100% client-side**.
+> We do NOT store any user files, IP addresses, or logs on our servers.
+> 
+> [View Source Code Transparency Policy](#security--privacy)
+
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Built with React](https://img.shields.io/badge/Built%20with-React-61DAFB?logo=react)](https://reactjs.org/)
 [![Powered by WebAssembly](https://img.shields.io/badge/Powered%20by-WebAssembly-orange)](https://webassembly.org/)
 
 > **A suite of powerful, privacy-focused web tools running entirely in your browser.**
 > **No server uploads. No data collection. 100% Client-side.**
 
-[🚀 **Live Demo**](https://web-tool-kit.web.app) | [🤝 Contributing](#contributing)
+[🚀 **Live Demo**](https://toolkit-lab.com) | [🤝 Contributing](#contributing)
 
 ---
 
@@ -18,6 +26,9 @@
 - **Video Converter**: Convert between MP4, WebM, AVI, and MOV formats locally.
 - **Retro Lab**: Apply vintage filters, noise, and glitch effects to your photos.
 - **Image Editor**: Professional-grade image editing (crop, filter, adjust).
+
+### 🌐 **Network Tools**
+- **Net Scouter**: Advanced network diagnostics with Bufferbloat testing, WebRTC leak detection, and real-time jitter monitoring.
 
 ### ⚡ **Productivity Tools**
 - **Warp Share**: Instant P2P file transfer between devices via QR code (End-to-End Encrypted).
@@ -41,7 +52,7 @@
 | **React + TypeScript** | Type-safe UI framework |
 | **Vite** | Lightning-fast build tool |
 | **FFmpeg.wasm** | Video processing in WebAssembly |
-| **WebRTC (PeerJS)** | P2P file transfer for Warp Share |
+| **WebRTC (PeerJS)** | P2P file transfer & network diagnostics |
 | **Tailwind CSS** | Modern, responsive styling |
 | **i18next** | Internationalization (EN/JA) |
 | **Firebase Hosting** | Deployment with COOP/COEP headers |
@@ -99,10 +110,30 @@ Contributions are welcome!
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GNU General Public License v3.0**.
+
+**Why GPLv3?** This ensures that anyone who uses or modifies this code must also keep their derivative work open-source, preventing closed-source commercial copycats.
+
+See the [LICENSE](LICENSE) file for full details.
+
+---
+
+## 🛡️ Security & Privacy
+
+**English:**
+This tool is intended for network diagnostic and media processing purposes only. All tests (Speed Test, Bufferbloat, WebRTC Leak Detection, and media conversions) run **strictly on the client-side** within your browser. **No personal data, IP addresses, or files are stored on our servers.**
+
+To ensure transparency, the source code is publicly available on GitHub. Feel free to audit the code.
+
+**日本語:**
+このツールは、純粋なネットワーク診断およびメディア処理を目的としています。バッファブロート測定やIP漏洩チェック、メディア変換を含むすべてのテストは、お客様のブラウザ内（クライアントサイド）のみで実行されます。**計測結果やIPアドレス、ファイルなどの個人データが当サイトのサーバーに保存・送信されることは一切ありません。**
+
+透明性を担保するため、ソースコードはGitHub上で公開しています。
 
 ---
 
 <div align="center">
   <strong>Made with ❤️ by Toolkit Lab</strong>
+  <br>
+  <sub>Developed by <a href="https://github.com/kazamochi">@kazamochi</a> with Antigravity AI</sub>
 </div>

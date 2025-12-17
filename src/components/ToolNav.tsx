@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Wand2, Video, Sparkles, Camera, Sliders } from 'lucide-react';
+import { Menu, X, Wand2, Video, Sparkles, Camera, Share2, Activity, Download } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 export const ToolNav: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
+    const { isInstallable, install } = usePWAInstall();
 
     const tools = [
         { path: '/gif-converter', label: 'GIF Converter', icon: Wand2 },
         { path: '/video-converter', label: 'Video Converter', icon: Video },
         { path: '/prompt-pro', label: 'Prompt Pro', icon: Sparkles },
-        { path: '/retro-instant', label: 'Retro Lab', icon: Camera },
-        { path: '/image-tools', label: 'Image Editor', icon: Sliders },
+        { path: '/retro-instant', label: 'Retro Lab', icon: Camera, color: 'text-orange-500' },
+        { path: '/image-tools', label: 'Image Editor', icon: Camera, color: 'text-rose-500' },
+        { path: '/warp-share', label: 'Warp Share', icon: Share2 },
+        { path: '/net-scouter', label: 'Net Scouter', icon: Activity, color: 'text-green-400' },
     ];
 
     const isActive = (path: string) => {
@@ -39,6 +43,7 @@ export const ToolNav: React.FC = () => {
                     <div className="hidden md:flex items-center gap-2">
                         {tools.map((tool) => {
                             const Icon = tool.icon;
+                            const colorClass = (tool as any).color || '';
                             return (
                                 <Link
                                     key={tool.path}
@@ -48,17 +53,35 @@ export const ToolNav: React.FC = () => {
                                         : 'text-slate-400 hover:text-white hover:bg-white/5'
                                         }`}
                                 >
-                                    <Icon className="w-4 h-4" />
+                                    <Icon className={`w-4 h-4 ${isActive(tool.path) ? '' : colorClass}`} />
                                     {tool.label}
                                 </Link>
                             );
                         })}
-                        <div className="ml-4 border-l border-white/10 pl-4">
+                        <div className="ml-4 border-l border-white/10 pl-4 flex items-center gap-4">
+                            {isInstallable && (
+                                <button
+                                    onClick={install}
+                                    className="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-slate-900 bg-indigo-400 hover:bg-indigo-300 rounded-full transition-colors animate-in fade-in zoom-in duration-300"
+                                >
+                                    <Download className="w-3 h-3" />
+                                    Install App
+                                </button>
+                            )}
                             <LanguageSwitcher />
                         </div>
                     </div>
 
                     {/* Mobile Menu Button */}
+                    {isInstallable && (
+                        <button
+                            onClick={install}
+                            className="md:hidden p-2 rounded-lg text-indigo-400 hover:text-white hover:bg-white/5 transition-colors mr-2"
+                            aria-label="Install App"
+                        >
+                            <Download className="w-6 h-6" />
+                        </button>
+                    )}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
@@ -74,6 +97,7 @@ export const ToolNav: React.FC = () => {
                         <div className="flex flex-col gap-2">
                             {tools.map((tool) => {
                                 const Icon = tool.icon;
+                                const colorClass = (tool as any).color || '';
                                 return (
                                     <Link
                                         key={tool.path}
@@ -84,7 +108,7 @@ export const ToolNav: React.FC = () => {
                                             : 'text-slate-400 hover:text-white hover:bg-white/5'
                                             }`}
                                     >
-                                        <Icon className="w-5 h-5" />
+                                        <Icon className={`w-5 h-5 ${isActive(tool.path) ? '' : colorClass}`} />
                                         {tool.label}
                                     </Link>
                                 );

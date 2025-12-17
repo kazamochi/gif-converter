@@ -15,6 +15,9 @@
         "open_new": "別の画像を開く",
         "privacy_mode": "隠しブラシ (OFF)",
         "privacy_active": "隠しブラシ (ON)",
-        "clear_mask": "隠し領域をクリア"
+        "clear_mask": "隠し領域をクリア",
+        "mobile_warning_title": "PC推奨機能",
+        "mobile_warning_desc": "Image Editorの高度な機能は、現在PC向けに最適化されています。最高の体験のためにPCからのご利用をお願いします。（スマホ版は開発中）",
+        "mobile_warning_back": "ホームに戻る"
     }
 }

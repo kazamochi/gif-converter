@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://web-tool-kit.web.app/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://web-tool-kit.web.app/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://web-tool-kit.web.app/?lang=ja"/>
+    <loc>https://toolkit-lab.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolkit-lab.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://toolkit-lab.com/?lang=ja"/>
     <lastmod>2024-12-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
