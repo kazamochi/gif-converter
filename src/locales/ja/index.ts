@@ -8,8 +8,8 @@ import retro from './retro.json';
 import image from './image.json';
 
 export const ja = {
-    ...landing,
-    ...about,
+    landing,
+    about,
     ...legal,
     ...gif,
     ...video,
