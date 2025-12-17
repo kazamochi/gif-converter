@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QRCodeSVG } from 'qrcode.react';
-import Peer, { DataConnection } from 'peerjs';
+import Peer from 'peerjs';
+import type { DataConnection } from 'peerjs';
 import { Upload, Download, Smartphone, Monitor, Check, AlertCircle, Loader2 } from 'lucide-react';
 
 type ConnectionStatus = 'idle' | 'waiting' | 'connected' | 'transferring' | 'error';
@@ -23,9 +24,12 @@ export const WarpShare = () => {
     const [currentTransfer, setCurrentTransfer] = useState<FileTransfer | null>(null);
     const [receivedFiles, setReceivedFiles] = useState<File[]>([]);
     const [isHost, setIsHost] = useState<boolean>(false);
+    const [previewFile, setPreviewFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const chunksRef = useRef<ArrayBuffer[]>([]);
     const fileMetaRef = useRef<{ name: string; size: number; type: string } | null>(null);
+    const peerRef = useRef<Peer | null>(null);
+    const connectionRef = useRef<DataConnection | null>(null);
 
     // Initialize PeerJS
     const initializePeer = useCallback(() => {
@@ -47,12 +51,14 @@ export const WarpShare = () => {
         });
 
         setPeer(newPeer);
+        peerRef.current = newPeer;
     }, []);
 
     // Setup data connection handlers
     const setupConnection = useCallback((conn: DataConnection) => {
         conn.on('open', () => {
             setConnection(conn);
+            connectionRef.current = conn;
             setStatus('connected');
         });
 
@@ -108,8 +114,8 @@ export const WarpShare = () => {
                 chunksRef.current = [];
                 fileMetaRef.current = null;
 
-                // Auto download
-                downloadFile(file);
+                // No auto download - show in list instead
+                // User can download manually from the file list
             }
         }
     }, []);
@@ -206,7 +212,15 @@ export const WarpShare = () => {
         }
 
         return () => {
-            peer?.destroy();
+            // Clean up using refs (not stale state)
+            if (connectionRef.current) {
+                connectionRef.current.close();
+                connectionRef.current = null;
+            }
+            if (peerRef.current) {
+                peerRef.current.destroy();
+                peerRef.current = null;
+            }
         };
     }, []);
 
@@ -290,16 +304,48 @@ export const WarpShare = () => {
                                     </span>
                                 </button>
 
-                                {/* Received files indicator */}
-                                <div className="flex flex-col items-center justify-center gap-3 p-6 bg-slate-900/30 border border-slate-700 rounded-xl">
-                                    <Download className="w-8 h-8 text-slate-500" />
-                                    <span className="text-sm text-slate-500">
-                                        {t('warp.receiving')}
-                                    </span>
-                                    {receivedFiles.length > 0 && (
-                                        <span className="text-xs text-emerald-400">
-                                            {t('warp.received_count', { count: receivedFiles.length })}
-                                        </span>
+                                {/* Received files list */}
+                                <div className="flex flex-col gap-3 p-4 bg-slate-900/30 border border-slate-700 rounded-xl max-h-64 overflow-y-auto">
+                                    <div className="flex items-center gap-2 text-slate-400 text-sm">
+                                        <Download className="w-4 h-4" />
+                                        <span>受信ファイル</span>
+                                    </div>
+                                    {receivedFiles.length === 0 ? (
+                                        <p className="text-xs text-slate-500 text-center py-4">ファイル待機中...</p>
+                                    ) : (
+                                        receivedFiles.map((file, index) => (
+                                            <div key={index} className="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg border border-slate-600">
+                                                {/* Thumbnail/Icon */}
+                                                {file.type.startsWith('image/') ? (
+                                                    <button
+                                                        onClick={() => setPreviewFile(file)}
+                                                        className="flex-shrink-0"
+                                                    >
+                                                        <img
+                                                            src={URL.createObjectURL(file)}
+                                                            alt={file.name}
+                                                            className="w-12 h-12 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity"
+                                                        />
+                                                    </button>
+                                                ) : (
+                                                    <div className="w-12 h-12 bg-slate-700 rounded flex items-center justify-center text-slate-400">
+                                                        📄
+                                                    </div>
+                                                )}
+                                                {/* File info */}
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-sm text-white truncate">{file.name}</p>
+                                                    <p className="text-xs text-slate-500">{(file.size / 1024).toFixed(1)} KB</p>
+                                                </div>
+                                                {/* Download button */}
+                                                <button
+                                                    onClick={() => downloadFile(file)}
+                                                    className="p-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg transition-colors"
+                                                >
+                                                    <Download className="w-4 h-4 text-white" />
+                                                </button>
+                                            </div>
+                                        ))
                                     )}
                                 </div>
                             </div>
@@ -341,6 +387,44 @@ export const WarpShare = () => {
             <div className="text-center text-xs text-slate-500">
                 <p>{t('warp.trust_badge')}</p>
             </div>
+
+            {/* Image Preview Modal */}
+            {previewFile && (
+                <div
+                    className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+                    onClick={() => setPreviewFile(null)}
+                >
+                    <div className="relative max-w-full max-h-full">
+                        <img
+                            src={URL.createObjectURL(previewFile)}
+                            alt={previewFile.name}
+                            className="max-w-full max-h-[80vh] object-contain rounded-lg"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-3 rounded-b-lg">
+                            <p className="text-sm truncate">{previewFile.name}</p>
+                            <div className="flex gap-2 mt-2">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        downloadFile(previewFile);
+                                    }}
+                                    className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    ダウンロード
+                                </button>
+                                <button
+                                    onClick={() => setPreviewFile(null)}
+                                    className="px-4 py-2 bg-slate-600 hover:bg-slate-500 rounded-lg text-sm transition-colors"
+                                >
+                                    閉じる
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -91,7 +91,7 @@ function App() {
 
             {/* Footer */}
             <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Global Ultra-Fast GIF Converter. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
               <p className="mt-1 text-xs opacity-50">Powered by FFmpeg.wasm & Antigravity</p>
               <div className="mt-4 flex justify-center gap-4 text-xs">
                 <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
@@ -128,7 +128,7 @@ function App() {
 
             {/* Footer */}
             <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Global Ultra-Fast GIF Converter. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
               <p className="mt-1 text-xs opacity-50">Powered by FFmpeg.wasm & Antigravity</p>
               <div className="mt-4 flex justify-center gap-4 text-xs">
                 <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>

@@ -25,7 +25,7 @@ export const About: React.FC = () => {
                                 We believe that powerful tools should be accessible to everyone, everywhere, without compromising privacy or requiring expensive software.
                             </p>
                             <p>
-                                Global Ultra-Fast GIF Converter was created to provide a <strong className="text-indigo-400">free, fast, and privacy-focused</strong> solution
+                                Toolkit Lab was created to provide a <strong className="text-indigo-400">free, fast, and privacy-focused</strong> solution
                                 for converting videos to GIFs directly in your browser.
                             </p>
                         </section>
@@ -114,7 +114,7 @@ export const About: React.FC = () => {
                             </p>
                             <div className="mt-4 flex flex-wrap gap-4">
                                 <Link to="/contact" className="text-indigo-400 hover:text-indigo-300 font-semibold">
-                                    Contact Us →
+                                    Contact Us
                                 </Link>
                                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
                                     <Github className="w-5 h-5" />
