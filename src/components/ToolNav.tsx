@@ -8,7 +8,7 @@ export const ToolNav: React.FC = () => {
     const location = useLocation();
 
     const tools = [
-        { path: '/', label: 'GIF Converter', icon: Wand2 },
+        { path: '/gif-converter', label: 'GIF Converter', icon: Wand2 },
         { path: '/video-converter', label: 'Video Converter', icon: Video },
         { path: '/prompt-pro', label: 'Prompt Pro', icon: Sparkles },
         { path: '/retro-instant', label: 'Retro Lab', icon: Camera },
@@ -16,8 +16,8 @@ export const ToolNav: React.FC = () => {
     ];
 
     const isActive = (path: string) => {
-        if (path === '/') {
-            return location.pathname === '/' || location.pathname.startsWith('/convert/');
+        if (path === '/gif-converter') {
+            return location.pathname === '/gif-converter' || location.pathname.startsWith('/convert/');
         }
         return location.pathname === path;
     };

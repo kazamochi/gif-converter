@@ -1,16 +1,18 @@
 import React from 'react';
-import { ArrowLeft, Zap, Shield, Globe, Code } from 'lucide-react';
+import { ArrowLeft, Zap, Shield, Globe, Code, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AdSpace } from '../components/AdSpace';
+import { useTranslation } from 'react-i18next';
 
 export const About: React.FC = () => {
+    const { t } = useTranslation();
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 py-12 px-4">
             <div className="max-w-4xl mx-auto">
                 <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
                     <ArrowLeft className="w-4 h-4" />
-                    Back to Converter
+                    {t('about.back')}
                 </Link>
 
                 <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 md:p-12">
@@ -111,11 +113,15 @@ export const About: React.FC = () => {
                             <p>
                                 Have feedback, suggestions, or found a bug? We'd love to hear from you!
                             </p>
-                            <p className="mt-4">
+                            <div className="mt-4 flex flex-wrap gap-4">
                                 <Link to="/contact" className="text-indigo-400 hover:text-indigo-300 font-semibold">
                                     Contact Us →
                                 </Link>
-                            </p>
+                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                                    <Github className="w-5 h-5" />
+                                    GitHub
+                                </a>
+                            </div>
                         </section>
                     </div>
                 </div>

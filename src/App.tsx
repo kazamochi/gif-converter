@@ -8,10 +8,12 @@ import ProLab from './features/image-lab/components/ProLab';
 import { AdSpace } from './components/AdSpace';
 import { ToolNav } from './components/ToolNav';
 import { SEOHead } from './components/SEOHead';
-import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { SocialImpact } from './pages/SocialImpact';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { Terms } from './pages/Terms';
+import LandingPage from './components/LandingPage';
 import { Link } from 'react-router-dom';
 import { Translation } from 'react-i18next';
 
@@ -21,7 +23,9 @@ function App() {
       <SEOHead />
       <ToolNav />
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/social-impact" element={<SocialImpact />} />
@@ -94,7 +98,7 @@ function App() {
             </footer>
           </Layout>
         } />
-        <Route path="/" element={
+        <Route path="/gif-converter" element={
           <Layout>
             {/* Hero Section */}
             <div className="text-center mb-12 space-y-4">

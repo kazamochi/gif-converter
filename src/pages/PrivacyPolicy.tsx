@@ -56,6 +56,11 @@ export const PrivacyPolicy: React.FC = () => {
                         </section>
 
                         <section>
+                            <h2 className="text-2xl font-semibold text-white mt-8 mb-4">{t('privacy.thirdparty.title')}</h2>
+                            <p>{t('privacy.thirdparty.content')}</p>
+                        </section>
+
+                        <section>
                             <h2 className="text-2xl font-semibold text-white mt-8 mb-4">{t('privacy.cookies.title')}</h2>
                             <p>{t('privacy.cookies.content')}</p>
                         </section>
@@ -63,6 +68,21 @@ export const PrivacyPolicy: React.FC = () => {
                         <section>
                             <h2 className="text-2xl font-semibold text-white mt-8 mb-4">{t('privacy.security.title')}</h2>
                             <p>{t('privacy.security.content')}</p>
+                        </section>
+
+                        <section>
+                            <h2 className="text-2xl font-semibold text-white mt-8 mb-4">{t('privacy.retention.title')}</h2>
+                            <p>{t('privacy.retention.content')}</p>
+                        </section>
+
+                        <section>
+                            <h2 className="text-2xl font-semibold text-white mt-8 mb-4">{t('privacy.children.title')}</h2>
+                            <p>{t('privacy.children.content')}</p>
+                        </section>
+
+                        <section>
+                            <h2 className="text-2xl font-semibold text-white mt-8 mb-4">{t('privacy.changes.title')}</h2>
+                            <p>{t('privacy.changes.content')}</p>
                         </section>
 
                         <section>
