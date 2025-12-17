@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Wand2, Video, Sparkles, Camera } from 'lucide-react';
+import { Wand2, Video, Sparkles, Camera, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const LandingPage = () => {
@@ -41,6 +41,14 @@ const LandingPage = () => {
             nameKey: 'landing.tools.image.name',
             descKey: 'landing.tools.image.desc',
             color: 'from-amber-400 to-orange-500'
+        },
+        {
+            id: 'warp-share',
+            path: '/warp-share',
+            icon: Send,
+            nameKey: 'landing.tools.warp.name',
+            descKey: 'landing.tools.warp.desc',
+            color: 'from-indigo-400 to-purple-500'
         }
     ];
 

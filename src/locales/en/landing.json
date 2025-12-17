@@ -20,6 +20,10 @@
         "image": {
             "name": "Image Editor",
             "desc": "Advanced image editing tools"
+        },
+        "warp": {
+            "name": "Warp Share",
+            "desc": "P2P file transfer between devices"
         }
     },
     "footer": {
