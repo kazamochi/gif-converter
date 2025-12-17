@@ -1,0 +1,27 @@
+{
+    "vc": {
+        "title": "Video Converter",
+        "format_label": "Convert To",
+        "advanced_show": "Show Advanced Settings",
+        "advanced_hide": "Hide Advanced Settings",
+        "trim_label": "Trim Video",
+        "audio_label": "Audio",
+        "remove_audio": "Remove Audio",
+        "extract_audio": "Extract Audio (MP3)",
+        "compression_label": "Compression",
+        "compress_btn": "Compress File Size",
+        "level_light": "Light",
+        "level_medium": "Medium",
+        "level_heavy": "Heavy",
+        "warning": "Warning:",
+        "heavy_processing": "Heavy processing. May cause device heating and high battery usage on mobile devices.",
+        "convert_video": "Convert Video",
+        "extract_audio_btn": "Extract Audio",
+        "processing": "Processing video on your device...",
+        "ad_support": "Support this free tool",
+        "complete": "Conversion Complete! 🎉",
+        "convert_another": "Convert Another",
+        "initial_download_note": "※Initial download may take time (~30MB).",
+        "ready": "Engine Ready"
+    }
+}

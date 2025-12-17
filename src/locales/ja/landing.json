@@ -1,0 +1,30 @@
+{
+    "subtitle": "クリエイター向けオールインワンツール",
+    "tools": {
+        "gif": {
+            "name": "GIF Converter",
+            "desc": "動画を高品質GIFに変換"
+        },
+        "video": {
+            "name": "Video Converter",
+            "desc": "動画フォーマット変換"
+        },
+        "prompt": {
+            "name": "Prompt Pro",
+            "desc": "ビジネスから料理まで、プロの思考で"
+        },
+        "retro": {
+            "name": "Retro Lab",
+            "desc": "インスタントレトロフィルター"
+        },
+        "image": {
+            "name": "Image Editor",
+            "desc": "高度な画像編集ツール"
+        }
+    },
+    "footer": {
+        "privacy": "プライバシーポリシー",
+        "terms": "利用規約",
+        "about": "このサイトについて"
+    }
+}

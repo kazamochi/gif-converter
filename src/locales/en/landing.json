@@ -1,0 +1,30 @@
+{
+    "subtitle": "All-in-one tools for creators",
+    "tools": {
+        "gif": {
+            "name": "GIF Converter",
+            "desc": "Convert videos to high-quality GIFs"
+        },
+        "video": {
+            "name": "Video Converter",
+            "desc": "Video format conversion"
+        },
+        "prompt": {
+            "name": "Prompt Pro",
+            "desc": "From business to cooking, with pro thinking"
+        },
+        "retro": {
+            "name": "Retro Lab",
+            "desc": "Instant retro photo filters"
+        },
+        "image": {
+            "name": "Image Editor",
+            "desc": "Advanced image editing tools"
+        }
+    },
+    "footer": {
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "about": "About Us"
+    }
+}

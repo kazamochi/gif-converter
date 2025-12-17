@@ -1,0 +1,55 @@
+{
+    "prompt_pro": {
+        "title": "Prompt Pro",
+        "tagline": "AIがあなたの曖昧なアイデアを「プロ仕様の指示書」に変えます。",
+        "tab_business": "ビジネスの極意",
+        "tab_gourmet": "美食の実験室",
+        "input_label": "あなたのアイデア / 要望",
+        "input_placeholder": "例: 量子力学を5歳児に説明して、究極のオムライスの作り方を教えて...",
+        "flavor_label": "出力スタイル (フレーバー)",
+        "btn_generate": "プロンプトを生成",
+        "btn_thinking": "思考中...",
+        "result_title": "プロ仕様の出力結果",
+        "error_fallback": "接続エラー。オフラインモードでドラフトを生成しました。",
+        "thinking_title": "AIが思考中です...",
+        "thinking_desc": "ロジック最適化 • 制約チェック • トーン調整",
+        "copy": "コピー",
+        "copied": "コピー完了",
+        "share": "Xでシェア",
+        "share_text": "AIでプロ仕様のプロンプトを生成しました！ #PromptPro",
+        "history_title": "生成履歴",
+        "history_empty": "履歴はありません",
+        "history_clear": "履歴を削除",
+        "mock_outputs": {
+            "speed": "【爆速モード】\nあなたの要望「{{input}}」に対する即時回答です。\n\n結論から申し上げますと、..."
+        },
+        "flavors": {
+            "speed": "爆速",
+            "thought": "論理的思考",
+            "reverse": "対話型",
+            "creative": "独創的",
+            "buzz": "至高のバズ",
+            "michelin": "三ツ星の魔法",
+            "zen": "禅と健康",
+            "chuka": "日本中華",
+            "curry": "日本カレー",
+            "egg": "卵の魔術",
+            "sandwich": "日本サンド",
+            "heritage": "B級→A級"
+        },
+        "flavor_desc": {
+            "speed": "簡潔＆高速",
+            "thought": "Chain of Thought",
+            "reverse": "逆質問プロンプト",
+            "creative": "Midjourney用",
+            "buzz": "リュウジ風・時短",
+            "michelin": "高級を家庭に",
+            "zen": "発酵・出汁・味噌",
+            "chuka": "町中華・ガッツリ",
+            "curry": "隠し味・スパイス",
+            "egg": "オムライス・だし巻き",
+            "sandwich": "萌え断・カツサンド",
+            "heritage": "味噌カツ・お好み焼き"
+        }
+    }
+}

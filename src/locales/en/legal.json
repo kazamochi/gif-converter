@@ -1,0 +1,114 @@
+{
+    "cookie": {
+        "message": "We use cookies and similar technologies to improve your experience, analyze traffic, and display relevant ads.",
+        "learnMore": "Learn more",
+        "accept": "Accept All",
+        "decline": "Decline"
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "back": "Back to Converter",
+        "intro": {
+            "title": "1. Introduction",
+            "content": "Welcome to Global Ultra-Fast GIF Converter. We are committed to protecting your privacy."
+        },
+        "collection": {
+            "title": "2. Data Collection",
+            "process_title": "2.1 Video Processing",
+            "process_content": "Your files never leave your device. All video processing is performed entirely in your browser using WebAssembly (ffmpeg.wasm). We do not upload, store, or have access to any videos or GIFs you create.",
+            "analytics_title": "2.2 Analytics & Cookies",
+            "analytics_content": "We use the following third-party services:",
+            "analytics_list": {
+                "ga": "Google Analytics: To understand usage",
+                "ads": "Google AdSense: To display advertisements"
+            }
+        },
+        "use": {
+            "title": "3. How We Use Information",
+            "content": "The limited data we collect is used to:",
+            "list": {
+                "ux": "Improve user experience",
+                "analytics": "Analyze usage patterns",
+                "ads": "Display relevant advertisements"
+            }
+        },
+        "rights": {
+            "title": "4. Your Rights",
+            "content": "You have the right to access, rectify, or erase your personal data."
+        },
+        "thirdparty": {
+            "title": "5. Third-Party Services",
+            "content": "We use Google Analytics and Google AdSense. These services may collect data according to their own privacy policies. We recommend reviewing their policies for more information."
+        },
+        "cookies": {
+            "title": "6. Cookies",
+            "content": "We use cookies to improve your experience. You can control them via browser settings."
+        },
+        "security": {
+            "title": "7. Data Security",
+            "content": "Since all processing happens in your browser, your files are inherently secure."
+        },
+        "retention": {
+            "title": "8. Data Retention",
+            "content": "Cookies may be retained for up to 2 years. We do not store any of your files on our servers as all processing occurs locally in your browser."
+        },
+        "children": {
+            "title": "9. Children's Privacy",
+            "content": "Our service is not intended for children under 13. We do not knowingly collect personal data from children."
+        },
+        "changes": {
+            "title": "10. Policy Changes",
+            "content": "We may update this policy from time to time. Any changes will be posted on this page with an updated revision date."
+        },
+        "contact": {
+            "title": "11. Contact Us",
+            "content": "If you have any questions, please contact us at:"
+        }
+    },
+    "terms": {
+        "title": "Terms of Service",
+        "back": "Back to Home",
+        "acceptance": {
+            "title": "1. Acceptance of Terms",
+            "content": "By accessing and using Toolkit Lab, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services."
+        },
+        "service": {
+            "title": "2. Description of Service",
+            "content": "Toolkit Lab provides free online tools for video and image conversion, AI-powered content generation, and other utilities. All processing is performed in your browser using WebAssembly technology."
+        },
+        "prohibited": {
+            "title": "3. Prohibited Uses",
+            "content": "You agree not to use our services for:",
+            "list": {
+                "illegal": "Any illegal or unlawful activities",
+                "copyright": "Infringing on intellectual property rights of others",
+                "abuse": "Attempting to abuse, attack, or disrupt our services",
+                "malware": "Distributing malware or harmful content"
+            }
+        },
+        "disclaimer": {
+            "title": "4. Disclaimer of Warranties",
+            "content": "Our services are provided 'as is' without any warranties. We do not guarantee uninterrupted access or error-free operation. We are not liable for any damages arising from the use of our services."
+        },
+        "ip": {
+            "title": "5. Intellectual Property",
+            "content": "The Toolkit Lab website, including its design, code, and branding, is protected by copyright. You may not copy, modify, or distribute our materials without permission."
+        },
+        "userContent": {
+            "title": "6. User Generated Content",
+            "content": "You retain all rights to files you process through our tools. We do not claim ownership of any content you create. Since processing occurs locally in your browser, we never access or store your files."
+        },
+        "ads": {
+            "title": "7. Advertising",
+            "content": "Our service displays advertisements through Google AdSense to support free operation. By using our services, you consent to the display of advertisements."
+        },
+        "changes": {
+            "title": "8. Changes to Terms",
+            "content": "We reserve the right to modify these terms at any time. Continued use of our services after changes constitutes acceptance of the new terms."
+        },
+        "contact": {
+            "title": "9. Contact",
+            "content": "For questions about these terms, please contact us at:"
+        }
+    }
+}

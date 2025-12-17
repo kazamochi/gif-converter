@@ -1,0 +1,55 @@
+{
+    "prompt_pro": {
+        "title": "Prompt Pro",
+        "tagline": "AI turns your vague ideas into professional instruction prompts.",
+        "tab_business": "Business Mastery",
+        "tab_gourmet": "Gourmet Lab",
+        "input_label": "Your Idea / Request",
+        "input_placeholder": "Ex: Explain quantum physics to a 5yo, Teach me how to make the ultimate omelet...",
+        "flavor_label": "Output Style (Flavor)",
+        "btn_generate": "Generate Prompt",
+        "btn_thinking": "Thinking...",
+        "result_title": "Professional Output",
+        "error_fallback": "Connection error. Generated offline draft.",
+        "thinking_title": "AI is Thinking...",
+        "thinking_desc": "Optimizing logic • Checking constraints • Polishing tone",
+        "copy": "Copy",
+        "copied": "Copied",
+        "share": "Share on X",
+        "share_text": "Check out this professional prompt generate by AI! #PromptPro",
+        "history_title": "History",
+        "history_empty": "No history yet",
+        "history_clear": "Clear All",
+        "mock_outputs": {
+            "speed": "[Speed Mode]\nImmediate response to your request \"{{input}}\".\n\nIn conclusion, ..."
+        },
+        "flavors": {
+            "speed": "Instant",
+            "thought": "Reasoning",
+            "reverse": "Interactive",
+            "creative": "Creative",
+            "buzz": "Buzz Recipe",
+            "michelin": "Michelin",
+            "zen": "Zen & Health",
+            "chuka": "J-Chinese",
+            "curry": "J-Curry",
+            "egg": "Egg Mastery",
+            "sandwich": "J-Sandwich",
+            "heritage": "B-Grade to A"
+        },
+        "flavor_desc": {
+            "speed": "Fast & Clear",
+            "thought": "Chain of Thought",
+            "reverse": "Reverse Prompt",
+            "creative": "For Midjourney",
+            "buzz": "Ryuji-style / Quick",
+            "michelin": "Luxury at Home",
+            "zen": "Miso / Fermentation",
+            "chuka": "Wok & Garlic",
+            "curry": "Secret Ingredients",
+            "egg": "Fluffy Omelette",
+            "sandwich": "Cutlet & Egg",
+            "heritage": "Soul Food Upgrade"
+        }
+    }
+}

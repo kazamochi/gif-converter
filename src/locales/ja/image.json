@@ -1,0 +1,20 @@
+{
+    "pro": {
+        "settings": "プロ設定",
+        "contrast": "コントラスト",
+        "brightness": "明るさ",
+        "saturation": "彩度",
+        "vignette": "周辺減光 (Vignette)",
+        "grain": "粒子 (Grain)",
+        "date_stamp": "日付焼き込み",
+        "quality": "画質 (Quality)",
+        "reset_all": "設定をリセット",
+        "drop_title": "画像を開く",
+        "drop_desc": "ここに写真をドラッグ＆ドロップ。高解像度画像の編集に対応しています。",
+        "save_image": "画像を保存",
+        "open_new": "別の画像を開く",
+        "privacy_mode": "隠しブラシ (OFF)",
+        "privacy_active": "隠しブラシ (ON)",
+        "clear_mask": "隠し領域をクリア"
+    }
+}

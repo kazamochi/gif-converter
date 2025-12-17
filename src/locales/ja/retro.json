@@ -1,0 +1,14 @@
+{
+    "retro": {
+        "title": "レトロラボ",
+        "subtitle": "デジタル・レンズ付きフィルム",
+        "insert_film": "フィルムを挿入",
+        "developing": "現像中...",
+        "date_stamp": "日付スタンプ",
+        "develop": "現像する",
+        "save": "保存する",
+        "new_film": "新しいフィルム",
+        "trust_badge": "完全ローカル処理。画像はサーバーに送信されません。",
+        "upsell": "詳細設定 (Image Editor) へ ->"
+    }
+}

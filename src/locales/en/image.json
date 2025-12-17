@@ -1,0 +1,20 @@
+{
+    "pro": {
+        "settings": "Pro Settings",
+        "contrast": "Contrast",
+        "brightness": "Brightness",
+        "saturation": "Saturation",
+        "vignette": "Vignette",
+        "grain": "Film Grain",
+        "date_stamp": "Date Stamp",
+        "quality": "Quality",
+        "reset_all": "Reset All Settings",
+        "drop_title": "Open Image",
+        "drop_desc": "Drag & drop a photo here, or click to browse. Supports high-resolution processing.",
+        "save_image": "Save Image",
+        "open_new": "Open Different Image",
+        "privacy_mode": "Mask Brush (OFF)",
+        "privacy_active": "Mask Brush (ON)",
+        "clear_mask": "Clear Masks"
+    }
+}

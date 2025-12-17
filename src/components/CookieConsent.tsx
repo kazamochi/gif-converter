@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Cookie } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const CookieConsent = () => {
     const { t } = useTranslation();
@@ -33,9 +31,9 @@ export const CookieConsent = () => {
                     <p>
                         {t('cookie.message')}
                         {' '}
-                        <a href="/privacy" className="text-indigo-400 hover:text-indigo-300 underline">
+                        <Link to="/privacy" className="text-indigo-400 hover:text-indigo-300 underline">
                             {t('cookie.learnMore')}
-                        </a>
+                        </Link>
                     </p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
