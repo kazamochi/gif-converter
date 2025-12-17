@@ -4,15 +4,7 @@ import { Globe } from 'lucide-react';
 
 const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ja', name: '日本語', flag: '🇯🇵' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'pt', name: 'Português', flag: '🇧🇷' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'ko', name: '한국어', flag: '🇰🇷' },
-    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-    { code: 'id', name: 'Indonesia', flag: '🇮🇩' }
+    { code: 'ja', name: '日本語', flag: '🇯🇵' }
 ];
 
 export const LanguageSwitcher: React.FC = () => {

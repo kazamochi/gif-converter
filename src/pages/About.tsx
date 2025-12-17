@@ -83,20 +83,19 @@ export const About: React.FC = () => {
                                 <li><strong>React + TypeScript:</strong> For a robust and type-safe user interface</li>
                                 <li><strong>Vite:</strong> Lightning-fast build tool and development server</li>
                                 <li><strong>Tailwind CSS:</strong> For beautiful, responsive design</li>
-                                <li><strong>i18next:</strong> Supporting 10 languages for global accessibility</li>
+                                <li><strong>i18next:</strong> robust internationalization framework</li>
                             </ul>
                         </section>
 
                         <section className="mt-12">
-                            <h2 className="text-2xl font-semibold text-white mb-4">Supported Languages</h2>
-                            <p>We support 10 languages to make our tool accessible worldwide:</p>
+                            <h2 className="text-2xl font-semibold text-white mb-4">Multi-language Support</h2>
+                            <p>Currently supporting English and Japanese, with more languages coming soon:</p>
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4">
-                                {['🇺🇸 English', '🇯🇵 日本語', '🇪🇸 Español', '🇧🇷 Português', '🇩🇪 Deutsch',
-                                    '🇫🇷 Français', '🇨🇳 中文', '🇰🇷 한국어', '🇷🇺 Русский', '🇮🇩 Indonesia'].map((lang) => (
-                                        <div key={lang} className="bg-slate-800/30 border border-slate-700 rounded-lg px-3 py-2 text-sm text-center">
-                                            {lang}
-                                        </div>
-                                    ))}
+                                {['🇺🇸 English', '🇯🇵 日本語'].map((lang) => (
+                                    <div key={lang} className="bg-slate-800/30 border border-slate-700 rounded-lg px-3 py-2 text-sm text-center">
+                                        {lang}
+                                    </div>
+                                ))}
                             </div>
                         </section>
 

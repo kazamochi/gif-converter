@@ -2,17 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yourdomain.com/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://yourdomain.com/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://yourdomain.com/?lang=ja"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://yourdomain.com/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://yourdomain.com/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://yourdomain.com/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://yourdomain.com/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://yourdomain.com/?lang=zh"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://yourdomain.com/?lang=ko"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://yourdomain.com/?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="id" href="https://yourdomain.com/?lang=id"/>
+    <loc>https://web-tool-kit.web.app/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://web-tool-kit.web.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://web-tool-kit.web.app/?lang=ja"/>
     <lastmod>2024-12-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>

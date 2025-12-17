@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://web-tool-kit.web.app/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
