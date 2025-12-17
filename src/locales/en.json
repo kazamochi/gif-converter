@@ -2,6 +2,12 @@
     "about": {
         "back": "Back to Home"
     },
+    "cookie": {
+        "message": "We use cookies and similar technologies to improve your experience, analyze traffic, and display relevant ads.",
+        "learnMore": "Learn more",
+        "accept": "Accept All",
+        "decline": "Decline"
+    },
     "landing": {
         "subtitle": "All-in-one tools for creators",
         "tools": {

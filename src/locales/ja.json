@@ -2,6 +2,12 @@
     "about": {
         "back": "ホームに戻る"
     },
+    "cookie": {
+        "message": "当サイトでは、サービス向上、トラフィック分析、関連広告の表示のためにCookieおよび類似技術を使用しています。",
+        "learnMore": "詳細を見る",
+        "accept": "すべて許可",
+        "decline": "拒否"
+    },
     "landing": {
         "subtitle": "クリエイター向けオールインワンツール",
         "tools": {

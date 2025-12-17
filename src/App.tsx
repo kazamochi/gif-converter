@@ -14,6 +14,7 @@ import { SocialImpact } from './pages/SocialImpact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
 import LandingPage from './components/LandingPage';
+import { CookieConsent } from './components/CookieConsent';
 import { Link } from 'react-router-dom';
 import { Translation } from 'react-i18next';
 
@@ -202,6 +203,7 @@ function App() {
           </Layout>
         } />
       </Routes>
+      <CookieConsent />
     </>
   );
 }
