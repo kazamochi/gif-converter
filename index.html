@@ -10,6 +10,12 @@
   <title>Toolkit Lab | Privacy-First Web Tools</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1135915160181398"
     crossorigin="anonymous"></script>
+  <script>
+    // Immediate polyfill for global (Magenta.js compatibility)
+    if (typeof global === 'undefined') {
+      window.global = window;
+    }
+  </script>
 </head>
 
 <body>

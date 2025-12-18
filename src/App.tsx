@@ -26,8 +26,10 @@ import { DomainWatermark } from './components/DomainWatermark';
 
 const NetScouter = lazy(() => import('./features/net-scouter'));
 const JitterWidgetPage = lazy(() => import('./features/net-scouter/pages/JitterWidgetPage').then(m => ({ default: m.JitterWidgetPage })));
-const AudioLabTest = lazy(() => import('./features/audio-lab/components/AudioLabTest').then(m => ({ default: m.AudioLabTest })));
-const AudioLab = lazy(() => import('./features/audio-lab/components/AudioLab').then(m => ({ default: m.AudioLab })));
+// MIDI系は一時避難 (Magenta.js依存を排除)
+// const AudioLabTest = lazy(() => import('./features/audio-lab/components/AudioLabTest').then(m => ({ default: m.AudioLabTest })));
+// const AudioLab = lazy(() => import('./features/audio-lab/components/AudioLab').then(m => ({ default: m.AudioLab })));
+// const AudioLabV2 = lazy(() => import('./features/audio-lab-v2/components/AudioLabV2').then(m => ({ default: m.AudioLabV2 })));
 
 function App() {
   return (
@@ -194,6 +196,7 @@ function App() {
             </Suspense>
           </Layout>
         } />
+        {/* MIDI系は一時避難
         <Route path="/audio-lab" element={
           <Suspense fallback={
             <div className="min-h-screen bg-slate-950 flex items-center justify-center">
@@ -212,6 +215,16 @@ function App() {
             <AudioLabTest />
           </Suspense>
         } />
+        <Route path="/audio-lab-v2" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+              <div className="text-purple-400 font-mono text-sm animate-pulse">Initializing Audio Lab V2...</div>
+            </div>
+          }>
+            <AudioLabV2 />
+          </Suspense>
+        } />
+        */}
       </Routes >
       <DomainWatermark />
       <CookieConsent />

@@ -51,6 +51,10 @@ export default defineConfig({
       }
     })
   ],
+  define: {
+    // Polyfill 'global' for Magenta.js dependencies
+    'global': 'window',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
