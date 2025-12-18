@@ -62,7 +62,8 @@
         },
         "contact": {
             "title": "11. Contact Us",
-            "content": "If you have any questions, please contact us at:"
+            "content": "If you have any questions, please contact us at:",
+            "form_link": "Contact Form"
         }
     },
     "terms": {
@@ -108,7 +109,8 @@
         },
         "contact": {
             "title": "9. Contact",
-            "content": "For questions about these terms, please contact us at:"
+            "content": "For questions about these terms, please contact us at:",
+            "form_link": "Contact Form"
         }
     }
 }

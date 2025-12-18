@@ -1,0 +1,30 @@
+{
+    "back": "Back",
+    "title": "Contact Us",
+    "description": "Have a question, suggestion, or found a bug? We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.",
+    "form": {
+        "email": {
+            "label": "Your Email",
+            "placeholder": "your@email.com"
+        },
+        "subject": {
+            "label": "Subject",
+            "placeholder": "What's this about?"
+        },
+        "message": {
+            "label": "Message",
+            "placeholder": "Tell us more..."
+        },
+        "submit": "Send Message"
+    },
+    "other_ways": {
+        "title": "Other Ways to Reach Us",
+        "email": "Email"
+    },
+    "success": {
+        "title": "Message Sent!",
+        "description": "Your message has been received successfully. We will get back to you soon.",
+        "another": "Send Another Message"
+    },
+    "error": "An error occurred while sending. Please try again later."
+}

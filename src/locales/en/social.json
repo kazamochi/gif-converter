@@ -1,0 +1,19 @@
+{
+    "title": "Social Impact",
+    "description": "How your usage contributes to the developer ecosystem.",
+    "metrics": {
+        "global_users": "Global Users",
+        "ideas_realized": "Ideas Realized",
+        "education_supported": "Education Supported"
+    },
+    "commitment": {
+        "title": "Our Commitment",
+        "desc": "At Toolkit Lab, we operate on a model of <strong>Sustainable Philanthropy</strong>. Revenue generated from advertisements on this platform directly supports:"
+    },
+    "support_list": [
+        "Open Source Development & Education",
+        "Server costs for free global access",
+        "Donations to environmental & educational NPOs"
+    ],
+    "sponsor": "Sponsored Partners Supporting Our Mission"
+}

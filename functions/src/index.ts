@@ -1,5 +1,12 @@
 import * as functions from "firebase-functions";
+import * as admin from 'firebase-admin';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+
+if (!admin.apps.length) {
+    admin.initializeApp();
+}
+
+const db = admin.firestore();
 
 // Rate Limiting (Simple in-memory for demo, use Redis/Firestore for prod)
 // Allowing 15 requests per minute per IP is a reasonable starting point for free tier.
@@ -24,8 +31,9 @@ const checkRateLimit = (ip: string): boolean => {
     return true;
 };
 
-// Cloud Function (emulator compatible)
+// Cloud Function (Production: uses Firebase Secrets)
 export const refinePrompt = functions
+    .runWith({ secrets: ["GEMINI_API_KEY"] })
     .https.onCall(async (data, context) => {
 
         // Initialize Gemini API inside function to access runtime secrets
@@ -483,3 +491,54 @@ export const refinePrompt = functions
             return { success: false, result: fallbackMessage, error: error.message };
         }
     });
+
+// --- Contact Form Handling ---
+export const submitContact = functions.https.onCall(async (data, context) => {
+    try {
+        console.log("submitContact called with data:", data);
+        console.log("Auth:", context.auth?.uid || "anonymous");
+
+        const { email, subject, message, language = 'ja' } = data;
+
+        // 1. Validation
+        if (!email || !subject || !message) {
+            throw new functions.https.HttpsError("invalid-argument", "Missing required fields");
+        }
+
+        // 2. Get client IP safely
+        let clientIp = "unknown";
+        try {
+            clientIp = context.rawRequest?.ip || context.auth?.uid || "emulator-test";
+        } catch (e) {
+            console.log("Could not get client IP:", e);
+        }
+
+        // 3. Rate limiting
+        if (!checkRateLimit(clientIp)) {
+            throw new functions.https.HttpsError(
+                "resource-exhausted",
+                "Too many requests. Please try again later."
+            );
+        }
+
+        // 4. Save to Firestore
+        const timestamp = admin.firestore.FieldValue.serverTimestamp();
+
+        const docRef = await db.collection("contacts").add({
+            email,
+            subject,
+            message,
+            language,
+            ip: clientIp,
+            createdAt: timestamp,
+            status: "new"
+        });
+
+        console.log("Contact saved successfully:", docRef.id);
+        return { success: true, id: docRef.id };
+    } catch (error: any) {
+        console.error("submitContact Error:", error);
+        console.error("Error stack:", error.stack);
+        throw new functions.https.HttpsError("internal", `Failed to save: ${error.message}`);
+    }
+});

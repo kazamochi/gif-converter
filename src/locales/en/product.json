@@ -1,0 +1,30 @@
+{
+    "launch_tool": "Launch Tool",
+    "start_sharing": "Start Sharing",
+    "scouter": {
+        "hero_desc": "Visualize your network's true performance. Detect bufferbloat, verify VPN integrity, and monitor jitter in real-time.",
+        "ip_title": "IP Scouter",
+        "ip_desc": "Detect WebRTC leaks instantly. Verify if your VPN is truly protecting your identity.",
+        "jitter_title": "Jitter Radar",
+        "jitter_desc": "Real-time stability monitoring. Visualization of latency fluctuation optimized for gamers.",
+        "bloat_title": "Bufferbloat Test",
+        "bloat_desc": "Measure latency under load. Identify lag spikes that occur during heavy downloads.",
+        "analysis_title": "Why simple speed tests aren't enough.",
+        "analysis_points": [
+            "Gaming lag even with high speeds?",
+            "Video calls freezing?",
+            "VPN connected but location detected?"
+        ]
+    },
+    "warp": {
+        "hero_desc": "Transfer files directly between devices without limits. No servers, no tracking, just pure peer-to-peer speed.",
+        "secure_title": "End-to-End Encrypted",
+        "secure_desc": "Files stream directly from sender to receiver. Data never touches a cloud server.",
+        "speed_title": "Lightning Fast",
+        "speed_desc": "Utilizes local network (LAN) when available for gigabit-speed transfers.",
+        "cross_title": "Cross Platform",
+        "cross_desc": "Works on iOS, Android, Windows, Mac. Just scan the QR code to connect.",
+        "pwa_title": "Instantly Available",
+        "pwa_desc": "Warp Share runs entirely in your browser using WebRTC technology. No installation or registration required, start sharing instantly."
+    }
+}

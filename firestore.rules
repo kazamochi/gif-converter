@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // contacts コレクション: Cloud Functions からのみ書き込み可能（クライアントからは不可）
+    match /contacts/{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

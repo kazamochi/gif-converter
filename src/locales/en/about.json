@@ -17,8 +17,8 @@
             "description": "No upload/download delays. Processing starts instantly and runs at full speed on your hardware using WebAssembly."
         },
         "offline": {
-            "title": "Works Offline",
-            "description": "Once loaded, the tools work even without an internet connection (PWA). Perfect for travel or limited connectivity."
+            "title": "Client-Side Processing",
+            "description": "All data is processed locally on your device. Your files never leave your browser, ensuring maximum privacy."
         },
         "open_source": {
             "title": "Open Source",
@@ -45,5 +45,37 @@
         "description": "Have feedback, suggestions, or found a bug? We'd love to hear from you!",
         "button": "Contact Us",
         "github": "GitHub"
+    },
+    "showcase": {
+        "title": "Feature Showcase",
+        "scouter": {
+            "title": "Net Scouter",
+            "desc": "Professional diagnostic tools beyond simple speed tests. Visualize Jitter (latency oscillation) in real-time and analyze line quality optimized for gamers and streamers.",
+            "point1": "Measurement of Bufferbloat using parallel communication",
+            "point2": "VPN safety check with WebRTC leak detection"
+        },
+        "gif": {
+            "title": "GIF Converter",
+            "desc": "Ultimate high-speed GIF conversion without using servers. Unleash the power of your device and transform video material into high-quality animation instantly.",
+            "point1": "In-browser video processing with FFmpeg.wasm",
+            "point2": "Full control over trimming, cropping, and speed adjustments"
+        }
+    },
+    "vision": {
+        "title": "Privacy-First Vision",
+        "desc": "'Your data never leaves your hands.' Toolkit Lab continues to prove that convenience and privacy can coexist."
+    },
+    "developer_note": {
+        "title": "Developer's Message",
+        "quote": "\"If you can imagine it, you can build it.\"",
+        "p1": "The rapid evolution of AI technology has brought us into an era where this is no longer a dream but a reality. Whenever I throw a sudden idea at AI, it responds with a confident 'It’s possible.' This endless cycle of creative inspiration is the foundation of Toolkit Lab.",
+        "p2": "While AI can be incredibly brilliant, it can also be surprisingly clunky. To truly master AI, one needs flexibility and that uniquely human 'out-of-the-box' thinking. When given the right spark—the right prompt—it takes flight on the wings of imagination. (Though it crashes occasionally... which only adds to its charm.)",
+        "products": {
+            "title": "Featured Insights:",
+            "prompt_pro": "<strong>Prompt Pro:</strong> Originally a simple prompt refiner, it evolved into a system that delivers results directly. I've integrated personas inspired by legendary engineers to provide philosophical responses.",
+            "warp_share": "<strong>Warp Share & Net Scouter:</strong> These are the distillation of high-level engineering. Warp Share offers seamless file transfers, while Net Scouter visualizes network health in real-time. Technologies that push the limits of web development."
+        },
+        "footer": "As long as time permits, I will continue to develop products that add a touch of convenience and excitement to your life.",
+        "author": "Developer: kazamochi"
     }
 }

@@ -33,6 +33,17 @@
     "footer": {
         "privacy": "プライバシーポリシー",
         "terms": "利用規約",
-        "about": "このサイトについて"
+        "about": "このサイトについて",
+        "tools": {
+            "title": "ツール"
+        },
+        "social": {
+            "title": "サイト情報",
+            "impact": "社会貢献・活動"
+        },
+        "support": {
+            "title": "サポート",
+            "contact": "お問い合わせ"
+        }
     }
 }

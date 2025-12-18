@@ -1,8 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.refinePrompt = void 0;
+exports.submitContact = exports.refinePrompt = void 0;
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 const generative_ai_1 = require("@google/generative-ai");
+if (!admin.apps.length) {
+    admin.initializeApp();
+}
+const db = admin.firestore();
 // Rate Limiting (Simple in-memory for demo, use Redis/Firestore for prod)
 // Allowing 15 requests per minute per IP is a reasonable starting point for free tier.
 const ipRequestCounts = {};
@@ -21,8 +26,9 @@ const checkRateLimit = (ip) => {
     record.count++;
     return true;
 };
-// Cloud Function (emulator compatible)
+// Cloud Function (Production: uses Firebase Secrets)
 exports.refinePrompt = functions
+    .runWith({ secrets: ["GEMINI_API_KEY"] })
     .https.onCall(async (data, context) => {
     // Initialize Gemini API inside function to access runtime secrets
     const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
@@ -447,6 +453,49 @@ exports.refinePrompt = functions
         // Provide a helpful fallback message
         const fallbackMessage = `I apologize, but I encountered an issue generating the optimized prompt. Here's a basic structure you can use:\n\n**Role**: [Define who the AI should act as]\n**Context**: ${input}\n**Task**: [Specify what you want the AI to do]\n**Format**: [Describe the desired output format]\n**Constraints**: [Any limitations or requirements]\n\nPlease try again with a different input or contact support if this persists.`;
         return { success: false, result: fallbackMessage, error: error.message };
+    }
+});
+// --- Contact Form Handling ---
+exports.submitContact = functions.https.onCall(async (data, context) => {
+    var _a, _b, _c;
+    try {
+        console.log("submitContact called with data:", data);
+        console.log("Auth:", ((_a = context.auth) === null || _a === void 0 ? void 0 : _a.uid) || "anonymous");
+        const { email, subject, message, language = 'ja' } = data;
+        // 1. Validation
+        if (!email || !subject || !message) {
+            throw new functions.https.HttpsError("invalid-argument", "Missing required fields");
+        }
+        // 2. Get client IP safely
+        let clientIp = "unknown";
+        try {
+            clientIp = ((_b = context.rawRequest) === null || _b === void 0 ? void 0 : _b.ip) || ((_c = context.auth) === null || _c === void 0 ? void 0 : _c.uid) || "emulator-test";
+        }
+        catch (e) {
+            console.log("Could not get client IP:", e);
+        }
+        // 3. Rate limiting
+        if (!checkRateLimit(clientIp)) {
+            throw new functions.https.HttpsError("resource-exhausted", "Too many requests. Please try again later.");
+        }
+        // 4. Save to Firestore
+        const timestamp = admin.firestore.FieldValue.serverTimestamp();
+        const docRef = await db.collection("contacts").add({
+            email,
+            subject,
+            message,
+            language,
+            ip: clientIp,
+            createdAt: timestamp,
+            status: "new"
+        });
+        console.log("Contact saved successfully:", docRef.id);
+        return { success: true, id: docRef.id };
+    }
+    catch (error) {
+        console.error("submitContact Error:", error);
+        console.error("Error stack:", error.stack);
+        throw new functions.https.HttpsError("internal", `Failed to save: ${error.message}`);
     }
 });
 //# sourceMappingURL=index.js.map

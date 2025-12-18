@@ -33,6 +33,17 @@
     "footer": {
         "privacy": "Privacy Policy",
         "terms": "Terms of Service",
-        "about": "About Us"
+        "about": "About Us",
+        "tools": {
+            "title": "Good Tools"
+        },
+        "social": {
+            "title": "About Lab",
+            "impact": "Social Impact"
+        },
+        "support": {
+            "title": "Support",
+            "contact": "Contact Us"
+        }
     }
 }

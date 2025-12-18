@@ -1,5 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { NetScouterProduct } from './pages/products/NetScouterProduct';
+import { WarpShareProduct } from './pages/products/WarpShareProduct';
 import { Layout } from './components/Layout';
 import { Converter as GifConverter } from './features/gif-converter/components/GifConverter';
 import { VideoConverter } from './features/video-converter/components/VideoConverter';
@@ -31,32 +33,20 @@ function App() {
       <SEOHead />
       <ToolNav />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/social-impact" element={<SocialImpact />} />
+        <Route path="/" element={<Layout maxWidth="max-w-6xl"><LandingPage /></Layout>} />
+        <Route path="/product/net-scouter" element={<Layout><NetScouterProduct /></Layout>} />
+        <Route path="/product/warp-share" element={<Layout><WarpShareProduct /></Layout>} />
+        <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
+        <Route path="/terms" element={<Layout><Terms /></Layout>} />
+        <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        <Route path="/social-impact" element={<Layout><SocialImpact /></Layout>} />
         <Route path="/warp-share" element={
           <Layout>
             <WarpShare />
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
-              <div className="mt-4 flex justify-center gap-4 text-xs">
-                <Link to="/" className="hover:text-slate-400 transition-colors">Home</Link>
-                <span>•</span>
-                <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
-                <span>•</span>
-                <Link to="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
-                <span>•</span>
-                <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
-              </div>
-            </footer>
           </Layout>
         } />
         <Route path="/video-converter" element={
@@ -74,21 +64,6 @@ function App() {
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
-              <p className="mt-1 text-xs opacity-50">Powered by FFmpeg.wasm & Antigravity</p>
-              <div className="mt-4 flex justify-center gap-4 text-xs">
-                <Link to="/" className="hover:text-slate-400 transition-colors">GIF Converter</Link>
-                <span>•</span>
-                <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
-                <span>•</span>
-                <Link to="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
-                <span>•</span>
-                <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
-              </div>
-            </footer>
           </Layout>
         } />
         <Route path="/convert/:format" element={
@@ -148,21 +123,6 @@ function App() {
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
-
-            {/* Footer */}
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
-              <p className="mt-1 text-xs opacity-50">Powered by FFmpeg.wasm & Antigravity</p>
-              <div className="mt-4 flex justify-center gap-4 text-xs">
-                <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
-                <span>•</span>
-                <Link to="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
-                <span>•</span>
-                <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
-              </div>
-            </footer>
           </Layout>
         } />
         <Route path="/prompt-pro" element={
@@ -177,20 +137,6 @@ function App() {
               </p>
             </div>
             <PromptPro />
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
-              <div className="mt-4 flex justify-center gap-4 text-xs">
-                <Link to="/" className="hover:text-slate-400 transition-colors">Home</Link>
-                <span>•</span>
-                <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
-                <span>•</span>
-                <Link to="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
-                <span>•</span>
-                <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
-              </div>
-            </footer>
           </Layout>
         } />
         <Route path="/retro-instant" element={
@@ -207,9 +153,6 @@ function App() {
             <div className="mt-16">
               <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
             </div>
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <Link to="/" className="hover:text-slate-400 transition-colors">Current: v1.0 (Beta)</Link>
-            </footer>
           </Layout>
         } />
         <Route path="/image-tools" element={
@@ -226,9 +169,6 @@ function App() {
             <div className="mt-16">
               <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
             </div>
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <Link to="/" className="hover:text-slate-400 transition-colors">Toolkit Lab</Link>
-            </footer>
           </Layout>
         } />
         <Route path="/tools/jitter-widget" element={
@@ -241,15 +181,17 @@ function App() {
           </Suspense>
         } />
         <Route path="/net-scouter" element={
-          <Suspense fallback={
-            <div className="min-h-screen bg-slate-950 flex items-center justify-center font-mono text-green-500">
-              <div className="animate-pulse tracking-widest uppercase text-sm border border-green-500/30 px-4 py-2">
-                Initializing Scouter HUD...
+          <Layout>
+            <Suspense fallback={
+              <div className="min-h-screen bg-slate-950 flex items-center justify-center font-mono text-green-500">
+                <div className="animate-pulse tracking-widest uppercase text-sm border border-green-500/30 px-4 py-2">
+                  Initializing Scouter HUD...
+                </div>
               </div>
-            </div>
-          }>
-            <NetScouter />
-          </Suspense>
+            }>
+              <NetScouter />
+            </Suspense>
+          </Layout>
         } />
         <Route path="/lab/audio-internal-v1-test" element={
           <Suspense fallback={

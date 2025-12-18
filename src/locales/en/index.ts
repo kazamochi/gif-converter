@@ -8,9 +8,16 @@ import retro from './retro.json';
 import image from './image.json';
 import warp from './warp.json';
 
+import social from './social.json';
+import product from './product.json';
+import contact from './contact.json';
+
 export const en = {
     landing,
     about,
+    social,
+    product,
+    contact,
     ...legal,
     ...gif,
     ...video,

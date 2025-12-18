@@ -402,9 +402,6 @@ export const VideoConverter: React.FC = () => {
                         </div>
                     )}
                 </div>
-                <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
-                    <span>💡 Tip: Try our other tools while you wait!</span>
-                </div>
             </div>
         </div>
     );
