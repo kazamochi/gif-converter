@@ -1,33 +1,33 @@
 {
     "prompt_pro": {
         "title": "Prompt Pro",
-        "tagline": "AIがあなたの曖昧なアイデアを「プロ仕様の指示書」に変えます。",
+        "tagline": "著名人や専門家たちが、あなたの悩みに最高品質の答えを出す「思考型AI」です。",
         "tab_business": "ビジネスの極意",
         "tab_gourmet": "美食の実験室",
-        "input_label": "あなたのアイデア / 要望",
+        "input_label": "あなたの質問 / 相談",
         "input_placeholder": "例: 量子力学を5歳児に説明して、究極のオムライスの作り方を教えて...",
-        "flavor_label": "出力スタイル (フレーバー)",
-        "btn_generate": "プロンプトを生成",
+        "flavor_label": "回答スタイル (担当ペルソナ)",
+        "btn_generate": "専門家に相談する",
         "btn_thinking": "思考中...",
-        "result_title": "プロ仕様の出力結果",
-        "error_fallback": "接続エラー。オフラインモードでドラフトを生成しました。",
-        "thinking_title": "AIが思考中です...",
-        "thinking_desc": "ロジック最適化 • 制約チェック • トーン調整",
+        "result_title": "専門家からの回答",
+        "error_fallback": "接続エラー。オフラインモードで回答を生成しました。",
+        "thinking_title": "専門家が思考中です...",
+        "thinking_desc": "知識の統合 • 論理構築 • 最適な解の導出",
         "copy": "コピー",
         "copied": "コピー完了",
         "share": "Xでシェア",
-        "share_text": "AIでプロ仕様のプロンプトを生成しました！ #PromptPro",
-        "history_title": "生成履歴",
+        "share_text": "AI専門家（ペルソナ）から最高のアドバイスをもらいました！ #PromptPro",
+        "history_title": "相談履歴",
         "history_empty": "履歴はありません",
         "history_clear": "履歴を削除",
         "mock_outputs": {
-            "speed": "【爆速モード】\nあなたの要望「{{input}}」に対する即時回答です。\n\n結論から申し上げますと、..."
+            "speed": "【爆速回答】\nあなたの要望「{{input}}」に対する回答です。\n\n結論から申し上げますと、..."
         },
         "flavors": {
-            "speed": "爆速",
+            "speed": "爆速回答",
             "thought": "論理的思考",
-            "reverse": "対話型",
-            "creative": "独創的",
+            "reverse": "対話・深掘り",
+            "creative": "独創的解決",
             "buzz": "至高のバズ",
             "michelin": "三ツ星の魔法",
             "zen": "禅と健康",
@@ -38,18 +38,18 @@
             "heritage": "B級→A級"
         },
         "flavor_desc": {
-            "speed": "簡潔＆高速",
-            "thought": "Chain of Thought",
-            "reverse": "逆質問プロンプト",
-            "creative": "Midjourney用",
-            "buzz": "リュウジ風・時短",
-            "michelin": "高級を家庭に",
-            "zen": "発酵・出汁・味噌",
-            "chuka": "町中華・ガッツリ",
-            "curry": "隠し味・スパイス",
-            "egg": "オムライス・だし巻き",
-            "sandwich": "萌え断・カツサンド",
-            "heritage": "味噌カツ・お好み焼き"
+            "speed": "簡潔＆高速な回答",
+            "thought": "深い推論による解説",
+            "reverse": "質問で意図を深掘り",
+            "creative": "驚きのアイデア提示",
+            "buzz": "リュウジ氏の思考を再現",
+            "michelin": "一流シェフの知恵",
+            "zen": "発酵・精進料理の極意",
+            "chuka": "町中華・伝統の技",
+            "curry": "究極の隠し味・調合",
+            "egg": "卵料理を極める技法",
+            "sandwich": "断面美と味の調和",
+            "heritage": "郷土料理をモダンに"
         }
     }
 }

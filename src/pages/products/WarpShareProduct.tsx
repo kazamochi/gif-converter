@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Lock, Smartphone, Globe, ArrowRight, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Layout } from '../../components/Layout';
+import { ToolDescription } from '../../components/ToolDescription';
 
 export const WarpShareProduct: React.FC = () => {
     const { t } = useTranslation();
@@ -64,6 +65,8 @@ export const WarpShareProduct: React.FC = () => {
                     {t('product.warp.pwa_desc')}
                 </p>
             </section>
+
+            <ToolDescription toolId="warp-share" />
         </Layout >
     );
 };

@@ -173,7 +173,7 @@ const PromptPro = () => {
     const handleShare = () => {
         const shareText = t('prompt_pro.share_text');
         const url = "https://toolkit-lab.com/prompt-pro";
-        const hashtags = "PromptPro,WebToolKit,AI";
+        const hashtags = "PromptPro,AI,ExpertPersona";
         const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}&hashtags=${hashtags}`;
         window.open(twitterUrl, '_blank');
     };
@@ -261,7 +261,7 @@ const PromptPro = () => {
                         <Sparkles className="w-8 h-8 text-indigo-400" />
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 tracking-tight">
-                        Prompt Pro <span className="text-indigo-500">V2</span>
+                        Prompt Pro
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
                         {t('prompt_pro.tagline')}

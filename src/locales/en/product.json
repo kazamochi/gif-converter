@@ -26,5 +26,170 @@
         "cross_desc": "Works on iOS, Android, Windows, Mac. Just scan the QR code to connect.",
         "pwa_title": "Instantly Available",
         "pwa_desc": "Warp Share runs entirely in your browser using WebRTC technology. No installation or registration required, start sharing instantly."
+    },
+    "gif-converter": {
+        "detail": {
+            "description": "Convert video files into high-quality GIF animations. Powered by FFmpeg.wasm, all processing happens entirely within your browser. Your videos are never uploaded to the internet, ensuring maximum privacy and fast performance.",
+            "features": [
+                "100% Client-side processing (Full Privacy)",
+                "High-quality palette generation algorithms",
+                "Customizable frame rate and resize options",
+                "Instant start, no installation required"
+            ],
+            "steps": [
+                "Drag and drop your video file into the converter",
+                "Adjust parameters such as start/end time and loop settings",
+                "Click 'Start Conversion' and wait for processing",
+                "Download your generated GIF"
+            ],
+            "faqs": [
+                {
+                    "q": "Is there a file size limit?",
+                    "a": "It depends on your device's memory (RAM). Short clips are converted effortlessly."
+                },
+                {
+                    "q": "Why does conversion take time?",
+                    "a": "The browser extracts and encodes frames locally. Faster devices provide quicker results."
+                }
+            ]
+        }
+    },
+    "video-converter": {
+        "detail": {
+            "description": "Seamlessly convert between major video formats including MP4, WebM, MOV, and AVI. Since no large files are sent to a server, it's the safest way to process private videos.",
+            "features": [
+                "Offline-capable in-browser encoding",
+                "Support for major video and audio codecs",
+                "Lossless or high-quality output options",
+                "Completely free with no hidden limits"
+            ],
+            "steps": [
+                "Upload your video file (it remains local to your browser)",
+                "Select your target format (MP4, WebM, etc.)",
+                "Confirm settings and click 'Execute'",
+                "Save the converted file to your device"
+            ],
+            "faqs": [
+                {
+                    "q": "Can I extract only audio?",
+                    "a": "Yes, by selecting an audio format like MP3 as your output target."
+                }
+            ]
+        }
+    },
+    "prompt-pro": {
+        "detail": {
+            "description": "An AI assistant that allows you to interact with various specialists (personas). Instead of just answering questions, the selected persona utilizes its expert knowledge to 'think' and provide high-quality advice and solutions.",
+            "features": [
+                "Diverse expert personas ranging from Culinary and Business to IT",
+                "Deep-diving dialogues that uncover the user's hidden intentions",
+                "Advanced reasoning powered by latest AI models like Google Gemini",
+                "Concrete and actionable responses ready for professional use"
+            ],
+            "steps": [
+                "Select the ideal persona (expert) for your specific topic",
+                "Enter your question or problem naturally",
+                "The persona processes and generates a response from its unique perspective",
+                "Follow up with more questions to deepen the conversation and reach a solution"
+            ],
+            "faqs": [
+                {
+                    "q": "Is this a tool for creating prompts?",
+                    "a": "No. It is a conversational AI tool where personas provide direct answers and solutions to your queries."
+                }
+            ]
+        }
+    },
+    "retro-instant": {
+        "detail": {
+            "description": "Instantly create warm, nostalgic retro photos. Using your browser's camera API, it applies filters that recreate the beautiful 'imperfections' of analog film photography.",
+            "features": [
+                "Real-time preview and capture",
+                "Analog grain, light leaks, and automatic color grading",
+                "Instant download after capture",
+                "Zero data storage for total privacy"
+            ],
+            "steps": [
+                "Giver camera permission and frame your subject",
+                "Select your preferred filter or texture",
+                "Hit the shutter (processed instantly with sound)",
+                "Save and share your retro masterpiece"
+            ],
+            "faqs": [
+                {
+                    "q": "Can I edit existing images?",
+                    "a": "Yes, please use the 'Image Editor' tool for advanced filtering of your existing photos."
+                }
+            ]
+        }
+    },
+    "image-tools": {
+        "detail": {
+            "description": "A comprehensive suite for cropping, resizing, whitening, and enhancing images online. Simple operations with professional-grade results, all without leaving your browser.",
+            "features": [
+                "Lossless resizing and high-efficiency compression",
+                "Advanced filters (B&W, Sepia, Sharpness, etc.)",
+                "Batch processing for multiple files (Coming Soon)",
+                "Full client-side execution"
+            ],
+            "steps": [
+                "Load your image file",
+                "Apply edits using intuitive sliders and tools",
+                "Check the live preview for the final result",
+                "Export in your desired format"
+            ],
+            "faqs": [
+                {
+                    "q": "Do you support HEIC format?",
+                    "a": "Modern browsers can typically process HEIC files automatically."
+                }
+            ]
+        }
+    },
+    "warp-share": {
+        "detail": {
+            "description": "Warp Share is a portal that transcends device barriers. Send heavy videos or sensitive documents 'directly' to your recipient without trusting a middleman server. Experience the power of P2P technology.",
+            "features": [
+                "Direct streaming without intermediate servers",
+                "Instant pairing via QR codes",
+                "No size limits, completely free",
+                "Advanced end-to-end encryption"
+            ],
+            "steps": [
+                "Drop files on the sender device and show the QR code",
+                "Scan the QR code with the receiver device",
+                "Transfer starts once the P2P connection is established",
+                "Save the received files"
+            ],
+            "faqs": [
+                {
+                    "q": "Is the connection secure?",
+                    "a": "Yes. Encrypted via DTLS, making it theoretically impossible for servers to peek at your data."
+                }
+            ]
+        }
+    },
+    "net-scouter": {
+        "detail": {
+            "description": "A professional-grade diagnostic tool focused on 'Quality' rather than just speed. It visualizes Jitter and Bufferbloat—the true culprits behind gaming lag and video call drops.",
+            "features": [
+                "Precise Bufferbloat (latency under load) measurement",
+                "Real-time Jitter (latency oscillation) tracking",
+                "WebRTC Leak (VPN vulnerability) detection",
+                "Comprehensive Network Health Report output"
+            ],
+            "steps": [
+                "Click 'Start Diagnostics'",
+                "Monitor load latency during the speed test",
+                "Check your results and network grade (A+ to F)",
+                "Review specific advice for any detected issues"
+            ],
+            "faqs": [
+                {
+                    "q": "How is this different from normal speed tests?",
+                    "a": "Normal tests measure 'peak speed', while Net Scouter measures 'stability'. Essential for identifying gaming lag."
+                }
+            ]
+        }
     }
 }

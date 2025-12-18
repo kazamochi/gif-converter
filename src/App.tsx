@@ -11,6 +11,7 @@ import ProLab from './features/image-lab/components/ProLab';
 import { AdSpace } from './components/AdSpace';
 import { ToolNav } from './components/ToolNav';
 import { SEOHead } from './components/SEOHead';
+import { ToolDescription } from './components/ToolDescription';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { SocialImpact } from './pages/SocialImpact';
@@ -26,6 +27,7 @@ import { DomainWatermark } from './components/DomainWatermark';
 const NetScouter = lazy(() => import('./features/net-scouter'));
 const JitterWidgetPage = lazy(() => import('./features/net-scouter/pages/JitterWidgetPage').then(m => ({ default: m.JitterWidgetPage })));
 const AudioLabTest = lazy(() => import('./features/audio-lab/components/AudioLabTest').then(m => ({ default: m.AudioLabTest })));
+const AudioLab = lazy(() => import('./features/audio-lab/components/AudioLab').then(m => ({ default: m.AudioLab })));
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
         <Route path="/warp-share" element={
           <Layout>
             <WarpShare />
+            <ToolDescription toolId="warp-share" />
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
@@ -61,6 +64,7 @@ function App() {
               </p>
             </div>
             <VideoConverter />
+            <ToolDescription toolId="video-converter" />
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
@@ -81,6 +85,7 @@ function App() {
 
             {/* Main Converter */}
             <GifConverter />
+            <ToolDescription toolId="gif-converter" />
 
             {/* Ad Space */}
             <div className="mt-16">
@@ -118,6 +123,7 @@ function App() {
 
             {/* Main Converter */}
             <GifConverter />
+            <ToolDescription toolId="gif-converter" />
 
             {/* Ad Space */}
             <div className="mt-16">
@@ -127,16 +133,8 @@ function App() {
         } />
         <Route path="/prompt-pro" element={
           <Layout>
-            <div className="text-center mb-12 space-y-4">
-              <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 tracking-tight">
-                Prompt Pro
-              </h1>
-              <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                Turn vague ideas into professional prompts with AI.<br />
-                <span className="text-emerald-400/80">Gourmet Lab: Business-ready recipes for restaurants & chefs.</span>
-              </p>
-            </div>
             <PromptPro />
+            <ToolDescription toolId="prompt-pro" />
           </Layout>
         } />
         <Route path="/retro-instant" element={
@@ -150,6 +148,7 @@ function App() {
               </p>
             </div>
             <InstantRetro />
+            <ToolDescription toolId="retro-instant" />
             <div className="mt-16">
               <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
             </div>
@@ -166,6 +165,7 @@ function App() {
               </p>
             </div>
             <ProLab />
+            <ToolDescription toolId="image-tools" />
             <div className="mt-16">
               <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
             </div>
@@ -190,8 +190,18 @@ function App() {
               </div>
             }>
               <NetScouter />
+              <ToolDescription toolId="net-scouter" />
             </Suspense>
           </Layout>
+        } />
+        <Route path="/audio-lab" element={
+          <Suspense fallback={
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+              <div className="text-purple-400 font-mono text-sm animate-pulse">Initializing Audio Lab...</div>
+            </div>
+          }>
+            <AudioLab />
+          </Suspense>
         } />
         <Route path="/lab/audio-internal-v1-test" element={
           <Suspense fallback={

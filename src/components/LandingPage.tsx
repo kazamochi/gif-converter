@@ -68,7 +68,7 @@ const LandingPage = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-500 mb-4">
                     Toolkit Lab
                 </h1>
-                <p className="text-slate-400 text-sm md:text-base">{t('landing.subtitle')}</p>
+                <p className="text-slate-300 text-sm md:text-base">{t('landing.subtitle')}</p>
             </div>
 
             {/* Tool Grid */}
@@ -85,8 +85,8 @@ const LandingPage = () => {
                                     }`}>
                                     <Icon className={`w-12 h-12 ${tool.color ? 'text-amber-400' : ''}`} />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-2">{t(tool.nameKey)}</h3>
-                                <p className="text-sm text-slate-400">{t(tool.descKey)}</p>
+                                <h2 className="text-xl font-bold text-white mb-2">{t(tool.nameKey)}</h2>
+                                <p className="text-sm text-slate-300">{t(tool.descKey)}</p>
                             </div>
                         </Link>
                     );

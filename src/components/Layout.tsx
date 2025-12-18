@@ -14,9 +14,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, maxWidth = 'max-w-4xl'
             <div className="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="relative z-10">
-                <div className={`container mx-auto px-4 py-8 md:py-16 ${maxWidth}`}>
+                <main className={`container mx-auto px-4 py-8 md:py-16 ${maxWidth}`}>
                     {children}
-                </div>
+                </main>
                 <Footer />
             </div>
         </div>

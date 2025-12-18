@@ -1,5 +1,12 @@
 {
     "subtitle": "All-in-one tools for creators",
+    "common": {
+        "show_details": "Show Details & Manual",
+        "close_details": "Close Details",
+        "what_is_this": "About this tool",
+        "how_to_use": "How to use",
+        "features": "Key Features"
+    },
     "tools": {
         "gif": {
             "name": "GIF Converter",

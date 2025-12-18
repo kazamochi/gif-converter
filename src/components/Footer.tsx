@@ -41,11 +41,11 @@ export const Footer: React.FC = () => {
                         <Link to="/" className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-500 mb-4 inline-block">
                             Toolkit Lab
                         </Link>
-                        <p className="text-zinc-500 text-xs leading-relaxed max-w-[200px]">
+                        <p className="text-zinc-400 text-xs leading-relaxed max-w-[200px]">
                             {t('landing.subtitle')}
                         </p>
                         <div className="flex gap-4 mt-6">
-                            <a href="https://github.com/kazamochi/gif-converter" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-white transition-colors">
+                            <a href="https://github.com/kazamochi/gif-converter" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white transition-colors" aria-label="GitHub Repository">
                                 <Github className="w-5 h-5" />
                             </a>
                         </div>
@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
                                     <li key={lIdx}>
                                         <Link
                                             to={link.path}
-                                            className="text-zinc-500 hover:text-indigo-400 text-sm transition-colors"
+                                            className="text-zinc-400 hover:text-indigo-400 text-sm transition-colors"
                                         >
                                             {link.name}
                                         </Link>
@@ -71,7 +71,7 @@ export const Footer: React.FC = () => {
                     ))}
                 </div>
 
-                <div className="border-t border-zinc-800/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-zinc-600">
+                <div className="border-t border-zinc-800/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-zinc-400">
                     <div className="flex items-center gap-2">
                         <span>© 2024-{currentYear} Toolkit Lab.</span>
                     </div>
@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
                             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                             <span className="text-[10px] uppercase font-bold tracking-tighter">System: Stable</span>
                         </div>
-                        <div className="flex items-center gap-1 text-[10px]">
+                        <div className="flex items-center gap-1 text-[10px]" aria-label="Client side operation status">
                             <Activity className="w-3 h-3" />
                             <span>100% Client-Side</span>
                         </div>

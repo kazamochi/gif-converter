@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Activity, Shield, Zap, ArrowRight, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Layout } from '../../components/Layout';
+import { ToolDescription } from '../../components/ToolDescription';
 
 export const NetScouterProduct: React.FC = () => {
     const { t } = useTranslation();
@@ -100,6 +101,8 @@ export const NetScouterProduct: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            <ToolDescription toolId="net-scouter" />
         </Layout>
     );
 };
