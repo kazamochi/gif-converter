@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import * as imgly from "@imgly/background-removal";
 
 interface UseBackgroundRemovalOptions {
     onProgress?: (progress: number) => void;
@@ -36,6 +35,9 @@ export const useBackgroundRemoval = (options?: UseBackgroundRemovalOptions) => {
         updateStatus('AIモデルを読み込んでいます...');
 
         try {
+            // Dynamic import to avoid loading on other pages
+            const imgly = await import("@imgly/background-removal");
+
             // @imgly/background-removal が全部やってくれます
             const blob = await imgly.removeBackground(imageFile, {
                 progress: (key, current, total) => {

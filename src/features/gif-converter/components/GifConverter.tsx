@@ -59,7 +59,7 @@ export const Converter: React.FC = () => {
 
     // State for video dimensions to calculate aspect ratio for container
     const [videoDimensions, setVideoDimensions] = useState<{ w: number, h: number } | null>(null);
-    const [zoom, setZoom] = useState(1);
+    const [zoom, setZoom] = useState(0.4);
     const [aspectRatio, setAspectRatio] = useState<'free' | '1:1' | '16:9' | '9:16' | '4:3' | '4:5' | '2.35:1'>('free'); // Updated type
 
     const handleVideoLoadedMetadata = (e: React.SyntheticEvent<HTMLVideoElement>) => {

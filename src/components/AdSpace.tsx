@@ -6,6 +6,13 @@ interface AdSpaceProps {
 }
 
 export const AdSpace: React.FC<AdSpaceProps> = ({ slotId, className }) => {
+    // 開発環境では広告を非表示
+    const isAdsEnabled = import.meta.env.VITE_ENABLE_ADS === 'true';
+
+    if (!isAdsEnabled) {
+        return null;
+    }
+
     return (
         <div className={`w-full bg-slate-800/50 backdrop-blur-sm border border-white/5 rounded-lg overflow-hidden flex items-center justify-center ${className}`}>
             <div className="text-center p-4">
