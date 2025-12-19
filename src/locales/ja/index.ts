@@ -12,6 +12,7 @@ import social from './social.json';
 import product from './product.json';
 import contact from './contact.json';
 import tools from './tools.json';
+import common from './common.json';
 
 export const ja = {
     landing,
@@ -19,6 +20,7 @@ export const ja = {
     social,
     product,
     contact,
+    common,
     ...legal,
     ...gif,
     ...video,

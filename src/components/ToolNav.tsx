@@ -72,6 +72,16 @@ export const ToolNav: React.FC = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-2">
+                        <Link
+                            to="/"
+                            className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${location.pathname === '/'
+                                ? 'text-white'
+                                : 'text-slate-400 hover:text-white'
+                                }`}
+                        >
+                            TOP
+                            <div className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${location.pathname === '/' ? 'opacity-100' : 'opacity-0'}`} />
+                        </Link>
                         {categories.map((category) => {
                             const CategoryIcon = category.icon;
                             const categoryIsActive = isCategoryActive(category.id);
@@ -166,6 +176,16 @@ export const ToolNav: React.FC = () => {
                 {isOpen && (
                     <div className="md:hidden pb-4 animate-in slide-in-from-top-2 duration-200">
                         <div className="flex flex-col gap-2">
+                            <Link
+                                to="/"
+                                onClick={() => setIsOpen(false)}
+                                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${location.pathname === '/'
+                                    ? 'bg-white/10 text-white shadow-lg'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
+                            >
+                                TOP
+                            </Link>
                             {categories.map((category) => (
                                 <div key={category.id} className="space-y-1">
                                     <div className="px-4 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider">

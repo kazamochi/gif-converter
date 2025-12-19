@@ -19,8 +19,12 @@ export const VideoConverter: React.FC = () => {
     const [videoDuration, setVideoDuration] = useState(0);
     const videoRef = useRef<HTMLVideoElement>(null);
 
+    // Preview Settings
+    const [zoom, setZoom] = useState(0.4);
+    const [videoDimensions, setVideoDimensions] = useState<{ w: number, h: number } | null>(null);
+
     // Advanced Settings State
-    const [showAdvanced, setShowAdvanced] = useState(false);
+    const [showAdvanced, setShowAdvanced] = useState(true);
     const [trimRange, setTrimRange] = useState<[number, number]>([0, 0]);
     const [mute, setMute] = useState(false);
     const [extractAudio, setExtractAudio] = useState(false);
@@ -51,13 +55,34 @@ export const VideoConverter: React.FC = () => {
         setProgress(0);
         setTrimRange([0, 0]);
         setVideoDuration(0);
+        setVideoDimensions(null);
     };
 
-    const handleVideoLoad = () => {
-        if (videoRef.current) {
-            const duration = videoRef.current.duration;
-            setVideoDuration(duration);
-            setTrimRange([0, duration]);
+    const handleVideoLoad = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+        const video = e.currentTarget;
+        const duration = video.duration;
+        setVideoDuration(duration);
+        setVideoDimensions({ w: video.videoWidth, h: video.videoHeight });
+        setTrimRange([0, duration]);
+    };
+
+    // React to trim changes (seek to start)
+    useEffect(() => {
+        if (videoRef.current && Math.abs(videoRef.current.currentTime - trimRange[0]) > 0.5) {
+            videoRef.current.currentTime = trimRange[0];
+        }
+    }, [trimRange[0]]);
+
+    // Sync Trim Loop
+    const handleTimeUpdate = () => {
+        if (!videoRef.current) return;
+        const current = videoRef.current.currentTime;
+        const [start, end] = trimRange;
+
+        // Loop within trim range if we are previewing (and end is set)
+        if (end > 0 && current >= end) {
+            videoRef.current.currentTime = start;
+            videoRef.current.play();
         }
     };
 
@@ -220,12 +245,52 @@ export const VideoConverter: React.FC = () => {
                             </div>
 
                             {/* Hidden video for duration detection */}
-                            <video
-                                ref={videoRef}
-                                src={fileUrl || undefined}
-                                onLoadedMetadata={handleVideoLoad}
-                                className="hidden"
-                            />
+                            {/* Live Preview Video */}
+                            {fileUrl && (
+                                <div className="mb-6">
+                                    {/* Zoom Control */}
+                                    <div className="flex items-center justify-end mb-2 gap-2">
+                                        <span className="text-xs text-slate-500 font-mono">ZOOM: {Math.round(zoom * 100)}%</span>
+                                        <input
+                                            type="range"
+                                            min="0.1"
+                                            max="2.0"
+                                            step="0.05"
+                                            value={zoom}
+                                            onChange={(e) => setZoom(parseFloat(e.target.value))}
+                                            className="w-32 accent-purple-500 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer"
+                                        />
+                                    </div>
+
+                                    {/* Scrollable Container for Zoom */}
+                                    <div className="w-full overflow-auto bg-slate-950/50 rounded-lg border border-slate-700/50 p-4 flex items-start justify-center min-h-[300px]">
+                                        <div
+                                            className="relative rounded-lg overflow-hidden border border-slate-700 bg-black shadow-inner mx-auto transition-all duration-200 ease-out"
+                                            style={{
+                                                aspectRatio: videoDimensions ? `${videoDimensions.w} / ${videoDimensions.h}` : '16 / 9',
+                                                height: 'auto',
+                                                width: `${zoom * 100}%`,
+                                                maxWidth: 'none'
+                                            }}
+                                        >
+                                            <video
+                                                ref={videoRef}
+                                                src={fileUrl || undefined}
+                                                className="w-full h-full object-contain"
+                                                controls={true} // Allow default controls for now for easy play/pause
+                                                autoPlay
+                                                muted={true}
+                                                onLoadedMetadata={handleVideoLoad}
+                                                onTimeUpdate={handleTimeUpdate}
+                                            />
+
+                                            <div className="absolute top-2 right-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-[10px] text-white/80 border border-white/10 uppercase tracking-wider pointer-events-none">
+                                                Preview
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Format Selection (hidden if extracting audio) */}
                             {!extractAudio && (

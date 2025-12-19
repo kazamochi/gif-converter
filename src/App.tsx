@@ -3,11 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { NetScouterProduct } from './pages/products/NetScouterProduct';
 import { WarpShareProduct } from './pages/products/WarpShareProduct';
 import { Layout } from './components/Layout';
-import { Converter as GifConverter } from './features/gif-converter/components/GifConverter';
-import { VideoConverter } from './features/video-converter/components/VideoConverter';
-import PromptPro from './features/prompt-pro/components/PromptPro';
-import InstantRetro from './features/image-lab/components/InstantRetro';
-import ProLab from './features/image-lab/components/ProLab';
+// Components are loaded via lazy imports below
 import { AdSpace } from './components/AdSpace';
 import { ToolNav } from './components/ToolNav';
 import { SEOHead } from './components/SEOHead';
@@ -21,7 +17,7 @@ import LandingPage from './components/LandingPage';
 import { CookieConsent } from './components/CookieConsent';
 import { Link } from 'react-router-dom';
 import { Translation } from 'react-i18next';
-import WarpShare from './features/warp-share/components/WarpShare';
+// WarpShare lazy load moved below
 import { DomainWatermark } from './components/DomainWatermark';
 
 const NetScouter = lazy(() => import('./features/net-scouter'));
@@ -35,6 +31,14 @@ const JitterWidgetPage = lazy(() => import('./features/net-scouter/pages/JitterW
 const BackgroundRemoverPage = lazy(() => import('./features/eraser/pages/BackgroundRemoverPage'));
 const MagicEraserPage = lazy(() => import('./features/eraser/pages/MagicEraserPage'));
 const SVGVectorizerPage = lazy(() => import('./features/creator/pages/SVGVectorizerPage'));
+
+// Lazy load major tool components to optimize bundle size
+const GifConverter = lazy(() => import('./features/gif-converter/components/GifConverter').then(module => ({ default: module.Converter })));
+const VideoConverter = lazy(() => import('./features/video-converter/components/VideoConverter').then(module => ({ default: module.VideoConverter })));
+const PromptPro = lazy(() => import('./features/prompt-pro/components/PromptPro'));
+const InstantRetro = lazy(() => import('./features/image-lab/components/InstantRetro'));
+const ProLab = lazy(() => import('./features/image-lab/components/ProLab'));
+const WarpShare = lazy(() => import('./features/warp-share/components/WarpShare'));
 
 function App() {
   return (
@@ -53,7 +57,12 @@ function App() {
         <Route path="/warp-share" element={
           <Layout>
             <WarpShare />
-            <ToolDescription toolId="warp-share" />
+            <div className="mt-16 mb-8">
+              <AdSpace className="max-w-4xl mx-auto" slotId="warp-mid-ad" />
+            </div>
+            <Suspense fallback={<div className="h-64 flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-indigo-500 rounded-full border-t-transparent"></div></div>}>
+              <ToolDescription toolId="warp-share" />
+            </Suspense>
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
@@ -70,8 +79,13 @@ function App() {
                 Fast, private, and client-side.
               </p>
             </div>
-            <VideoConverter />
-            <ToolDescription toolId="video-converter" />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500">Loading Video Converter...</div>}>
+              <VideoConverter />
+              <div className="mt-16 mb-8">
+                <AdSpace className="max-w-4xl mx-auto" slotId="vid-mid-ad" />
+              </div>
+              <ToolDescription toolId="video-converter" />
+            </Suspense>
             <div className="mt-16">
               <AdSpace className="max-w-2xl mx-auto" slotId="footer-banner" />
             </div>
@@ -91,7 +105,12 @@ function App() {
             </div>
 
             {/* Main Converter */}
-            <GifConverter />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500">Loading GIF Converter...</div>}>
+              <GifConverter />
+              <div className="mt-16 mb-8">
+                <AdSpace className="max-w-4xl mx-auto" slotId="gif-mid-ad" />
+              </div>
+            </Suspense>
             <ToolDescription toolId="gif-converter" />
 
             {/* Ad Space */}
@@ -129,7 +148,12 @@ function App() {
             </div>
 
             {/* Main Converter */}
-            <GifConverter />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500">Loading GIF Converter...</div>}>
+              <GifConverter />
+              <div className="mt-16 mb-8">
+                <AdSpace className="max-w-4xl mx-auto" slotId="gif-mid-ad" />
+              </div>
+            </Suspense>
             <ToolDescription toolId="gif-converter" />
 
             {/* Ad Space */}
@@ -140,8 +164,10 @@ function App() {
         } />
         <Route path="/prompt-pro" element={
           <Layout>
-            <PromptPro />
-            <ToolDescription toolId="prompt-pro" />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500">Loading PromptPro...</div>}>
+              <PromptPro />
+              <ToolDescription toolId="prompt-pro" />
+            </Suspense>
           </Layout>
         } />
         <Route path="/retro-instant" element={
@@ -154,8 +180,13 @@ function App() {
                 <Translation>{(t) => t('retro.subtitle')}</Translation>
               </p>
             </div>
-            <InstantRetro />
-            <ToolDescription toolId="retro-instant" />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-orange-500">Loading Retro Lab...</div>}>
+              <InstantRetro />
+              <div className="mt-16 mb-8">
+                <AdSpace className="max-w-4xl mx-auto" slotId="retro-mid-ad" />
+              </div>
+              <ToolDescription toolId="retro-instant" />
+            </Suspense>
             <div className="mt-16">
               <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
             </div>
@@ -171,8 +202,13 @@ function App() {
                 Advanced Image Processing & Format Conversion.
               </p>
             </div>
-            <ProLab />
-            <ToolDescription toolId="image-tools" />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-red-500">Loading Image Editor...</div>}>
+              <ProLab />
+              <div className="mt-16 mb-8">
+                <AdSpace className="max-w-4xl mx-auto" slotId="img-mid-ad" />
+              </div>
+              <ToolDescription toolId="image-tools" />
+            </Suspense>
             <div className="mt-16">
               <AdSpace className="max-w-xl mx-auto" slotId="footer-banner" />
             </div>
