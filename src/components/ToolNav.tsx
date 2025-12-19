@@ -28,7 +28,7 @@ export const ToolNav: React.FC = () => {
             label: 'Converters',
             icon: Wand2,
             tools: [
-                { path: '/creator/svg-vectorizer', label: 'SVG Vectorizer', icon: Wand2, color: 'text-emerald-500' },
+                // { path: '/creator/svg-vectorizer', label: 'SVG Vectorizer', icon: Wand2, color: 'text-emerald-500' },
                 { path: '/gif-converter', label: 'GIF Converter', icon: Wand2 },
                 { path: '/video-converter', label: 'Video Converter', icon: Video },
             ]

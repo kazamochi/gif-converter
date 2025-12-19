@@ -6,5 +6,15 @@
     "show_details": "詳細な使い方・解説を表示",
     "loading": "処理中...",
     "error": "エラーが発生しました",
-    "success": "完了しました"
+    "success": "完了しました",
+    "under_development": "この機能は現在開発中です",
+    "coming_soon": "近日公開予定！",
+    "before": "修正前",
+    "after": "修正後",
+    "close": "閉じる",
+    "undo": "元に戻す",
+    "redo": "やり直し",
+    "download": "ダウンロード",
+    "ios_save_instruction": "📱 iOS: 画像を長押しして「写真に保存」",
+    "download_pc": "PC用ダウンロード"
 }

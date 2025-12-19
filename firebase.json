@@ -7,7 +7,10 @@
                 "node_modules",
                 ".git",
                 "firebase-debug.log",
-                "firebase-functions-test"
+                "firebase-functions-test",
+                "**/.env",
+                "**/.env.*",
+                "**/*.log"
             ],
             "predeploy": [
                 "npm --prefix \"$RESOURCE_DIR\" run build"
@@ -39,7 +42,10 @@
             "**/node_modules/**",
             ".agent/**",
             "**/*.md",
-            "**/*.md.resolved"
+            "**/*.md.resolved",
+            "**/.env",
+            "**/.env.*",
+            "**/*.log"
         ],
         "rewrites": [
             {

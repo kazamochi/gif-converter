@@ -112,6 +112,7 @@ export const CropOverlay: React.FC<CropOverlayProps> = ({ videoRef, aspectRatio,
 
     // Touch Handlers
     const handleTouchStart = (e: React.TouchEvent) => {
+        e.preventDefault();
         e.stopPropagation();
         const touch = e.touches[0];
         setIsDragging(true);
@@ -119,6 +120,7 @@ export const CropOverlay: React.FC<CropOverlayProps> = ({ videoRef, aspectRatio,
     };
 
     const handleResizeTouchStart = (e: React.TouchEvent, handle: string) => {
+        e.preventDefault();
         e.stopPropagation();
         const touch = e.touches[0];
         setResizeHandle(handle);
@@ -128,6 +130,11 @@ export const CropOverlay: React.FC<CropOverlayProps> = ({ videoRef, aspectRatio,
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent | TouchEvent) => {
             if ((!isDragging && !resizeHandle) || !dragStart || !cropRect || !containerRef.current) return;
+
+            // Prevent scroll while manipulating crop
+            if ('touches' in e) {
+                e.preventDefault();
+            }
 
             let clientX, clientY;
             if ('touches' in e) {

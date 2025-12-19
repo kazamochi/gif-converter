@@ -59,6 +59,11 @@ const VectorizerPage: React.FC = () => {
                 <p className="text-slate-400">
                     {t('vectorizer.subtitle', 'Convert raster images to scalable vector graphics with AI precision.')}
                 </p>
+                {/* Under Development Banner */}
+                <div className="bg-amber-500/20 border border-amber-500/50 rounded-xl p-4 text-center">
+                    <p className="text-amber-400 font-bold text-lg">🚧 {t('common.under_development', 'This feature is currently under development')} 🚧</p>
+                    <p className="text-amber-300/80 text-sm mt-1">{t('common.coming_soon', 'Coming soon!')}</p>
+                </div>
             </div>
 
             {/* Ad Space - Before Upload */}

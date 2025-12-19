@@ -218,5 +218,54 @@
                 }
             ]
         }
+    },
+    "magic-eraser": {
+        "title": "Magic Eraser",
+        "subtitle": "Remove unwanted objects instantly",
+        "upload_prompt": "Upload Image",
+        "upload_desc": "Select an image to remove objects from",
+        "brush_size": "Brush",
+        "clear_mask": "Clear Mask",
+        "start_over": "Start Over",
+        "processing": "Processing...",
+        "instruction": "Paint over objects to remove and click Erase.",
+        "erase": "Erase Object",
+        "continue": "Erase More",
+        "limitations_title": "Limitations",
+        "limitations_desc": "This tool uses a lightweight browser-based algorithm. It works best for removing small objects, blemishes, or text. It is NOT suitable for removing people or large complex objects.",
+        "example": "Example Usage",
+        "demo_target": "Target: Small flowers",
+        "demo_result": "Result: Clean removal",
+        "detail": {
+            "description": "A tool for erasing small unwanted objects from photos. It uses the 'Telea algorithm' to naturally fill the brushed area with surrounding pixels. This tool is not designed for erasing large objects—it works best on small targets that fit within the brush size. All processing happens entirely in your browser, ensuring your images are never uploaded to any server.",
+            "features": [
+                "100% Client-side (Your photos never leave your device)",
+                "Best for removing small unwanted objects",
+                "Intuitive brush tool for marking areas to erase",
+                "Zoom & pan for precise editing",
+                "'Erase More' feature for iterative refinement"
+            ],
+            "steps": [
+                "Upload an image containing the object you want to remove",
+                "Adjust the brush size and trace over the target once (repeated strokes cause smearing)",
+                "Click 'Execute Erase' to start processing",
+                "Review the result; if unsatisfied, use 'Erase More' for additional editing",
+                "Download and save the finished image"
+            ],
+            "faqs": [
+                {
+                    "q": "Can I erase large objects?",
+                    "a": "No. This tool is designed for small targets that fit within the brush size. Erasing large objects will leave noticeable artifacts."
+                },
+                {
+                    "q": "Can I brush over the same area multiple times?",
+                    "a": "We recommend tracing only once. Like a real eraser, repeated strokes over the same spot cause 'smearing' and unnatural results. Use the 'Erase More' feature for iterative adjustments instead."
+                },
+                {
+                    "q": "What file formats are supported?",
+                    "a": "We support PNG, JPG, and WEBP. Output is always provided in PNG format."
+                }
+            ]
+        }
     }
 }

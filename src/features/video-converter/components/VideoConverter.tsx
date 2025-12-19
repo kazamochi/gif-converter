@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useFFmpeg } from '../../shared/hooks/useFFmpeg';
 import { convertVideo, type VideoFormat, type VideoConversionSettings } from '../utils/videoConversionHelper';
 import { RangeSlider } from '../../shared/components/RangeSlider';
-import { Upload, FileVideo, Download, Loader2, ArrowRight, Trash2, Settings, VolumeX, Music, AlertTriangle, CheckCircle2, Share2 } from 'lucide-react';
+import { Upload, FileVideo, Download, Loader2, ArrowRight, Trash2, Settings, VolumeX, Music, AlertTriangle, CheckCircle2, Share2, Play, Pause, Square, Volume2 } from 'lucide-react';
 import { AdModal } from '../../../components/AdModal';
 import { NextActionCard } from '../../../components/NextActionCard';
 
@@ -21,8 +21,39 @@ export const VideoConverter: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     // Preview Settings
-    const [zoom, setZoom] = useState(0.4);
+    const [zoom, setZoom] = useState(() => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 1.0 : 0.6);
     const [videoDimensions, setVideoDimensions] = useState<{ w: number, h: number } | null>(null);
+
+    // Mobile Control State
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    const togglePlay = () => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.pause();
+            } else {
+                videoRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
+    const stopVideo = () => {
+        if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+            setIsPlaying(false);
+        }
+    };
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !isMuted; // Directly set property for immediate effect if consistent with state
+            setIsMuted(!isMuted);
+        }
+    };
 
     // Advanced Settings State
     const [showAdvanced, setShowAdvanced] = useState(true);
@@ -159,7 +190,7 @@ export const VideoConverter: React.FC = () => {
     ];
 
     return (
-        <div className="w-full max-w-2xl mx-auto p-8 relative z-10">
+        <div className="w-full max-w-2xl mx-auto px-1 py-4 sm:p-4 md:p-8 relative z-10">
             <AdModal
                 isOpen={showAd}
                 onClose={() => setShowAd(false)}
@@ -169,7 +200,7 @@ export const VideoConverter: React.FC = () => {
                 }}
             />
 
-            <div className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+            <div className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-3xl p-2 sm:p-4 md:p-8 shadow-2xl">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 flex items-center gap-3">
@@ -228,7 +259,7 @@ export const VideoConverter: React.FC = () => {
                             </label>
                         </div>
                     ) : (
-                        <div className="bg-slate-800/50 rounded-xl p-6 border border-white/5 animate-in fade-in slide-in-from-bottom-4">
+                        <div className="bg-slate-800/50 rounded-xl p-2 sm:p-4 md:p-6 border border-white/5 animate-in fade-in slide-in-from-bottom-4">
                             {/* File Info & Video Preview */}
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center gap-4">
@@ -248,7 +279,7 @@ export const VideoConverter: React.FC = () => {
                             {/* Hidden video for duration detection */}
                             {/* Live Preview Video */}
                             {fileUrl && (
-                                <div className="mb-6">
+                                <div className="mb-6 relative group">
                                     {/* Zoom Control */}
                                     <div className="flex items-center justify-end mb-2 gap-2">
                                         <span className="text-xs text-slate-500 font-mono">ZOOM: {Math.round(zoom * 100)}%</span>
@@ -263,26 +294,29 @@ export const VideoConverter: React.FC = () => {
                                         />
                                     </div>
 
-                                    {/* Scrollable Container for Zoom */}
-                                    <div className="w-full overflow-auto bg-slate-950/50 rounded-lg border border-slate-700/50 p-4 flex items-start justify-center min-h-[300px]">
+                                    {/* Video Container */}
+                                    <div className="w-full overflow-hidden bg-slate-950/50 rounded-lg border border-slate-700/50 p-2 sm:p-4 flex items-center justify-center min-h-[300px]">
                                         <div
-                                            className="relative rounded-lg overflow-hidden border border-slate-700 bg-black shadow-inner mx-auto transition-all duration-200 ease-out"
+                                            className="relative rounded-lg overflow-hidden border border-slate-700 bg-black shadow-inner transition-all duration-200 ease-out"
                                             style={{
                                                 aspectRatio: videoDimensions ? `${videoDimensions.w} / ${videoDimensions.h}` : '16 / 9',
                                                 height: 'auto',
                                                 width: `${zoom * 100}%`,
-                                                maxWidth: 'none'
+                                                maxWidth: '100%'
                                             }}
                                         >
                                             <video
                                                 ref={videoRef}
                                                 src={fileUrl || undefined}
                                                 className="w-full h-full object-contain"
-                                                controls={true} // Allow default controls for now for easy play/pause
+                                                controls={!isMobile}
+                                                playsInline
                                                 autoPlay
-                                                muted={true}
+                                                muted={isMuted}
                                                 onLoadedMetadata={handleVideoLoad}
                                                 onTimeUpdate={handleTimeUpdate}
+                                                onPlay={() => setIsPlaying(true)}
+                                                onPause={() => setIsPlaying(false)}
                                             />
 
                                             <div className="absolute top-2 right-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-[10px] text-white/80 border border-white/10 uppercase tracking-wider pointer-events-none">
@@ -290,6 +324,32 @@ export const VideoConverter: React.FC = () => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Mobile Custom Controls (Overlay) */}
+                                    {isMobile && (
+                                        <div className="absolute inset-x-0 bottom-6 flex justify-center pointer-events-none z-20">
+                                            <div className="flex items-center gap-6 p-3 bg-black/60 backdrop-blur-md rounded-full border border-white/10 shadow-2xl pointer-events-auto hover:bg-black/70 transition-colors">
+                                                <button
+                                                    onClick={togglePlay}
+                                                    className="w-12 h-12 flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 rounded-full text-white shadow-lg active:scale-95 transition-all"
+                                                >
+                                                    {isPlaying ? <Pause className="w-6 h-6 fill-current" /> : <Play className="w-6 h-6 fill-current ml-1" />}
+                                                </button>
+                                                <button
+                                                    onClick={stopVideo}
+                                                    className="w-12 h-12 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded-full text-white shadow-lg active:scale-95 transition-all"
+                                                >
+                                                    <Square className="w-5 h-5 fill-current" />
+                                                </button>
+                                                <button
+                                                    onClick={toggleMute}
+                                                    className="w-12 h-12 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded-full text-white shadow-lg active:scale-95 transition-all"
+                                                >
+                                                    {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
 
@@ -454,7 +514,7 @@ export const VideoConverter: React.FC = () => {
                                             className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-200 transition-colors flex items-center gap-2 shadow-xl"
                                         >
                                             <Download className="w-5 h-5" />
-                                            {t('download_button')}
+                                            {t('vc.download_video', '動画を保存')}
                                         </a>
                                         <button
                                             onClick={reset}

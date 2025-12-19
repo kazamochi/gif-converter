@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFFmpeg } from '../../shared/hooks/useFFmpeg';
 import { videoToGif } from '../../../utils/ffmpegHelper';
-import { Upload, FileVideo, Download, Loader2, Settings, RefreshCcw, Repeat, Play, Trash2, ArrowRight, Crop as CropIcon, Share2 } from 'lucide-react';
+import { Upload, FileVideo, Download, Loader2, Settings, RefreshCcw, Repeat, Play, Pause, Square, Trash2, ArrowRight, Crop as CropIcon, Share2, Volume2, VolumeX } from 'lucide-react';
 import { RangeSlider } from '../../shared/components/RangeSlider';
 import { CropOverlay } from './CropOverlay';
 import { AdModal } from '../../../components/AdModal';
@@ -60,8 +60,39 @@ export const Converter: React.FC = () => {
 
     // State for video dimensions to calculate aspect ratio for container
     const [videoDimensions, setVideoDimensions] = useState<{ w: number, h: number } | null>(null);
-    const [zoom, setZoom] = useState(0.4);
+    const [zoom, setZoom] = useState(() => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 1.0 : 0.6);
     const [aspectRatio, setAspectRatio] = useState<'free' | '1:1' | '16:9' | '9:16' | '4:3' | '4:5' | '2.35:1'>('free'); // Updated type
+
+    // Mobile Control State
+    const [isPlaying, setIsPlaying] = useState(true);
+    const [isMuted, setIsMuted] = useState(true);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    const togglePlay = () => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.pause();
+            } else {
+                videoRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
+    const stopVideo = () => {
+        if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = trimRange[0];
+            setIsPlaying(false);
+        }
+    };
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !isMuted;
+            setIsMuted(!isMuted);
+        }
+    };
 
     const handleVideoLoadedMetadata = (e: React.SyntheticEvent<HTMLVideoElement>) => {
         const video = e.currentTarget;
@@ -168,7 +199,7 @@ export const Converter: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto p-8 relative z-10">
+        <div className="w-full max-w-2xl mx-auto px-1 py-4 sm:p-4 md:p-8 relative z-10">
             {/* Ad Modal */}
             <AdModal
                 isOpen={showAd}
@@ -184,7 +215,7 @@ export const Converter: React.FC = () => {
             />
 
             {/* Glassmorphism Panel */}
-            <div className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+            <div className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-3xl p-2 sm:p-4 md:p-8 shadow-2xl">
 
                 {/* Header Section */}
                 <div className="flex items-center justify-between mb-8">
@@ -244,7 +275,7 @@ export const Converter: React.FC = () => {
                             </label>
                         </div>
                     ) : (
-                        <div className="bg-slate-800/50 rounded-xl p-6 border border-white/5 animate-in fade-in slide-in-from-bottom-4">
+                        <div className="bg-slate-800/50 rounded-xl p-2 sm:p-4 md:p-6 border border-white/5 animate-in fade-in slide-in-from-bottom-4">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400">
@@ -262,7 +293,7 @@ export const Converter: React.FC = () => {
 
                             {/* Live Preview Video */}
                             {fileUrl && (
-                                <div className="mb-6">
+                                <div className="mb-6 relative group">
                                     {/* Zoom Control */}
                                     <div className="flex items-center justify-end mb-2 gap-2">
                                         <span className="text-xs text-slate-500 font-mono">ZOOM: {Math.round(zoom * 100)}%</span>
@@ -280,18 +311,15 @@ export const Converter: React.FC = () => {
                                         />
                                     </div>
 
-                                    {/* Scrollable Container for Zoom */}
-                                    <div className="w-full overflow-auto bg-slate-950/50 rounded-lg border border-slate-700/50 p-4 flex items-start justify-center min-h-[300px]">
+                                    {/* Video Container */}
+                                    <div className="w-full overflow-hidden bg-slate-950/50 rounded-lg border border-slate-700/50 p-2 sm:p-4 flex items-center justify-center min-h-[300px]">
                                         <div
-                                            className="relative rounded-lg overflow-hidden border border-slate-700 bg-black shadow-inner group mx-auto transition-all duration-200 ease-out"
+                                            className="relative rounded-lg overflow-hidden border border-slate-700 bg-black shadow-inner group transition-all duration-200 ease-out"
                                             style={{
                                                 aspectRatio: videoDimensions ? `${videoDimensions.w} / ${videoDimensions.h}` : '16 / 9',
                                                 height: 'auto',
-                                                width: `${zoom * 100}%`, // Zoom based on width percentage of container? or fixed width?
-                                                // Ideally relative to the parent available space. 
-                                                // If zoom is 1, it matches parent width (minus padding).
-                                                // If zoom is 2, it is 200% of parent width.
-                                                maxWidth: 'none' // override existing if any
+                                                width: `${zoom * 100}%`,
+                                                maxWidth: '100%'
                                             }}
                                         >
                                             <video
@@ -299,11 +327,14 @@ export const Converter: React.FC = () => {
                                                 src={fileUrl}
                                                 className="w-full h-full object-contain"
                                                 controls={false}
+                                                playsInline
                                                 autoPlay
                                                 loop
-                                                muted
+                                                muted={isMuted}
                                                 onLoadedMetadata={handleVideoLoadedMetadata}
                                                 onTimeUpdate={handleTimeUpdate}
+                                                onPlay={() => setIsPlaying(true)}
+                                                onPause={() => setIsPlaying(false)}
                                             />
 
                                             {/* Crop Overlay */}
@@ -319,6 +350,33 @@ export const Converter: React.FC = () => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Mobile Custom Controls */}
+                                    {/* Mobile Custom Controls (Overlay) */}
+                                    {isMobile && (
+                                        <div className="absolute inset-x-0 bottom-14 flex justify-center pointer-events-none z-20">
+                                            <div className="flex items-center gap-6 p-3 bg-black/60 backdrop-blur-md rounded-full border border-white/10 shadow-2xl pointer-events-auto hover:bg-black/70 transition-colors">
+                                                <button
+                                                    onClick={togglePlay}
+                                                    className="w-12 h-12 flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 rounded-full text-white shadow-lg active:scale-95 transition-all"
+                                                >
+                                                    {isPlaying ? <Pause className="w-6 h-6 fill-current" /> : <Play className="w-6 h-6 fill-current ml-1" />}
+                                                </button>
+                                                <button
+                                                    onClick={stopVideo}
+                                                    className="w-12 h-12 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded-full text-white shadow-lg active:scale-95 transition-all"
+                                                >
+                                                    <Square className="w-5 h-5 fill-current" />
+                                                </button>
+                                                <button
+                                                    onClick={toggleMute}
+                                                    className="w-12 h-12 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded-full text-white shadow-lg active:scale-95 transition-all"
+                                                >
+                                                    {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     {/* Crop Controls */}
                                     <div className="flex items-center gap-2 mt-2 overflow-x-auto pb-2">

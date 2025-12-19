@@ -6,5 +6,15 @@
     "show_details": "Show Details & Guide",
     "loading": "Processing...",
     "error": "An error occurred",
-    "success": "Success"
+    "success": "Success",
+    "under_development": "This feature is currently under development",
+    "coming_soon": "Coming soon!",
+    "before": "Before",
+    "after": "After",
+    "close": "Close",
+    "undo": "Undo",
+    "redo": "Redo",
+    "download": "Download",
+    "ios_save_instruction": "📱 iOS: Long press to save",
+    "download_pc": "Download for PC"
 }

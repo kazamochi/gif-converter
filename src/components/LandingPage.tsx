@@ -39,6 +39,14 @@ const LandingPage = () => {
                     descKey: 'landing.tools.bg-remover.desc',
                     color: 'from-orange-500 to-pink-500'
                 },
+                {
+                    id: 'magic-eraser',
+                    path: '/eraser/magic-eraser',
+                    icon: Sparkles,
+                    nameKey: 'landing.tools.magic-eraser.name',
+                    descKey: 'landing.tools.magic-eraser.desc',
+                    color: 'from-purple-400 to-violet-500'
+                },
             ]
         },
         {

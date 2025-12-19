@@ -39,6 +39,10 @@
         "scouter": {
             "name": "Net Scouter",
             "desc": "Advanced network diagnostics & speed test"
+        },
+        "magic-eraser": {
+            "name": "Magic Eraser",
+            "desc": "AI removes unwanted objects from photos"
         }
     },
     "categories": {

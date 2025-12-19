@@ -39,6 +39,10 @@
         "scouter": {
             "name": "Net Scouter",
             "desc": "高度なネットワーク診断と速度測定"
+        },
+        "magic-eraser": {
+            "name": "Magic Eraser",
+            "desc": "写真の不要物をAIで消去"
         }
     },
     "categories": {

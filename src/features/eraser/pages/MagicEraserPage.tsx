@@ -1,10 +1,14 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Download, RotateCcw, Loader2, Eraser, ZoomIn, ZoomOut, Zap } from 'lucide-react';
+import { Download, Loader2, Eraser, ZoomIn, ZoomOut, Zap, Undo, Redo, ArrowRight, X } from 'lucide-react';
 import { AdSpace } from '../../../components/AdSpace';
 import { ToolDescription } from '../../../components/ToolDescription';
 import { ImageDropzone } from '../../../components/shared/ImageDropzone';
 import { useInpainting } from '../hooks/useInpainting';
+
+// Demo Images
+import demoBefore from '../../../assets/eraser/demo-before.png';
+import demoAfter from '../../../assets/eraser/demo-after.png';
 
 const MagicEraserPage: React.FC = () => {
     const { t } = useTranslation();
@@ -14,6 +18,13 @@ const MagicEraserPage: React.FC = () => {
     const [brushSize, setBrushSize] = useState(30);
     const [isDrawing, setIsDrawing] = useState(false);
     const [zoom, setZoom] = useState(1);
+    const [showDownloadModal, setShowDownloadModal] = useState(false);
+
+    // History Management
+    const [history, setHistory] = useState<string[]>([]);
+    const [currentStep, setCurrentStep] = useState(-1);
+
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 
     const imageCanvasRef = useRef<HTMLCanvasElement>(null);
     const maskCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -34,16 +45,63 @@ const MagicEraserPage: React.FC = () => {
     const progress = processingProgress;
 
     const handleFileSelect = useCallback((file: File) => {
-        setSelectedFile(file);
-        const url = URL.createObjectURL(file);
-        setPreviewUrl(url);
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const MAX_DIMENSION = 1500;
+
+        const setFileAndPreview = (f: File) => {
+            setSelectedFile(f);
+            const url = URL.createObjectURL(f);
+            setPreviewUrl(url);
+
+            // Init History
+            setHistory([url]);
+            setCurrentStep(0);
+        };
+
+        if (isMobile) {
+            const img = new Image();
+            const url = URL.createObjectURL(file);
+            img.onload = () => {
+                if (img.width > MAX_DIMENSION || img.height > MAX_DIMENSION) {
+                    const scale = Math.min(MAX_DIMENSION / img.width, MAX_DIMENSION / img.height);
+                    const newWidth = Math.round(img.width * scale);
+                    const newHeight = Math.round(img.height * scale);
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    const ctx = canvas.getContext('2d')!;
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            const resizedFile = new File([blob], file.name, { type: file.type });
+                            URL.revokeObjectURL(url);
+                            setFileAndPreview(resizedFile);
+                        } else {
+                            setFileAndPreview(file);
+                        }
+                    }, file.type);
+                } else {
+                    setFileAndPreview(file);
+                }
+            };
+            img.src = url;
+        } else {
+            setFileAndPreview(file);
+        }
+    }, []);
+
+    // Initialize canvas when previewUrl changes
+    useEffect(() => {
+        if (!previewUrl || !imageCanvasRef.current || !maskCanvasRef.current || !containerRef.current) return;
 
         const img = new Image();
         img.onload = () => {
             imageRef.current = img;
             setImageLoaded(true);
 
-            if (imageCanvasRef.current && maskCanvasRef.current) {
+            if (imageCanvasRef.current && maskCanvasRef.current && containerRef.current) {
                 const imgCanvas = imageCanvasRef.current;
                 const maskCanvas = maskCanvasRef.current;
 
@@ -57,10 +115,20 @@ const MagicEraserPage: React.FC = () => {
 
                 const maskCtx = maskCanvas.getContext('2d')!;
                 maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+
+                // Calculate fit zoom
+                const maxHeight = window.innerHeight * 0.6;
+                const maxWidth = containerRef.current.clientWidth;
+                const fitScale = Math.min(
+                    maxWidth / img.width,
+                    maxHeight / img.height,
+                    1
+                );
+                setZoom(fitScale);
             }
         };
-        img.src = url;
-    }, []);
+        img.src = previewUrl;
+    }, [previewUrl]);
 
     const getCanvasCoords = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
         const canvas = maskCanvasRef.current;
@@ -92,6 +160,43 @@ const MagicEraserPage: React.FC = () => {
         ctx.beginPath();
         ctx.moveTo(x, y);
     }, [brushSize]);
+
+    const getTouchCoords = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+        const canvas = maskCanvasRef.current;
+        if (!canvas) return { x: 0, y: 0 };
+
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const touch = e.touches[0];
+
+        return {
+            x: (touch.clientX - rect.left) * scaleX,
+            y: (touch.clientY - rect.top) * scaleY
+        };
+    }, []);
+
+    const handleTouchStart = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+        if (!imageLoaded || isProcessing || result) return;
+        // e.preventDefault(); // React synthetic events might complain, but valid for native listeners. 
+        // Note: For React onTouchStart, we rely on CSS touch-action: none.
+        setIsDrawing(true);
+        const { x, y } = getTouchCoords(e);
+        const maskCanvas = maskCanvasRef.current;
+        if (maskCanvas) {
+            const ctx = maskCanvas.getContext('2d')!;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            drawBrush(x, y);
+        }
+    }, [imageLoaded, isProcessing, result, getTouchCoords, drawBrush]);
+
+    const handleTouchMove = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+        if (!isDrawing || isProcessing || result) return;
+        // e.preventDefault();
+        const { x, y } = getTouchCoords(e);
+        drawBrush(x, y);
+    }, [isDrawing, isProcessing, result, getTouchCoords, drawBrush]);
 
     const handleMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
         if (!imageLoaded || isProcessing || result) return;
@@ -166,7 +271,11 @@ const MagicEraserPage: React.FC = () => {
     }, []);
 
     const handleDownload = () => {
-        downloadResult(`erased - ${Date.now()}.png`);
+        if (isIOS) {
+            setShowDownloadModal(true);
+        } else {
+            downloadResult(`erased-${Date.now()}.png`);
+        }
     };
 
     // Display result on canvas when ready
@@ -193,10 +302,10 @@ const MagicEraserPage: React.FC = () => {
         <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
                 <h1 className="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-500">
-                    {t('magic_eraser.title', 'Magic Eraser')}
+                    {t('product.magic-eraser.title', 'Magic Eraser')}
                 </h1>
                 <p className="text-slate-400">
-                    {t('magic_eraser.subtitle', 'Remove unwanted objects from your photos instantly.')}
+                    {t('product.magic-eraser.subtitle', 'Remove unwanted objects from your photos instantly.')}
                 </p>
             </div>
 
@@ -206,8 +315,8 @@ const MagicEraserPage: React.FC = () => {
                 {!selectedFile ? (
                     <ImageDropzone
                         onFileSelect={handleFileSelect}
-                        title={t('magic_eraser.upload_prompt', 'Upload Image')}
-                        description={t('magic_eraser.upload_desc', 'Select an image to remove objects from')}
+                        title={t('product.magic-eraser.upload_prompt', 'Upload Image')}
+                        description={t('product.magic-eraser.upload_desc', 'Select an image to remove objects from')}
                     />
                 ) : (
                     <div className="space-y-6">
@@ -215,7 +324,7 @@ const MagicEraserPage: React.FC = () => {
                         <div className="flex flex-wrap items-center gap-4 bg-zinc-800/50 rounded-xl p-4">
                             <div className="flex items-center gap-2">
                                 <Eraser className="w-5 h-5 text-slate-400" />
-                                <span className="text-sm text-slate-400">{t('magic_eraser.brush_size', 'Brush')}:</span>
+                                <span className="text-sm text-slate-400">{t('product.magic-eraser.brush_size', 'Brush')}:</span>
                                 <input
                                     type="range"
                                     min="5"
@@ -227,14 +336,45 @@ const MagicEraserPage: React.FC = () => {
                                 <span className="text-sm text-white w-8">{brushSize}px</span>
                             </div>
 
-                            <div className="flex items-center gap-2 ml-auto">
+                            <div className="flex flex-wrap items-center gap-2 ml-auto justify-end">
                                 <button
-                                    onClick={() => setZoom(z => Math.max(0.5, z - 0.25))}
+                                    onClick={() => {
+                                        if (currentStep > 0) {
+                                            const prevStep = currentStep - 1;
+                                            setCurrentStep(prevStep);
+                                            setPreviewUrl(history[prevStep]);
+                                            reset(); // Clear result/mask
+                                        }
+                                    }}
+                                    disabled={currentStep <= 0 || isProcessing}
+                                    className="p-2 bg-zinc-700 rounded-lg hover:bg-zinc-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    title={t('common.undo', 'Undo')}
+                                >
+                                    <Undo className="w-4 h-4 text-white" />
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        if (currentStep < history.length - 1) {
+                                            const nextStep = currentStep + 1;
+                                            setCurrentStep(nextStep);
+                                            setPreviewUrl(history[nextStep]);
+                                            reset();
+                                        }
+                                    }}
+                                    disabled={currentStep >= history.length - 1 || isProcessing}
+                                    className="p-2 bg-zinc-700 rounded-lg hover:bg-zinc-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    title={t('common.redo', 'Redo')}
+                                >
+                                    <Redo className="w-4 h-4 text-white" />
+                                </button>
+                                <div className="w-px h-6 bg-zinc-700 mx-2 hidden sm:block" />
+                                <button
+                                    onClick={() => setZoom(z => Math.max(0.1, z - 0.1))}
                                     className="p-2 bg-zinc-700 rounded-lg hover:bg-zinc-600 transition-colors"
                                 >
                                     <ZoomOut className="w-4 h-4 text-white" />
                                 </button>
-                                <span className="text-sm text-slate-400">{Math.round(zoom * 100)}%</span>
+                                <span className="text-sm text-slate-400 min-w-[3ch] text-center">{Math.round(zoom * 100)}%</span>
                                 <button
                                     onClick={() => setZoom(z => Math.min(2, z + 0.25))}
                                     className="p-2 bg-zinc-700 rounded-lg hover:bg-zinc-600 transition-colors"
@@ -244,63 +384,68 @@ const MagicEraserPage: React.FC = () => {
 
                                 <button
                                     onClick={clearMask}
-                                    className="ml-4 px-4 py-2 bg-zinc-700 rounded-lg text-sm text-white hover:bg-zinc-600 transition-colors"
+                                    className="ml-2 px-3 py-2 bg-zinc-700 rounded-lg text-sm text-white hover:bg-zinc-600 transition-colors whitespace-nowrap"
                                 >
-                                    {t('magic_eraser.clear_mask', 'Clear Mask')}
+                                    {t('product.magic-eraser.clear_mask', 'Clear Mask')}
                                 </button>
 
                                 <button
                                     onClick={handleReset}
-                                    className="ml-2 px-4 py-2 bg-zinc-700 rounded-lg text-sm text-white hover:bg-zinc-600 transition-colors flex items-center gap-2"
+                                    className="ml-2 px-3 py-2 bg-zinc-700 rounded-lg text-sm text-white hover:bg-zinc-600 transition-colors flex items-center gap-2 whitespace-nowrap"
                                 >
-                                    <RotateCcw className="w-4 h-4" />
-                                    {t('common.reset', 'Reset')}
+                                    <X className="w-4 h-4" />
+                                    {t('product.magic-eraser.start_over', 'Start Over')}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Canvas Area */}
-                        <div
-                            ref={containerRef}
-                            className="relative bg-zinc-800 rounded-xl overflow-auto border border-zinc-700"
-                            style={{ maxHeight: '60vh' }}
-                        >
-                            <div style={{ transform: `scale(${zoom})`, transformOrigin: 'top left' }}>
-                                <canvas ref={imageCanvasRef} className="block" />
-                                <canvas
-                                    ref={maskCanvasRef}
-                                    className="absolute top-0 left-0 cursor-crosshair"
-                                    onMouseDown={handleMouseDown}
-                                    onMouseMove={handleMouseMove}
-                                    onMouseUp={handleMouseUp}
-                                    onMouseLeave={handleMouseUp}
-                                />
+                        {/* Canvas Area with Premium Frame */}
+                        <div className="relative p-[1px] rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/20">
+                            <div
+                                ref={containerRef}
+                                className="relative bg-zinc-900/95 rounded-xl overflow-auto flex items-center justify-center backdrop-blur-sm"
+                                style={{ maxHeight: '60vh', minHeight: '50vh' }}
+                            >
+                                <div style={{ transform: `scale(${zoom})` }}>
+                                    <canvas ref={imageCanvasRef} className="block" />
+                                    <canvas
+                                        ref={maskCanvasRef}
+                                        className="absolute top-0 left-0 cursor-crosshair touch-none"
+                                        onMouseDown={handleMouseDown}
+                                        onMouseMove={handleMouseMove}
+                                        onMouseUp={handleMouseUp}
+                                        onMouseLeave={handleMouseUp}
+                                        onTouchStart={handleTouchStart}
+                                        onTouchMove={handleTouchMove}
+                                        onTouchEnd={handleMouseUp}
+                                    />
 
-                                {/* Processing Overlay */}
-                                {isProcessing && (
-                                    <div className="absolute inset-0 bg-zinc-900/90 backdrop-blur-sm flex items-center justify-center z-20">
-                                        <div className="text-center space-y-4 max-w-md p-8">
-                                            <Loader2 className="w-12 h-12 text-purple-500 animate-spin mx-auto" />
-                                            <div className="space-y-2">
-                                                <p className="text-white font-medium">
-                                                    {t('magic_eraser.processing', 'Processing...')}
-                                                </p>
-                                                <div className="w-48 bg-zinc-700 rounded-full h-2 overflow-hidden mx-auto">
-                                                    <div
-                                                        className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300"
-                                                        style={{ width: `${progress}%` }}
-                                                    />
+                                    {/* Processing Overlay */}
+                                    {isProcessing && (
+                                        <div className="absolute inset-0 bg-zinc-900/90 backdrop-blur-sm flex items-center justify-center z-20">
+                                            <div className="text-center space-y-4 max-w-md p-8">
+                                                <Loader2 className="w-12 h-12 text-purple-500 animate-spin mx-auto" />
+                                                <div className="space-y-2">
+                                                    <p className="text-white font-medium">
+                                                        {t('product.magic-eraser.processing', 'Processing...')}
+                                                    </p>
+                                                    <div className="w-48 bg-zinc-700 rounded-full h-2 overflow-hidden mx-auto">
+                                                        <div
+                                                            className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300"
+                                                            style={{ width: `${progress}%` }}
+                                                        />
+                                                    </div>
+                                                    <p className="text-sm text-slate-400">{Math.round(progress)}%</p>
                                                 </div>
-                                                <p className="text-sm text-slate-400">{Math.round(progress)}%</p>
                                             </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
                             </div>
                         </div>
 
                         <p className="text-sm text-center text-slate-500">
-                            {t('magic_eraser.instruction', 'Paint over the objects you want to remove, then click Erase.')}
+                            {t('product.magic-eraser.instruction', 'Paint over the objects you want to remove, then click Erase.')}
                         </p>
 
                         <div className="flex flex-col items-center gap-4">
@@ -314,12 +459,12 @@ const MagicEraserPage: React.FC = () => {
                                     {isProcessing ? (
                                         <>
                                             <Loader2 className="w-6 h-6 animate-spin" />
-                                            <span>{t('magic_eraser.processing', 'Processing...')}</span>
+                                            <span>{t('product.magic-eraser.processing', 'Processing...')}</span>
                                         </>
                                     ) : (
                                         <>
                                             <Zap className="w-6 h-6" />
-                                            <span>{t('magic_eraser.erase', 'Erase Object')}</span>
+                                            <span>{t('product.magic-eraser.erase', 'Erase Object')}</span>
                                         </>
                                     )}
                                 </button>
@@ -343,6 +488,23 @@ const MagicEraserPage: React.FC = () => {
                                         <Download className="w-5 h-5" />
                                         {t('common.download', 'Download Result')}
                                     </button>
+
+                                    <button
+                                        onClick={() => {
+                                            if (result) {
+                                                const newHistory = history.slice(0, currentStep + 1);
+                                                newHistory.push(result);
+                                                setHistory(newHistory);
+                                                setCurrentStep(newHistory.length - 1);
+                                                setPreviewUrl(result);
+                                                reset();
+                                            }
+                                        }}
+                                        className="flex items-center gap-2 px-8 py-3 bg-zinc-700 hover:bg-zinc-600 text-white rounded-xl transition-all border border-zinc-600 font-semibold"
+                                    >
+                                        <ArrowRight className="w-5 h-5" />
+                                        {t('product.magic-eraser.continue', 'Erase More')}
+                                    </button>
                                 </div>
                             )}
                         </div>
@@ -354,8 +516,86 @@ const MagicEraserPage: React.FC = () => {
                 )}
             </div>
 
+            {/* Disclaimer & Demo Section */}
+            <div className="max-w-4xl mx-auto space-y-8 mt-12 bg-zinc-900/50 p-8 rounded-3xl border border-zinc-800">
+                {/* Notice */}
+                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-6 text-center space-y-2">
+                    <h3 className="text-yellow-200 font-bold text-lg flex items-center justify-center gap-2">
+                        <span className="text-2xl">⚠️</span>
+                        {t('product.magic-eraser.limitations_title', 'Limitations')}
+                    </h3>
+                    <p className="text-yellow-100/80 leading-relaxed">
+                        {t('product.magic-eraser.limitations_desc', 'This tool uses a lightweight browser-based algorithm. It works best for removing small objects, blemishes, or text. It is NOT suitable for removing people or large complex objects.')}
+                    </p>
+                </div>
+
+                {/* Before/After Demo */}
+                <div className="space-y-6">
+                    <h3 className="text-center text-white font-bold text-xl">{t('product.magic-eraser.example', 'Example Usage')}</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-zinc-700/50 group">
+                                <img src={demoBefore} alt="Before" className="w-full h-auto transition-transform duration-500 group-hover:scale-105" />
+                                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-sm font-bold border border-white/10">
+                                    {t('common.before', 'Before')}
+                                </div>
+                            </div>
+                            <p className="text-center text-slate-400 text-sm">{t('product.magic-eraser.demo_target', 'Target: Small flowers')}</p>
+                        </div>
+                        <div className="space-y-3">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-purple-500/30 group">
+                                <img src={demoAfter} alt="After" className="w-full h-auto transition-transform duration-500 group-hover:scale-105" />
+                                <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg shadow-purple-500/20">
+                                    {t('common.after', 'After')}
+                                </div>
+                            </div>
+                            <p className="text-center text-indigo-300 text-sm">{t('product.magic-eraser.demo_result', 'Result: Clean removal')}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <ToolDescription toolId="magic-eraser" />
             <AdSpace slotId="ai-eraser-bottom" className="mt-12" />
+
+            {/* iOS Download Modal */}
+            {showDownloadModal && result && (
+                <div
+                    className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+                    onClick={() => setShowDownloadModal(false)}
+                >
+                    <div className="relative max-w-full max-h-full">
+                        <img
+                            src={result}
+                            alt="Erased result"
+                            className="max-w-full max-h-[80vh] object-contain rounded-lg"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-3 rounded-b-lg">
+                            <p className="text-sm truncate">erased-result.png</p>
+                            <p className="text-xs text-amber-400 mt-1">{t('common.ios_save_instruction', '📱 iOS: Long press to save')}</p>
+                            <div className="flex gap-2 mt-2">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        downloadResult(`erased-${Date.now()}.png`);
+                                    }}
+                                    className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    {t('common.download_pc', 'Download for PC')}
+                                </button>
+                                <button
+                                    onClick={() => setShowDownloadModal(false)}
+                                    className="px-4 py-2 bg-slate-600 hover:bg-slate-500 rounded-lg text-sm transition-colors"
+                                >
+                                    {t('common.close', 'Close')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
