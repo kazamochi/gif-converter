@@ -15,7 +15,7 @@ import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
 import LandingPage from './components/LandingPage';
 import { CookieConsent } from './components/CookieConsent';
-import { Link } from 'react-router-dom';
+
 import { Translation } from 'react-i18next';
 // WarpShare lazy load moved below
 import { DomainWatermark } from './components/DomainWatermark';
@@ -30,7 +30,7 @@ const JitterWidgetPage = lazy(() => import('./features/net-scouter/pages/JitterW
 // Image Lab Pro - New AI Features
 const BackgroundRemoverPage = lazy(() => import('./features/eraser/pages/BackgroundRemoverPage'));
 const MagicEraserPage = lazy(() => import('./features/eraser/pages/MagicEraserPage'));
-const SVGVectorizerPage = lazy(() => import('./features/creator/pages/SVGVectorizerPage'));
+const SVGVectorizerPage = lazy(() => import('./features/vectorizer/pages/VectorizerPage'));
 
 // Lazy load major tool components to optimize bundle size
 const GifConverter = lazy(() => import('./features/gif-converter/components/GifConverter').then(module => ({ default: module.Converter })));
@@ -40,15 +40,28 @@ const InstantRetro = lazy(() => import('./features/image-lab/components/InstantR
 const ProLab = lazy(() => import('./features/image-lab/components/ProLab'));
 const WarpShare = lazy(() => import('./features/warp-share/components/WarpShare'));
 
+import { useEffect } from 'react';
+
 function App() {
+  // Force unregister any existing service workers to solve caching issues
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  }, []);
+
   return (
     <>
       <SEOHead />
       <ToolNav />
       <Routes>
         <Route path="/" element={<Layout maxWidth="max-w-6xl"><LandingPage /></Layout>} />
-        <Route path="/product/net-scouter" element={<Layout><NetScouterProduct /></Layout>} />
-        <Route path="/product/warp-share" element={<Layout><WarpShareProduct /></Layout>} />
+        <Route path="/product/net-scouter" element={<Layout maxWidth="max-w-6xl"><NetScouterProduct /></Layout>} />
+        <Route path="/product/warp-share" element={<Layout maxWidth="max-w-6xl"><WarpShareProduct /></Layout>} />
         <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
         <Route path="/terms" element={<Layout><Terms /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
@@ -119,19 +132,7 @@ function App() {
             </div>
 
             {/* Footer */}
-            <footer className="mt-16 text-center text-slate-600 text-sm">
-              <p>&copy; {new Date().getFullYear()} Toolkit Lab. All rights reserved.</p>
-              <p className="mt-1 text-xs opacity-50">Powered by FFmpeg.wasm & Antigravity</p>
-              <div className="mt-4 flex justify-center gap-4 text-xs">
-                <Link to="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
-                <span>•</span>
-                <Link to="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
-                <span>•</span>
-                <Link to="/social-impact" className="hover:text-amber-400 transition-colors">Social Impact</Link>
-              </div>
-            </footer>
+
           </Layout>
         } />
         <Route path="/gif-converter" element={

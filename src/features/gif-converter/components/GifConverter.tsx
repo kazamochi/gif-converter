@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFFmpeg } from '../../shared/hooks/useFFmpeg';
 import { videoToGif } from '../../../utils/ffmpegHelper';
-import { Upload, FileVideo, Download, Loader2, Settings, RefreshCcw, Repeat, Play, Trash2, ArrowRight, Crop as CropIcon } from 'lucide-react';
+import { Upload, FileVideo, Download, Loader2, Settings, RefreshCcw, Repeat, Play, Trash2, ArrowRight, Crop as CropIcon, Share2 } from 'lucide-react';
 import { RangeSlider } from '../../shared/components/RangeSlider';
 import { CropOverlay } from './CropOverlay';
 import { AdModal } from '../../../components/AdModal';
+import { NextActionCard } from '../../../components/NextActionCard';
 
 export const Converter: React.FC = () => {
     const { t } = useTranslation();
@@ -556,6 +557,15 @@ export const Converter: React.FC = () => {
                                     {t('reset_button')}
                                 </button>
                             </div>
+
+                            <NextActionCard
+                                title={t('next.warp.title', 'Send to Smartphone')}
+                                description={t('next.warp.desc', 'Transfer this GIF instantly to your mobile device via Warp Share.')}
+                                buttonText={t('next.warp.btn', 'Open Warp Share')}
+                                to="/warp-share"
+                                icon={Share2}
+                                color="text-indigo-400"
+                            />
                         </div>
                     )}
                 </div>

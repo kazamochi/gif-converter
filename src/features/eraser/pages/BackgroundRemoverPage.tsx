@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Download, RotateCcw, Loader2, Play } from 'lucide-react';
+import { Download, RotateCcw, Loader2, Play, Camera } from 'lucide-react';
 import { AdSpace } from '../../../components/AdSpace';
 import { ToolDescription } from '../../../components/ToolDescription';
 import { ImageDropzone } from '../../../components/shared/ImageDropzone';
 import { useBackgroundRemoval } from '../../../hooks/useBackgroundRemoval';
+import { NextActionCard } from '../../../components/NextActionCard';
 
 const BackgroundRemoverPage: React.FC = () => {
     const { t } = useTranslation();
@@ -183,7 +184,21 @@ const BackgroundRemoverPage: React.FC = () => {
                         </div>
 
                         {/* Ad Space - After Processing */}
-                        {result && <AdSpace slotId="ai-eraser-result" className="mt-6" />}
+                        {result && (
+                            <>
+                                <AdSpace slotId="ai-eraser-result" className="mt-6" />
+                                <div className="mt-8">
+                                    <NextActionCard
+                                        title={t('next.editor.title', 'Edit this Image')}
+                                        description={t('next.editor.desc', 'Enhance, filter, or crop your processed image in our Pro Image Editor.')}
+                                        buttonText={t('next.editor.btn', 'Open Image Editor')}
+                                        to="/image-tools"
+                                        icon={Camera}
+                                        color="text-rose-500"
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useFFmpeg } from '../../shared/hooks/useFFmpeg';
 import { convertVideo, type VideoFormat, type VideoConversionSettings } from '../utils/videoConversionHelper';
 import { RangeSlider } from '../../shared/components/RangeSlider';
-import { Upload, FileVideo, Download, Loader2, ArrowRight, Trash2, Settings, VolumeX, Music, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Upload, FileVideo, Download, Loader2, ArrowRight, Trash2, Settings, VolumeX, Music, AlertTriangle, CheckCircle2, Share2 } from 'lucide-react';
 import { AdModal } from '../../../components/AdModal';
+import { NextActionCard } from '../../../components/NextActionCard';
 
 export const VideoConverter: React.FC = () => {
     const { t } = useTranslation();
@@ -462,12 +463,21 @@ export const VideoConverter: React.FC = () => {
                                             {t('vc.convert_another')}
                                         </button>
                                     </div>
+
+                                    <NextActionCard
+                                        title={t('next.warp.title', 'Send to Smartphone')}
+                                        description={t('next.warp.desc', 'Transfer this file instantly to your mobile device via Warp Share.')}
+                                        buttonText={t('next.warp.btn', 'Open Warp Share')}
+                                        to="/warp-share"
+                                        icon={Share2}
+                                        color="text-indigo-400"
+                                    />
                                 </div>
                             )}
                         </div>
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };

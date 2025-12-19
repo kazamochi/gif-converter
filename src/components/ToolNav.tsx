@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Wand2, Video, Sparkles, Camera, Share2, Activity, Download } from 'lucide-react';
+import { Menu, X, Wand2, Video, Sparkles, Camera, Share2, Activity } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { usePWAInstall } from '../hooks/usePWAInstall';
+// import { usePWAInstall } from '../hooks/usePWAInstall';
 
 export const ToolNav: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const location = useLocation();
-    const { isInstallable, install } = usePWAInstall();
+    // const { isInstallable, install } = usePWAInstall();
 
     // Categorized tools structure
     const categories = [
@@ -140,7 +140,7 @@ export const ToolNav: React.FC = () => {
                             );
                         })}
                         <div className="ml-4 border-l border-white/10 pl-4 flex items-center gap-4">
-                            {isInstallable && (
+                            {/* {isInstallable && (
                                 <button
                                     onClick={install}
                                     className="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-slate-900 bg-indigo-400 hover:bg-indigo-300 rounded-full transition-colors animate-in fade-in zoom-in duration-300"
@@ -148,13 +148,13 @@ export const ToolNav: React.FC = () => {
                                     <Download className="w-3 h-3" />
                                     Install App
                                 </button>
-                            )}
+                            )} */}
                             <LanguageSwitcher />
                         </div>
                     </div>
 
                     {/* Mobile Menu Button */}
-                    {isInstallable && (
+                    {/* {isInstallable && (
                         <button
                             onClick={install}
                             className="md:hidden p-2 rounded-lg text-indigo-400 hover:text-white hover:bg-white/5 transition-colors mr-2"
@@ -162,7 +162,7 @@ export const ToolNav: React.FC = () => {
                         >
                             <Download className="w-6 h-6" />
                         </button>
-                    )}
+                    )} */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
