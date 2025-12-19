@@ -31,6 +31,11 @@ const JitterWidgetPage = lazy(() => import('./features/net-scouter/pages/JitterW
 // const AudioLab = lazy(() => import('./features/audio-lab/components/AudioLab').then(m => ({ default: m.AudioLab })));
 // const AudioLabV2 = lazy(() => import('./features/audio-lab-v2/components/AudioLabV2').then(m => ({ default: m.AudioLabV2 })));
 
+// Image Lab Pro - New AI Features
+const BackgroundRemoverPage = lazy(() => import('./features/eraser/pages/BackgroundRemoverPage'));
+const MagicEraserPage = lazy(() => import('./features/eraser/pages/MagicEraserPage'));
+const SVGVectorizerPage = lazy(() => import('./features/creator/pages/SVGVectorizerPage'));
+
 function App() {
   return (
     <>
@@ -196,35 +201,27 @@ function App() {
             </Suspense>
           </Layout>
         } />
-        {/* MIDI系は一時避難
-        <Route path="/audio-lab" element={
-          <Suspense fallback={
-            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-              <div className="text-purple-400 font-mono text-sm animate-pulse">Initializing Audio Lab...</div>
-            </div>
-          }>
-            <AudioLab />
-          </Suspense>
+        <Route path="/eraser/background-remover" element={
+          <Layout>
+            <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-orange-500">Loading AI Tools...</div>}>
+              <BackgroundRemoverPage />
+            </Suspense>
+          </Layout>
         } />
-        <Route path="/lab/audio-internal-v1-test" element={
-          <Suspense fallback={
-            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-              <div className="text-purple-400 font-mono text-sm animate-pulse">Loading Audio Lab...</div>
-            </div>
-          }>
-            <AudioLabTest />
-          </Suspense>
+        <Route path="/eraser/magic-eraser" element={
+          <Layout>
+            <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-purple-500">Loading AI Tools...</div>}>
+              <MagicEraserPage />
+            </Suspense>
+          </Layout>
         } />
-        <Route path="/audio-lab-v2" element={
-          <Suspense fallback={
-            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-              <div className="text-purple-400 font-mono text-sm animate-pulse">Initializing Audio Lab V2...</div>
-            </div>
-          }>
-            <AudioLabV2 />
-          </Suspense>
+        <Route path="/creator/svg-vectorizer" element={
+          <Layout>
+            <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-emerald-500">Loading AI Tools...</div>}>
+              <SVGVectorizerPage />
+            </Suspense>
+          </Layout>
         } />
-        */}
       </Routes >
       <DomainWatermark />
       <CookieConsent />

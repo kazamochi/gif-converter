@@ -1,0 +1,28 @@
+{
+    "remove_bg": {
+        "title": "Background Remover AI",
+        "subtitle": "AI-powered background removal, right in your browser.",
+        "status": "Available",
+        "desc": "Our advanced AI model automatically detects and removes image backgrounds instantly.",
+        "upload_prompt": "Drag & drop image or click to select",
+        "upload_desc": "Supports PNG, JPG, WEBP",
+        "original": "Original",
+        "processed": "Background Removed",
+        "processing": "Processing...",
+        "btn_reset": "Select Another Image",
+        "btn_execute": "Remove Background",
+        "btn_download": "Download"
+    },
+    "magic_eraser": {
+        "title": "Magic Eraser AI",
+        "subtitle": "Remove unwanted objects from your photos instantly.",
+        "status": "Coming Soon",
+        "desc": "The Magic Eraser feature is being optimized for real-time browser performance."
+    },
+    "svg_vectorizer": {
+        "title": "AI SVG Vectorizer",
+        "subtitle": "Convert bitmap images to scalable vector graphics.",
+        "status": "Under Construction",
+        "desc": "We are building a powerful vectorization engine based on AI and advanced tracing algorithms."
+    }
+}

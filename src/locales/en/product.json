@@ -191,5 +191,32 @@
                 }
             ]
         }
+    },
+    "background-remover": {
+        "detail": {
+            "description": "AI automatically identifies people and objects in images and removes the background cleanly. All processing happens entirely within your browser, so your photos are never uploaded to the internet, making it safe and fast to use.",
+            "features": [
+                "100% Client-side (Your photos never leave your device)",
+                "Precise background removal using the latest 'IS-Net' AI model",
+                "One-click export as transparent PNG",
+                "Instant side-by-side preview to compare changes"
+            ],
+            "steps": [
+                "Upload the image you want to remove the background from",
+                "Click the 'Remove Background' button to start AI identification",
+                "Wait a few seconds for the AI to process (progress is shown)",
+                "Download and save the finished transparent image"
+            ],
+            "faqs": [
+                {
+                    "q": "Is my image data stored anywhere?",
+                    "a": "No. All processing, from AI computation to image output, occurs on your device. Nothing is sent to a server, so you can use it even for sensitive photos."
+                },
+                {
+                    "q": "What file formats are supported?",
+                    "a": "We support PNG, JPG, and WEBP. Output is always provided in transparent PNG format."
+                }
+            ]
+        }
     }
 }

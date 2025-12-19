@@ -32,9 +32,27 @@
             "name": "Warp Share",
             "desc": "デバイス間P2Pファイル転送"
         },
+        "bg-remover": {
+            "name": "Background Remover",
+            "desc": "AIで画像の背景を一瞬で削除・透過"
+        },
         "scouter": {
             "name": "Net Scouter",
             "desc": "高度なネットワーク診断と速度測定"
+        }
+    },
+    "categories": {
+        "aiTools": {
+            "name": "AI Image Tools",
+            "desc": "画像編集とレトロフィルター処理"
+        },
+        "converters": {
+            "name": "Converters",
+            "desc": "動画・GIF形式変換ツール"
+        },
+        "utility": {
+            "name": "Utility",
+            "desc": "プロンプト最適化・ファイル共有・ネットワーク診断"
         }
     },
     "footer": {

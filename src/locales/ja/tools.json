@@ -1,0 +1,28 @@
+{
+    "remove_bg": {
+        "title": "AI背景削除・切り抜き",
+        "subtitle": "AIが背景を瞬時に削除・透過。ブラウザ完結で安全です。",
+        "status": "公開中",
+        "desc": "最新のAIモデルが画像から背景を自動で判別し、一瞬で透過処理を行います。",
+        "upload_prompt": "画像をドロップ または クリックして選択",
+        "upload_desc": "PNG, JPG, WEBP対応",
+        "original": "オリジナル",
+        "processed": "背景削除後",
+        "processing": "処理中...",
+        "btn_reset": "別の画像を選択",
+        "btn_execute": "背景を削除する",
+        "btn_download": "ダウンロード"
+    },
+    "magic_eraser": {
+        "title": "AI消しゴム・物体除去",
+        "subtitle": "写真の不要な部分をAIが自然に消去します。",
+        "status": "近日公開",
+        "desc": "消しゴムマジック機能をブラウザ上で快適に動作させるため、現在最適化を行っています。"
+    },
+    "svg_vectorizer": {
+        "title": "AIベクター変換 (SVG)",
+        "subtitle": "画像をパスデータ (SVG) に変換。ロゴやイラストに最適。",
+        "status": "準備中",
+        "desc": "AIと高度なトレースアルゴリズムを組み合わせた、強力なベクタライズエンジンを構築中です。"
+    }
+}

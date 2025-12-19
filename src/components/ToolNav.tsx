@@ -6,17 +6,43 @@ import { usePWAInstall } from '../hooks/usePWAInstall';
 
 export const ToolNav: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const location = useLocation();
     const { isInstallable, install } = usePWAInstall();
 
-    const tools = [
-        { path: '/gif-converter', label: 'GIF Converter', icon: Wand2 },
-        { path: '/video-converter', label: 'Video Converter', icon: Video },
-        { path: '/prompt-pro', label: 'Prompt Pro', icon: Sparkles },
-        { path: '/retro-instant', label: 'Retro Lab', icon: Camera, color: 'text-orange-500' },
-        { path: '/image-tools', label: 'Image Editor', icon: Camera, color: 'text-rose-500' },
-        { path: '/warp-share', label: 'Warp Share', icon: Share2 },
-        { path: '/net-scouter', label: 'Net Scouter', icon: Activity, color: 'text-green-400' },
+    // Categorized tools structure
+    const categories = [
+        {
+            id: 'ai-tools',
+            label: 'AI Image Tools',
+            icon: Camera,
+            tools: [
+                { path: '/eraser/background-remover', label: 'Background Remover', icon: Camera, color: 'text-orange-500' },
+                { path: '/eraser/magic-eraser', label: 'Magic Eraser', icon: Sparkles, color: 'text-purple-500' },
+                { path: '/retro-instant', label: 'Retro Lab', icon: Camera, color: 'text-orange-500' },
+                { path: '/image-tools', label: 'Image Editor', icon: Camera, color: 'text-rose-500' },
+            ]
+        },
+        {
+            id: 'converters',
+            label: 'Converters',
+            icon: Wand2,
+            tools: [
+                { path: '/creator/svg-vectorizer', label: 'SVG Vectorizer', icon: Wand2, color: 'text-emerald-500' },
+                { path: '/gif-converter', label: 'GIF Converter', icon: Wand2 },
+                { path: '/video-converter', label: 'Video Converter', icon: Video },
+            ]
+        },
+        {
+            id: 'utility',
+            label: 'Utility',
+            icon: Activity,
+            tools: [
+                { path: '/prompt-pro', label: 'Prompt Pro', icon: Sparkles },
+                { path: '/warp-share', label: 'Warp Share', icon: Share2 },
+                { path: '/net-scouter', label: 'Net Scouter', icon: Activity, color: 'text-green-400' },
+            ]
+        }
     ];
 
     const isActive = (path: string) => {
@@ -24,6 +50,11 @@ export const ToolNav: React.FC = () => {
             return location.pathname === '/gif-converter' || location.pathname.startsWith('/convert/');
         }
         return location.pathname === path;
+    };
+
+    const isCategoryActive = (categoryId: string) => {
+        const category = categories.find(c => c.id === categoryId);
+        return category?.tools.some(tool => isActive(tool.path)) || false;
     };
 
     return (
@@ -41,21 +72,61 @@ export const ToolNav: React.FC = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-2">
-                        {tools.map((tool) => {
-                            const Icon = tool.icon;
-                            const colorClass = (tool as any).color || '';
+                        {categories.map((category) => {
+                            const CategoryIcon = category.icon;
+                            const categoryIsActive = isCategoryActive(category.id);
                             return (
-                                <Link
-                                    key={tool.path}
-                                    to={tool.path}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive(tool.path)
-                                        ? 'bg-white/10 text-white shadow-lg'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                        }`}
+                                <div
+                                    key={category.id}
+                                    className="relative"
+                                    onMouseEnter={() => setOpenDropdown(category.id)}
+                                    onMouseLeave={() => setOpenDropdown(null)}
                                 >
-                                    <Icon className={`w-4 h-4 ${isActive(tool.path) ? '' : colorClass}`} />
-                                    {tool.label}
-                                </Link>
+                                    <button
+                                        className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${categoryIsActive || openDropdown === category.id
+                                            ? 'text-white'
+                                            : 'text-slate-400 hover:text-white'
+                                            }`}
+                                    >
+                                        <CategoryIcon className="w-4 h-4" />
+                                        {category.label}
+                                        <svg className={`w-3 h-3 transition-transform ${openDropdown === category.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+
+                                        {/* Active/Hover Indicator Bar */}
+                                        <div className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${categoryIsActive || openDropdown === category.id ? 'opacity-100' : 'opacity-0'}`} />
+                                    </button>
+
+                                    {/* Dropdown Menu - Wrapped in a container to bridge the gap */}
+                                    {openDropdown === category.id && (
+                                        <div className="absolute top-full left-0 w-56 pt-2 z-50 animate-in fade-in slide-in-from-top-1 duration-200">
+                                            {/* Decorative Arrow */}
+                                            <div className="absolute top-1 left-6 w-3 h-3 bg-slate-800 border-l border-t border-white/10 rotate-45" />
+
+                                            <div className="bg-slate-800/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl overflow-hidden">
+                                                {category.tools.map((tool) => {
+                                                    const Icon = tool.icon;
+                                                    const colorClass = (tool as any).color || '';
+                                                    const toolActive = isActive(tool.path);
+                                                    return (
+                                                        <Link
+                                                            key={tool.path}
+                                                            to={tool.path}
+                                                            className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all ${toolActive
+                                                                ? 'bg-white/10 text-white'
+                                                                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                                                }`}
+                                                        >
+                                                            <Icon className={`w-4 h-4 ${toolActive ? '' : colorClass}`} />
+                                                            {tool.label}
+                                                        </Link>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             );
                         })}
                         <div className="ml-4 border-l border-white/10 pl-4 flex items-center gap-4">
@@ -95,24 +166,31 @@ export const ToolNav: React.FC = () => {
                 {isOpen && (
                     <div className="md:hidden pb-4 animate-in slide-in-from-top-2 duration-200">
                         <div className="flex flex-col gap-2">
-                            {tools.map((tool) => {
-                                const Icon = tool.icon;
-                                const colorClass = (tool as any).color || '';
-                                return (
-                                    <Link
-                                        key={tool.path}
-                                        to={tool.path}
-                                        onClick={() => setIsOpen(false)}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${isActive(tool.path)
-                                            ? 'bg-white/10 text-white shadow-lg'
-                                            : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                            }`}
-                                    >
-                                        <Icon className={`w-5 h-5 ${isActive(tool.path) ? '' : colorClass}`} />
-                                        {tool.label}
-                                    </Link>
-                                );
-                            })}
+                            {categories.map((category) => (
+                                <div key={category.id} className="space-y-1">
+                                    <div className="px-4 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                        {category.label}
+                                    </div>
+                                    {category.tools.map((tool) => {
+                                        const Icon = tool.icon;
+                                        const colorClass = (tool as any).color || '';
+                                        return (
+                                            <Link
+                                                key={tool.path}
+                                                to={tool.path}
+                                                onClick={() => setIsOpen(false)}
+                                                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${isActive(tool.path)
+                                                    ? 'bg-white/10 text-white shadow-lg'
+                                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                                    }`}
+                                            >
+                                                <Icon className={`w-5 h-5 ${isActive(tool.path) ? '' : colorClass}`} />
+                                                {tool.label}
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            ))}
                             <div className="pt-2 mt-2 border-t border-white/10">
                                 <LanguageSwitcher />
                             </div>

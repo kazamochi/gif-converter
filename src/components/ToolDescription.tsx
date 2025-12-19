@@ -8,7 +8,7 @@ interface ToolDescriptionProps {
 
 export const ToolDescription: React.FC<ToolDescriptionProps> = ({ toolId }) => {
     const { t } = useTranslation();
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(true);
 
     // 翻訳データが存在しない場合は何も表示しない
     const description = t(`product.${toolId}.detail.description`, { defaultValue: '' });

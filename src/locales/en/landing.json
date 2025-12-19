@@ -32,9 +32,27 @@
             "name": "Warp Share",
             "desc": "P2P file transfer between devices"
         },
+        "bg-remover": {
+            "name": "Background Remover",
+            "desc": "AI removes background instantly"
+        },
         "scouter": {
             "name": "Net Scouter",
             "desc": "Advanced network diagnostics & speed test"
+        }
+    },
+    "categories": {
+        "aiTools": {
+            "name": "AI Image Tools",
+            "desc": "Image editing and retro filter effects"
+        },
+        "converters": {
+            "name": "Converters",
+            "desc": "Video and GIF format conversion tools"
+        },
+        "utility": {
+            "name": "Utility",
+            "desc": "Prompt optimization, file sharing & network diagnostics"
         }
     },
     "footer": {

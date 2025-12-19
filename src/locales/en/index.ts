@@ -11,6 +11,7 @@ import warp from './warp.json';
 import social from './social.json';
 import product from './product.json';
 import contact from './contact.json';
+import tools from './tools.json';
 
 export const en = {
     landing,
@@ -24,5 +25,6 @@ export const en = {
     ...prompt,
     ...retro,
     ...image,
-    ...warp
+    ...warp,
+    ...tools
 };
