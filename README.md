@@ -135,5 +135,5 @@ To ensure transparency, the source code is publicly available on GitHub. Feel fr
 <div align="center">
   <strong>Made with ❤️ by Toolkit Lab</strong>
   <br>
-  <sub>Developed by <a href="https://github.com/kazamochi">@kazamochi</a> with Antigravity AI</sub>
+  <sub>Developed by <a href="https://github.com/kazamochi">@kazamochi</a> </sub>
 </div>

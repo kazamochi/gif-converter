@@ -8,27 +8,57 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// Rate Limiting (Simple in-memory for demo, use Redis/Firestore for prod)
-// Allowing 15 requests per minute per IP is a reasonable starting point for free tier.
-const ipRequestCounts: { [ip: string]: { count: number; lastReset: number } } = {};
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX = 15;
+// Rate Limiting (Firestore-based)
+const RATE_LIMIT_COLLECTION = "rate_limits";
+const RATE_LIMIT_MAX_DAILY = 20; // 20 requests per day
 
-const checkRateLimit = (ip: string): boolean => {
-    const now = Date.now();
-    const record = ipRequestCounts[ip];
+const checkRateLimit = async (ip: string): Promise<boolean> => {
+    // Sanitize IP for creating document ID
+    const sanitizedIp = ip.replace(/[:.]/g, "_");
+    const docRef = db.collection(RATE_LIMIT_COLLECTION).doc(sanitizedIp);
+    const now = admin.firestore.Timestamp.now();
 
-    if (!record || now - record.lastReset > RATE_LIMIT_WINDOW) {
-        ipRequestCounts[ip] = { count: 1, lastReset: now };
+    // Calculate start of today (UTC or Server time is fine for simple limiting)
+    // We'll trust the server timestamp for simplicity.
+    // Logic: If 'lastReset' is not "today", we reset.
+    // However, simpler logic is: Just store "count" and "lastReset".
+    // If (now - lastReset > 24h) -> Reset.
+    // OR simpler: Store YYYY-MM-DD as a field. If unchanged, increment. If changed, reset.
+
+    const todayStr = new Date().toISOString().split('T')[0]; // simple YYYY-MM-DD
+
+    try {
+        await db.runTransaction(async (t) => {
+            const doc = await t.get(docRef);
+
+            if (!doc.exists) {
+                t.set(docRef, { count: 1, date: todayStr, lastUpdated: now });
+                return;
+            }
+
+            const data = doc.data()!;
+
+            if (data.date !== todayStr) {
+                // New day, reset
+                t.set(docRef, { count: 1, date: todayStr, lastUpdated: now });
+            } else {
+                // Same day
+                if (data.count >= RATE_LIMIT_MAX_DAILY) {
+                    throw new Error("RATE_LIMIT_EXCEEDED");
+                }
+                t.update(docRef, { count: admin.firestore.FieldValue.increment(1), lastUpdated: now });
+            }
+        });
+        return true;
+    } catch (e: any) {
+        if (e.message === "RATE_LIMIT_EXCEEDED") {
+            return false;
+        }
+        console.error("Rate limit error:", e);
+        // Fail open if DB error, or fail closed?
+        // Let's fail OPEN to avoid blocking users on DB glitch, but log it.
         return true;
     }
-
-    if (record.count >= RATE_LIMIT_MAX) {
-        return false;
-    }
-
-    record.count++;
-    return true;
 };
 
 // Cloud Function (Production: uses Firebase Secrets)
@@ -62,10 +92,11 @@ export const refinePrompt = functions
 
         // 1. Security & Rate Limiting
         const clientIp = context.rawRequest.ip || "unknown";
-        if (!checkRateLimit(clientIp)) {
+        const isAllowed = await checkRateLimit(clientIp);
+        if (!isAllowed) {
             throw new functions.https.HttpsError(
                 "resource-exhausted",
-                "AI is taking a deep breath (Rate limit exceeded). Please trigger the ad overlay or wait a moment."
+                "Daily limit reached. / 本日の利用上限（20回）に達しました。明日またご利用ください。"
             );
         }
 
@@ -514,7 +545,8 @@ export const submitContact = functions.https.onCall(async (data, context) => {
         }
 
         // 3. Rate limiting
-        if (!checkRateLimit(clientIp)) {
+        const isAllowed = await checkRateLimit(clientIp);
+        if (!isAllowed) {
             throw new functions.https.HttpsError(
                 "resource-exhausted",
                 "Too many requests. Please try again later."
